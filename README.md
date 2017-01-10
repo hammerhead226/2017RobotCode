@@ -19,6 +19,14 @@ Code for team 226's Steamworks robot.
 3. Run "NI Update Service" (you may need to find this online and install manually) and install all critical updates, but no patches.
 4. Open FRC Driver Station and set your team number on the Setup tab.
 
+#### Importing the Eclipse Project
+1. Switch your workspace to the cloned folder (where this README is).
+2. Import the Java project into the workspace.
+3. Troubleshooting:
+    1. `Unable to find a javac compiler` / `com.sun.tools.javac.Main is not on the classpath` - you need to configure JDK in your build path (above WPILib instructions).
+    2. `Property 'team-number' doesn't exist in this project` - follow the instructions in the error message.
+
+## Additional
 #### Updating the RoboRIO
 1. Follow the [Imaging your roboRIO](https://wpilib.screenstepslive.com/s/4485/m/13503/l/144984-imaging-your-roborio) guide.
 2. Follow the [Installing Java 8 on the roboRIO using the FRC roboRIO Java Installer](https://wpilib.screenstepslive.com/s/4485/m/13503/l/599747-installing-java-8-on-the-roborio-using-the-frc-roborio-java-installer-java-only) guide.

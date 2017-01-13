@@ -16,7 +16,7 @@ Code for team 226's Steamworks robot.
 2. Install the [FRC 2017 Update Suite](http://www.ni.com/download/first-robotics-software-2015/5112/en/) using the serial number from your most recent kit of parts, and activate the software when prompted.
     1. If asked for a password it is `&Full$team^Ahead!`.
     2. You may need to enable [.NET Framework 3.5](https://wpilib.screenstepslive.com/s/4485/m/13503/l/599670-installing-the-frc-2017-update-suite-all-languages).
-3. Run "NI Update Service" ([manual download](http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/en/pg/1/sn/catnav:du/q/ni%20update%20service/)) and install all critical updates, but no patches.
+3. Run "NI Update Service" (you may need to find this online and install manually) and install all critical updates, but no patches.
 4. Open FRC Driver Station and set your team number on the Setup tab.
 
 #### Importing the Eclipse Project
@@ -25,10 +25,9 @@ Code for team 226's Steamworks robot.
 3. Troubleshooting:
     1. `Unable to find a javac compiler` / `com.sun.tools.javac.Main is not on the classpath` - you need to configure JDK in your build path (above WPILib instructions).
     2. `Property 'team-number' doesn't exist in this project` - follow the instructions in the error message.
-    3. `The import java.* cannot be resolved` - you need to add "JRE System Library" to the project.
 
 ## Additional
-#### Updating the roboRIO
+#### Updating the RoboRIO
 1. Follow the [Imaging your roboRIO](https://wpilib.screenstepslive.com/s/4485/m/13503/l/144984-imaging-your-roborio) guide.
 2. Follow the [Installing Java 8 on the roboRIO using the FRC roboRIO Java Installer](https://wpilib.screenstepslive.com/s/4485/m/13503/l/599747-installing-java-8-on-the-roborio-using-the-frc-roborio-java-installer-java-only) guide.
 

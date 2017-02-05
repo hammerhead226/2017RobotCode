@@ -1,7 +1,15 @@
 
 package org.usfirst.frc.team226.robot;
 
+import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team226.robot.subsystems.GearCatcher;
+import org.usfirst.frc.team226.robot.subsystems.LeftFeeder;
+import org.usfirst.frc.team226.robot.subsystems.LeftShooter;
+import org.usfirst.frc.team226.robot.subsystems.RightFeeder;
+import org.usfirst.frc.team226.robot.subsystems.RightShooter;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -17,6 +25,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	public static final DriveTrain driveTrain = new DriveTrain();
+	public static final GearCatcher gearCatcher = new GearCatcher();
+	public static final LeftShooter leftShooter = new LeftShooter();
+	public static final LeftFeeder leftFeeder = new LeftFeeder();
+	public static final RightShooter rightShooter = new RightShooter();
+	public static final RightFeeder rightFeeder = new RightFeeder();
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -31,7 +45,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		// SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**
@@ -100,6 +114,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		SmartDashboard.putNumber("Left Shooter Mult", Robot.leftShooter.multiplier);
+		SmartDashboard.putNumber("Left Feeder Mult", Robot.leftFeeder.multiplier);
 	}
 
 	/**

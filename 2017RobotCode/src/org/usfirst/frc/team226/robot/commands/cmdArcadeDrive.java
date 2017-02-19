@@ -37,8 +37,8 @@ public class cmdArcadeDrive extends Command {
     	double turn = Robot.oi.driver.getRightJoystick_X();
     	
     	if (halfSpeed) {
-    		throttle *= 0.5;
-    		turn *= 0.5;
+    		throttle *= 0.65;
+    		turn *= 0.75;
     	}
     	if (backwards) {
     		throttle *= -1;

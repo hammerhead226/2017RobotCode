@@ -3,7 +3,7 @@ package org.usfirst.frc.team226.robot.subsystems;
 import static org.usfirst.frc.team226.robot.RobotMap.L_FEEDER_MOTOR;
 
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_test;
-import org.usfirst.frc.team226.robot.extlib.MagEncoderVelocityMimic;
+import org.usfirst.frc.team226.robot.extlib.LeftMagEncoderVelocityMimic;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 
 import com.ctre.CANTalon;
@@ -28,7 +28,7 @@ public class LeftFeeder extends Subsystem {
 	private static double Kf = 0;
 
 	private PIDOutputMimic velMimic = new PIDOutputMimic();
-	private MagEncoderVelocityMimic sm = new MagEncoderVelocityMimic(motor, PIDSourceType.kRate);
+	private LeftMagEncoderVelocityMimic sm = new LeftMagEncoderVelocityMimic(motor, PIDSourceType.kRate);
 	public PIDController velPID = new PIDController(Kp, Ki, Kd, Kf, sm, velMimic);
 
 	public LeftFeeder() {

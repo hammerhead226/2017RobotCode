@@ -33,7 +33,7 @@ public class RightShooter extends Subsystem {
 	
 	private Servo linearActuator = new Servo(R_SHOOTER_LINEAR_ACTUATOR);
 
-	private static double Kp = 0.000014;
+	private static double Kp = 0.000016;
 	private static double Ki = 0;
 	private static double Kd = 0;
 	private static double Kf = 0.00005;

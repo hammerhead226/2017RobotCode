@@ -5,7 +5,7 @@ import static org.usfirst.frc.team226.robot.RobotMap.L_SHOOTER_F_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.L_SHOOTER_LINEAR_ACTUATOR;
 
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftShooter_test;
-import org.usfirst.frc.team226.robot.extlib.MagEncoderVelocityMimic;
+import org.usfirst.frc.team226.robot.extlib.LeftMagEncoderVelocityMimic;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 
 import com.ctre.CANTalon;
@@ -33,13 +33,13 @@ public class LeftShooter extends Subsystem {
 	
 	private Servo linearActuator = new Servo(L_SHOOTER_LINEAR_ACTUATOR);
 
-	private static double Kp = 0.000014;
+	private static double Kp = 0.000016;
 	private static double Ki = 0;
 	private static double Kd = 0;
-	private static double Kf = 0;
+	private static double Kf = 0.00005;
 
 	private PIDOutputMimic velMimic = new PIDOutputMimic();
-	public MagEncoderVelocityMimic sm = new MagEncoderVelocityMimic(frontMotor, PIDSourceType.kRate);
+	public LeftMagEncoderVelocityMimic sm = new LeftMagEncoderVelocityMimic(frontMotor, PIDSourceType.kRate);
 	public PIDController velPID = new PIDController(Kp, Ki, Kd, Kf, sm, velMimic);
 
 	public LeftShooter() {
@@ -68,12 +68,8 @@ public class LeftShooter extends Subsystem {
 
 	// Getters
 
-	public int getShooterVelocity() {
-		return frontMotor.getEncVelocity();
-	}
-	
 	public double getShooterRPM() {
-		return frontMotor.getSpeed();
+		return frontMotor.getEncVelocity() * (600.0/4096.0);
 	}
 
 	// Utility
@@ -91,5 +87,6 @@ public class LeftShooter extends Subsystem {
 		SmartDashboard.putBoolean("LS_PIDEnabled", velPID.isEnabled());
 		SmartDashboard.putNumber("LS_LTalon", frontMotor.getBusVoltage());
 		SmartDashboard.putNumber("LS_RTalon", backMotor.getBusVoltage());
+		SmartDashboard.putData("LS_PID", velPID);
 	}
 }

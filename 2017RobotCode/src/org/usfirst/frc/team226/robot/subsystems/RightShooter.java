@@ -5,8 +5,8 @@ import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_F_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_LINEAR_ACTUATOR;
 
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightShooter_test;
-import org.usfirst.frc.team226.robot.extlib.MagEncoderVelocityMimic;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
+import org.usfirst.frc.team226.robot.extlib.RightMagEncoderVelocityMimic;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -36,10 +36,10 @@ public class RightShooter extends Subsystem {
 	private static double Kp = 0.000014;
 	private static double Ki = 0;
 	private static double Kd = 0;
-	private static double Kf = 0;
+	private static double Kf = 0.00005;
 
 	private PIDOutputMimic velMimic = new PIDOutputMimic();
-	private MagEncoderVelocityMimic sm = new MagEncoderVelocityMimic(frontMotor, PIDSourceType.kRate);
+	private RightMagEncoderVelocityMimic sm = new RightMagEncoderVelocityMimic(frontMotor, PIDSourceType.kRate);
 	public PIDController velPID = new PIDController(Kp, Ki, Kd, Kf, sm, velMimic);
 
 	public RightShooter() {
@@ -49,7 +49,6 @@ public class RightShooter extends Subsystem {
 		velPID.setPercentTolerance(5);
 		backMotor.setInverted(true);
 		frontMotor.setInverted(true);
-		frontMotor.reverseSensor(true);
 		
 		setLinearActuator(0);
 	}
@@ -71,12 +70,8 @@ public class RightShooter extends Subsystem {
 
 	// Getters
 
-	public int getShooterVelocity() {
-		return frontMotor.getEncVelocity();
-	}
-
 	public double getShooterRPM() {
-		return frontMotor.getSpeed();
+		return -frontMotor.getEncVelocity() * (600.0/4096.0);
 	}
 
 	// Utility
@@ -88,11 +83,12 @@ public class RightShooter extends Subsystem {
 
 	public void log() {
 		SmartDashboard.putNumber("RS_RPM", getShooterRPM());
-		SmartDashboard.putNumber("RS_EncVel", getShooterVelocity());
+		SmartDashboard.putNumber("RS_RPMnum", getShooterRPM());
 		SmartDashboard.putNumber("RS_PIDOutput", velPID.get());
 		SmartDashboard.putNumber("RS_PIDSetpoint", velPID.getSetpoint());
 		SmartDashboard.putBoolean("RS_PIDEnabled", velPID.isEnabled());
 		SmartDashboard.putNumber("RS_LTalon", backMotor.getBusVoltage());
 		SmartDashboard.putNumber("RS_RTalon", frontMotor.getBusVoltage());
+		SmartDashboard.putData("RS_PID", velPID);
 	}
 }

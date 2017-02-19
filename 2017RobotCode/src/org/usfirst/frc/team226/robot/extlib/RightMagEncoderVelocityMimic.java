@@ -5,13 +5,13 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 
-public class MagEncoderVelocityMimic implements PIDSource {
+public class RightMagEncoderVelocityMimic implements PIDSource {
 	
 	private CANTalon ct;
 	
 	private PIDSourceType st;
 	
-	public MagEncoderVelocityMimic(CANTalon talon, PIDSourceType st) {
+	public RightMagEncoderVelocityMimic(CANTalon talon, PIDSourceType st) {
 		ct = talon;
 		this.st = st;
 	}
@@ -31,7 +31,7 @@ public class MagEncoderVelocityMimic implements PIDSource {
 	@Override
 	public double pidGet() {
 		// TODO Auto-generated method stub
-		return ct.getEncVelocity();
+		return -ct.getEncVelocity() * (600.0/4096.0);
 	}
 	
 	

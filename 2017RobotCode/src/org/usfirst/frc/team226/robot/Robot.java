@@ -2,8 +2,6 @@
 package org.usfirst.frc.team226.robot;
 
 import org.opencv.core.Rect;
-import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc.team226.robot.extlib.GRIPPipeline;
 import org.usfirst.frc.team226.robot.subsystems.CameraTurret;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
@@ -66,7 +64,7 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
-	public void log() {
+	public void robotLog() {
 		SmartDashboard.putNumber("time", Timer.getFPGATimestamp());
 		SmartDashboard.putNumber("time2", Utility.getFPGATime());
 		SmartDashboard.putNumber("time3", Timer.getMatchTime());
@@ -105,14 +103,14 @@ public class Robot extends IterativeRobot {
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", chooser);
-		this.log();
+		this.robotLog();
 		
 		// initialize the camera and the vision thread
 		UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
 		camera1.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		camera1.setExposureManual(0);
 
-		visionThread = new VisionThread(camera1, new GRIPPipeline(), pipeline -> {
+		/*visionThread = new VisionThread(camera1, new GRIPPipeline(), pipeline -> {
 			numContours = 0;
 
 			if (!pipeline.filterContoursOutput().isEmpty()) {
@@ -170,7 +168,7 @@ public class Robot extends IterativeRobot {
 				}
 			}
 		});
-		visionThread.start();
+		visionThread.start();*/
 	}
 
 	/**
@@ -180,7 +178,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+//		visionThread.interrupt();
 	}
 
 	@Override
@@ -245,13 +243,13 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putNumber("RPM", Robot.leftShooter.getShooterRPM());
 		// SmartDashboard.putNumber("EncVel",
 		// Robot.leftShooter.getShooterVelocity());
-//		this.log();
-		this.visionLog();
+		this.robotLog();
+//		this.visionLog();
 //		climberIntake.log();
-//		leftShooter.log();
-//		rightShooter.log();
-//		leftFeeder.log();
-//		rightFeeder.log();
+		leftShooter.log();
+		rightShooter.log();
+		leftFeeder.log();
+		rightFeeder.log();
 //		driveTrain.log();
 	}
 

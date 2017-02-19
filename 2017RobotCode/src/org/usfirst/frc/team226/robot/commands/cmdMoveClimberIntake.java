@@ -2,21 +2,17 @@ package org.usfirst.frc.team226.robot.commands;
 
 import org.usfirst.frc.team226.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class cmdArcadeDrive extends Command {
-	
-	private boolean halfSpeed = false;
-	private boolean backwards = false;
+public class cmdMoveClimberIntake extends Command {
 
-    public cmdArcadeDrive() {
+    public cmdMoveClimberIntake() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+    	requires(Robot.climberIntake);
     }
 
     // Called just before this Command runs the first time
@@ -25,26 +21,13 @@ public class cmdArcadeDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.oi.driver.getLSButtonPressed()) {
-    		halfSpeed = !halfSpeed;
-    		Timer.delay(0.25);
-    	}
-    	if (Robot.oi.driver.getRSButtonPressed()) {
-    		backwards = !backwards;
-    		Timer.delay(0.25);
-    	}
-    	double throttle = Robot.oi.driver.getLeftJoystick_Y();
-    	double turn = Robot.oi.driver.getRightJoystick_X();
-    	
-    	if (halfSpeed) {
-    		throttle *= 0.5;
-    		turn *= 0.5;
-    	}
-    	if (backwards) {
-    		throttle *= -1;
-    	}
-    	
-    	Robot.driveTrain.arcadeDrive(throttle, turn);
+    	double output;
+
+		output = Robot.oi.manip.getTriggers();
+		if (Robot.oi.manip.getLBButtonPressed()) {
+			output *= Robot.climberIntake.multiplier;
+		}
+		Robot.climberIntake.setMotors(output);
     }
 
     // Make this return true when this Command no longer needs to run execute()

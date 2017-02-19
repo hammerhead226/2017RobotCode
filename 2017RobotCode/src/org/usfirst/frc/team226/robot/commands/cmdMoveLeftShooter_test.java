@@ -2,10 +2,7 @@ package org.usfirst.frc.team226.robot.commands;
 
 import org.usfirst.frc.team226.robot.Robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -24,21 +21,13 @@ public class cmdMoveLeftShooter_test extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.oi.driver.getBACKButtonPressed()) {
-			Robot.leftShooter.multiplier -= 0.01;
-			Timer.delay(0.1);
+		double output;
+
+		output = Robot.oi.manip.getRightJoystick_Y();
+		if (Robot.oi.manip.getLBButtonPressed()) {
+			output *= Robot.leftShooter.multiplier;
 		}
-		if (Robot.oi.driver.getSTARTButtonPressed()) {
-			Robot.leftShooter.multiplier += 0.01;
-			Timer.delay(0.1);
-		}
-		if (Robot.oi.driver.getLBButtonPressed()) {
-			Robot.leftShooter.setShooterSpeed(Robot.oi.driver.getLeftJoystick_Y() * Robot.leftShooter.multiplier);
-			SmartDashboard.putNumber("Left Joystick (LB mod)", Robot.oi.driver.getLeftJoystick_Y() * Robot.leftShooter.multiplier);
-		} else {
-			Robot.leftShooter.setShooterSpeed(Robot.oi.driver.getLeftJoystick_Y());
-			SmartDashboard.putNumber("Left Joystick (LB mod)", Robot.oi.driver.getLeftJoystick_Y());
-		}
+		Robot.leftShooter.setShooterSpeed(output);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

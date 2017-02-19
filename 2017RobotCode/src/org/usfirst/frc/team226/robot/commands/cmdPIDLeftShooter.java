@@ -3,7 +3,6 @@ package org.usfirst.frc.team226.robot.commands;
 import org.usfirst.frc.team226.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,39 +20,42 @@ public class cmdPIDLeftShooter extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.leftShooter.shooterPID.setSetpoint(setpoint);
-		Robot.leftShooter.shooterPID.enable();
-//		Robot.timer.start();
+		Robot.leftShooter.velPID.setSetpoint(setpoint);
+		Robot.leftShooter.velPID.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double output = Robot.leftShooter.shooterPID.get();
-		double error = Robot.leftShooter.shooterPID.getError();
+		double output = Robot.leftShooter.velPID.get();
+		double error = Robot.leftShooter.velPID.getError();
 		
 		Robot.leftShooter.errorLog = error;
 		Robot.leftShooter.pidOutputLog = output;
 
 		Robot.leftShooter.setShooterSpeed(output);
+		
+		if (Robot.leftShooter.velPID.onTarget()) {
+			Robot.leftFeeder.setFeederSpeed(1.0);
+		} else {
+			Robot.leftShooter.setShooterSpeed(0.0);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.oi.driver.getBButtonPressed();
+		return Robot.oi.manip.getBButtonPressed();
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.leftShooter.shooterPID.reset();
-//		double time = Robot.timer.get();
-//		SmartDashboard.putNumber("Final time", time);
-//		Robot.timer.stop();
-//		Robot.timer.reset();
+		Robot.leftFeeder.setFeederSpeed(0.0);
+		Robot.leftShooter.velPID.reset();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.leftShooter.shooterPID.disable();
+		Robot.leftFeeder.setFeederSpeed(0.0);
+		Robot.leftShooter.velPID.reset();
 	}
 }

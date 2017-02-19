@@ -1,9 +1,11 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
-import org.usfirst.frc.team226.robot.RobotMap;
-import org.usfirst.frc.team226.robot.commands.cmdMoveLeftShooter_test;
+import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_B_MOTOR;
+import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_F_MOTOR;
+import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_LINEAR_ACTUATOR;
+
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightShooter_test;
-import org.usfirst.frc.team226.robot.extlib.MagEncoderMimic;
+import org.usfirst.frc.team226.robot.extlib.MagEncoderVelocityMimic;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 
 import com.ctre.CANTalon;
@@ -11,6 +13,7 @@ import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,30 +21,37 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class RightShooter extends Subsystem {
-	public double multiplier = 0.65;
+	
+	public double multiplier = 0.75;
 
 	// PID logging
 	public double errorLog;
 	public double pidOutputLog;
 
-	private CANTalon leftMotor = new CANTalon(RobotMap.R_SHOOTER_L_MOTOR);
-	private CANTalon rightMotor = new CANTalon(RobotMap.R_SHOOTER_R_MOTOR);
+	private CANTalon backMotor = new CANTalon(R_SHOOTER_B_MOTOR);
+	private CANTalon frontMotor = new CANTalon(R_SHOOTER_F_MOTOR);
+	
+	private Servo linearActuator = new Servo(R_SHOOTER_LINEAR_ACTUATOR);
 
-	private static double Kp = 0;
+	private static double Kp = 0.000014;
 	private static double Ki = 0;
 	private static double Kd = 0;
 	private static double Kf = 0;
-	// 3550 = 0.00004126
-	// 4550 = 0.00003219
 
 	private PIDOutputMimic velMimic = new PIDOutputMimic();
-	public MagEncoderMimic sm = new MagEncoderMimic(leftMotor, PIDSourceType.kRate);
-	public PIDController shooterPID = new PIDController(Kp, Ki, Kd, Kf, sm, velMimic);
+	private MagEncoderVelocityMimic sm = new MagEncoderVelocityMimic(frontMotor, PIDSourceType.kRate);
+	public PIDController velPID = new PIDController(Kp, Ki, Kd, Kf, sm, velMimic);
 
 	public RightShooter() {
-		leftMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
-		leftMotor.setPIDSourceType(PIDSourceType.kRate);
-		shooterPID.setOutputRange(-1.0, 1.0);
+		backMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+		backMotor.setPIDSourceType(PIDSourceType.kRate);
+		velPID.setOutputRange(-1.0, 1.0);
+		velPID.setPercentTolerance(5);
+		backMotor.setInverted(true);
+		frontMotor.setInverted(true);
+		frontMotor.reverseSensor(true);
+		
+		setLinearActuator(0);
 	}
 
 	public void initDefaultCommand() {
@@ -51,18 +61,22 @@ public class RightShooter extends Subsystem {
 	// Setters
 
 	public void setShooterSpeed(double speed) {
-		leftMotor.set(speed);
-		rightMotor.set(speed);
+		backMotor.set(speed);
+		frontMotor.set(speed);
+	}
+	
+	public void setLinearActuator(double value) {
+		linearActuator.set(value);
 	}
 
 	// Getters
 
 	public int getShooterVelocity() {
-		return leftMotor.getEncVelocity();
+		return frontMotor.getEncVelocity();
 	}
 
 	public double getShooterRPM() {
-		return leftMotor.getSpeed();
+		return frontMotor.getSpeed();
 	}
 
 	// Utility
@@ -73,6 +87,12 @@ public class RightShooter extends Subsystem {
 	}
 
 	public void log() {
+		SmartDashboard.putNumber("RS_RPM", getShooterRPM());
+		SmartDashboard.putNumber("RS_EncVel", getShooterVelocity());
+		SmartDashboard.putNumber("RS_PIDOutput", velPID.get());
+		SmartDashboard.putNumber("RS_PIDSetpoint", velPID.getSetpoint());
+		SmartDashboard.putBoolean("RS_PIDEnabled", velPID.isEnabled());
+		SmartDashboard.putNumber("RS_LTalon", backMotor.getBusVoltage());
+		SmartDashboard.putNumber("RS_RTalon", frontMotor.getBusVoltage());
 	}
 }
-

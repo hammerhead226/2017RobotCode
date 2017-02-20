@@ -44,8 +44,8 @@ public class OI {
 	 * Driver:
 	 * A - vision align
 	 * B - stop vision align
-	 * RS Click - backwards driving toggle & camera servo toggle
-	 * LS Click - half speed driving toggle
+	 * LT hold - backwards driving toggle & camera servo toggle
+	 * RT hold - half speed driving toggle
 	 * 
 	 * Manip:
 	 * A - shooter/feeder start

@@ -4,7 +4,7 @@ import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_B_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_F_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_LINEAR_ACTUATOR;
 
-import org.usfirst.frc.team226.robot.commands.cmdMoveRightShooter_test;
+import org.usfirst.frc.team226.robot.commands.cmdMoveRightShooter_manual;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 import org.usfirst.frc.team226.robot.extlib.RightMagEncoderVelocityMimic;
 
@@ -54,7 +54,7 @@ public class RightShooter extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new cmdMoveRightShooter_test());
+		setDefaultCommand(new cmdMoveRightShooter_manual());
 	}
 
 	// Setters

@@ -2,7 +2,7 @@ package org.usfirst.frc.team226.robot.subsystems;
 
 import static org.usfirst.frc.team226.robot.RobotMap.R_FEEDER_MOTOR;
 
-import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_test;
+import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_manual;
 import org.usfirst.frc.team226.robot.extlib.RightMagEncoderVelocityMimic;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 
@@ -32,7 +32,7 @@ public class RightFeeder extends Subsystem {
 
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new cmdMoveRightFeeder_test());
+		setDefaultCommand(new cmdMoveRightFeeder_manual());
 	}
 
 	// Getters

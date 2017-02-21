@@ -2,7 +2,7 @@ package org.usfirst.frc.team226.robot.subsystems;
 
 import static org.usfirst.frc.team226.robot.RobotMap.L_FEEDER_MOTOR;
 
-import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_test;
+import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_manual;
 import org.usfirst.frc.team226.robot.extlib.LeftMagEncoderVelocityMimic;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 
@@ -36,7 +36,7 @@ public class LeftFeeder extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new cmdMoveLeftFeeder_test());
+		setDefaultCommand(new cmdMoveLeftFeeder_manual());
 	}
 
 	// Getters

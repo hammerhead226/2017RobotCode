@@ -6,9 +6,7 @@ import static org.usfirst.frc.team226.robot.RobotMap.MANIP_CONTROLLER;
 
 import org.usfirst.frc.team226.robot.commands.cmdExpandRobot;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_button;
-import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_button;
 import org.usfirst.frc.team226.robot.commands.cmdPIDLeftShooter;
-import org.usfirst.frc.team226.robot.commands.cmdPIDRightShooter;
 import org.usfirst.frc.team226.robot.commands.cmdResetRobot;
 import org.usfirst.frc.team226.robot.commands.cmdToggleCameraTurret;
 import org.usfirst.frc.team226.robot.extlib.Controller;
@@ -25,20 +23,18 @@ public class OI {
 	
 	public OI() {
 		driver.getRSButton().whenPressed(new cmdToggleCameraTurret());
+//		driver.getAButton().whenPressed(new cmdPIDTurnWithVision());
 
+		
 		manip.getAButton().whenPressed(new cmdPIDLeftShooter(3000));
-		manip.getAButton().whenPressed(new cmdPIDRightShooter(3000));
+//		manip.getAButton().whenPressed(new cmdPIDRightShooter(3000));
 		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
-		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());
+//		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());
 		manip.getBButton().whenPressed(new cmdToggleCameraTurret());
-		
-		
 		
 		manip.getSTARTButton().whenPressed(new cmdExpandRobot());
 		manip.getBACKButton().whenPressed(new cmdResetRobot());
 	  	
-//		manip.getAButton().whenPressed(new cmdPIDTurnWithVision());
-
 	}
 	
 	/*Controller Bindings
@@ -49,8 +45,8 @@ public class OI {
 	 * RT hold - half speed driving toggle
 	 * 
 	 * Manip:
-	 * A - shooter/feeder start
-	 * B - shooter/feeder stop
+	 * A - shooter/feeder pid start
+	 * B - shooter/feeder pid stop
 	 * START - release servos
 	 * BACK - reset servos
 	 * LT - intake forwards

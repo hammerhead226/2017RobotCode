@@ -26,7 +26,7 @@ public class OI {
 //		driver.getAButton().whenPressed(new cmdPIDTurnWithVision());
 
 		
-		manip.getAButton().whenPressed(new cmdPIDLeftShooter(3000));
+		manip.getAButton().whenPressed(new cmdPIDLeftShooter(2950));
 //		manip.getAButton().whenPressed(new cmdPIDRightShooter(3000));
 		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
 //		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());

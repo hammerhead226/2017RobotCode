@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class cmdMoveRightShooter_test extends Command {
+public class cmdMoveLeftFeeder_manual extends Command {
 
-	public cmdMoveRightShooter_test() {
+	public cmdMoveLeftFeeder_manual() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(Robot.rightShooter);
+		requires(Robot.leftFeeder);
 	}
 
 	// Called just before this Command runs the first time
@@ -21,13 +21,7 @@ public class cmdMoveRightShooter_test extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double output;
-
-		output = Robot.oi.manip.getRightJoystick_Y();
-		if (Robot.oi.manip.getLBButtonPressed()) {
-			output *= Robot.rightShooter.multiplier;
-		}
-		Robot.rightShooter.setShooterSpeed(output);
+		Robot.leftFeeder.setFeederSpeed(Robot.oi.manip.getLeftJoystick_Y());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

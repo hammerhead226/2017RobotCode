@@ -4,7 +4,7 @@ import static org.usfirst.frc.team226.robot.RobotMap.L_SHOOTER_B_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.L_SHOOTER_F_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.L_SHOOTER_LINEAR_ACTUATOR;
 
-import org.usfirst.frc.team226.robot.commands.cmdMoveLeftShooter_test;
+import org.usfirst.frc.team226.robot.commands.cmdMoveLeftShooter_manual;
 import org.usfirst.frc.team226.robot.extlib.LeftMagEncoderVelocityMimic;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 
@@ -35,7 +35,7 @@ public class LeftShooter extends Subsystem {
 
 	private static double Kp = 0.000016;
 	private static double Ki = 0;
-	private static double Kd = 0;
+	private static double Kd = 0.00005;
 	private static double Kf = 0.00005;
 
 	private PIDOutputMimic velMimic = new PIDOutputMimic();
@@ -52,7 +52,7 @@ public class LeftShooter extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new cmdMoveLeftShooter_test());
+		setDefaultCommand(new cmdMoveLeftShooter_manual());
 	}
 
 	// Setters

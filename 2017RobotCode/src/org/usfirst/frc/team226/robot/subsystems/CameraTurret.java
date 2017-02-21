@@ -2,6 +2,8 @@ package org.usfirst.frc.team226.robot.subsystems;
 
 import static org.usfirst.frc.team226.robot.RobotMap.CAMERA_SERVO;
 
+import org.usfirst.frc.team226.robot.commands.cmdToggleCameraTurret;
+
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -19,6 +21,7 @@ public class CameraTurret extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new cmdToggleCameraTurret());
 	}
 
 	public void toggle() {
@@ -36,6 +39,6 @@ public class CameraTurret extends Subsystem {
 	}
 
 	public void servoBackward() {
-		cameraServo.set(1);
+		cameraServo.set(0.93);
 	}
 }

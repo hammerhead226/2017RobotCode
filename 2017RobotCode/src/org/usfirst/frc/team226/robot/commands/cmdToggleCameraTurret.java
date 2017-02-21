@@ -11,16 +11,22 @@ public class cmdToggleCameraTurret extends Command {
 
     public cmdToggleCameraTurret() {
         // Use requires() here to declare subsystem dependencies
-         
+        requires(Robot.cameraTurret);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.cameraTurret.toggle();
+//    	Robot.cameraTurret.toggle();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if (Robot.oi.driver.getLeftTrigger() > 0.1) {
+    		Robot.cameraTurret.servoBackward();
+    	}
+    	else {
+    		Robot.cameraTurret.servoForward();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

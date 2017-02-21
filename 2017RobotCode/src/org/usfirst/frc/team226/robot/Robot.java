@@ -250,7 +250,7 @@ public class Robot extends IterativeRobot {
 //		rightShooter.log();
 //		leftFeeder.log();
 //		rightFeeder.log();
-//		driveTrain.log();
+		driveTrain.log();
 	}
 
 	/**

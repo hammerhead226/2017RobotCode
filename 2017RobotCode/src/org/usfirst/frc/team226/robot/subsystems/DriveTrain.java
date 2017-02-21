@@ -6,6 +6,7 @@ import static org.usfirst.frc.team226.robot.RobotMap.DT_RL_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.DT_RR_MOTOR;
 
 import org.usfirst.frc.team226.robot.commands.cmdArcadeDrive;
+import org.usfirst.frc.team226.robot.extlib.DoubleEncoder;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 
 import com.ctre.CANTalon;
@@ -24,10 +25,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveTrain extends Subsystem {
 
 	public boolean wasTurn = true;
-
+	//left encoder
 	public CANTalon frontLeftMotor = new CANTalon(DT_FL_MOTOR);
 	public CANTalon rearLeftMotor = new CANTalon(DT_RL_MOTOR);
-
+	//right encoder
 	public CANTalon frontRightMotor = new CANTalon(DT_FR_MOTOR);
 	public CANTalon rearRightMotor = new CANTalon(DT_RR_MOTOR);
 
@@ -43,6 +44,14 @@ public class DriveTrain extends Subsystem {
 	public PIDOutputMimic dirMimic = new PIDOutputMimic();
 	public PIDController dirController = new PIDController(dirKp, dirKi, dirKd, navX, dirMimic);
 	
+	private static double distKp = 0.0;
+	private static double distKi = 0.0;
+	private static double distKd = 0.0;
+
+	public DoubleEncoder doubleEncoder = new DoubleEncoder(rearLeftMotor, rearRightMotor, true, false, PIDSourceType.kDisplacement);
+	public PIDOutputMimic distMimic = new PIDOutputMimic();
+	public PIDController distController = new PIDController(distKp, distKi, distKd, doubleEncoder, distMimic);
+
 	public DriveTrain() {
 		frontLeftMotor.setPIDSourceType(PIDSourceType.kDisplacement);
 		frontRightMotor.setPIDSourceType(PIDSourceType.kDisplacement);
@@ -87,6 +96,7 @@ public class DriveTrain extends Subsystem {
 	public void log() {
 		SmartDashboard.putNumber("DT_LeftPos", frontLeftMotor.getPosition());
 		SmartDashboard.putNumber("DT_RightPos", frontRightMotor.getPosition());
+		SmartDashboard.putNumber("DT_DoubleEncoder", doubleEncoder.pidGet());
 		SmartDashboard.putNumber("DT_FLTalon", frontLeftMotor.getOutputVoltage());
 		SmartDashboard.putNumber("DT_RLTalon", rearLeftMotor.getOutputVoltage());
 		SmartDashboard.putNumber("DT_FRTalon", frontRightMotor.getOutputVoltage());

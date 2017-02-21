@@ -13,6 +13,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -41,6 +42,14 @@ public class DriveTrain extends Subsystem {
 	public AHRS navX = new AHRS(I2C.Port.kOnboard);
 	public PIDOutputMimic dirMimic = new PIDOutputMimic();
 	public PIDController dirController = new PIDController(dirKp, dirKi, dirKd, navX, dirMimic);
+	
+	public DriveTrain() {
+		frontLeftMotor.setPIDSourceType(PIDSourceType.kDisplacement);
+		frontRightMotor.setPIDSourceType(PIDSourceType.kDisplacement);
+		frontLeftMotor.reverseSensor(true);
+		frontLeftMotor.reset();
+		frontRightMotor.reset();
+	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new cmdArcadeDrive());
@@ -76,8 +85,8 @@ public class DriveTrain extends Subsystem {
 	
 
 	public void log() {
-		SmartDashboard.putNumber("DT_LeftEncoder", 0);
-		SmartDashboard.putNumber("DT_RightEncoder", 0);
+		SmartDashboard.putNumber("DT_LeftPos", frontLeftMotor.getPosition());
+		SmartDashboard.putNumber("DT_RightPos", frontRightMotor.getPosition());
 		SmartDashboard.putNumber("DT_FLTalon", frontLeftMotor.getOutputVoltage());
 		SmartDashboard.putNumber("DT_RLTalon", rearLeftMotor.getOutputVoltage());
 		SmartDashboard.putNumber("DT_FRTalon", frontRightMotor.getOutputVoltage());

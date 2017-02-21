@@ -243,13 +243,13 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putNumber("RPM", Robot.leftShooter.getShooterRPM());
 		// SmartDashboard.putNumber("EncVel",
 		// Robot.leftShooter.getShooterVelocity());
-		this.robotLog();
+//		this.robotLog();
 //		this.visionLog();
 //		climberIntake.log();
 		leftShooter.log();
-		rightShooter.log();
-		leftFeeder.log();
-		rightFeeder.log();
+//		rightShooter.log();
+//		leftFeeder.log();
+//		rightFeeder.log();
 //		driveTrain.log();
 	}
 

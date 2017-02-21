@@ -13,6 +13,10 @@ public class CameraTurret extends Subsystem {
 	private boolean forward = true;
 
 	private Servo cameraServo = new Servo(CAMERA_SERVO);
+	
+	public CameraTurret() {
+//		cameraServo.set(1);
+	}
 
 	public void initDefaultCommand() {
 	}

@@ -30,6 +30,7 @@ public class OI {
 		manip.getAButton().whenPressed(new cmdPIDRightShooter(3000));
 		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
 		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());
+		manip.getBButton().whenPressed(new cmdToggleCameraTurret());
 		
 		
 		

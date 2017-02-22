@@ -35,8 +35,8 @@ public class cmdPIDDriveInches extends Command {
 		Robot.driveTrain.resetAllSensors();
 		Robot.driveTrain.distController.setSetpoint(driveSetpoint);
 		Robot.driveTrain.distController.enable();
-		Robot.driveTrain.dirController.setSetpoint(0);
-		Robot.driveTrain.dirController.enable();
+//		Robot.driveTrain.dirController.setSetpoint(0);
+//		Robot.driveTrain.dirController.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -44,7 +44,7 @@ public class cmdPIDDriveInches extends Command {
 		double throttle = Robot.driveTrain.distController.get();
 		double turn = Robot.driveTrain.dirController.get();
 
-		Robot.driveTrain.arcadeDrive(throttle*multiplier, turn);
+		Robot.driveTrain.arcadeDrive(throttle*multiplier, 0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

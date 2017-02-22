@@ -35,16 +35,16 @@ public class DriveTrain extends Subsystem {
 	RobotDrive drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 
 	// Direction PID
-	private static double dirKp = 0.003;
-	private static double dirKi = 0.0;
-	private static double dirKd = 0.0;
+	private static double dirKp = 0.11; //DRIVE STRAIGHT - P=0.003, NO I OR D
+	private static double dirKi = 0.02;
+	private static double dirKd = 0.205;
 
 	// Alternatives: SerialPort.Port.kMXP, SPI.Port.kMXP, or I2C.Port.kMXP
 	public AHRS navX = new AHRS(I2C.Port.kOnboard);
 	public PIDOutputMimic dirMimic = new PIDOutputMimic();
 	public PIDController dirController = new PIDController(dirKp, dirKi, dirKd, navX, dirMimic);
 
-	private static double distKp = 0.003;
+	private static double distKp = 0.003; //LOCK - 8/10
 	private static double distKi = 0.0;
 	private static double distKd = 0.0035;
 

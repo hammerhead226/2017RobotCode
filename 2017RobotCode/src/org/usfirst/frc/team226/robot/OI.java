@@ -4,13 +4,8 @@ package org.usfirst.frc.team226.robot;
 import static org.usfirst.frc.team226.robot.RobotMap.DRIVER_CONTROLLER;
 import static org.usfirst.frc.team226.robot.RobotMap.MANIP_CONTROLLER;
 
-import org.usfirst.frc.team226.robot.commands.cmdExpandRobot;
-import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_button;
 import org.usfirst.frc.team226.robot.commands.cmdPIDDriveInches;
-import org.usfirst.frc.team226.robot.commands.cmdPIDLeftShooter;
-import org.usfirst.frc.team226.robot.commands.cmdResetDTSensors;
-import org.usfirst.frc.team226.robot.commands.cmdResetRobot;
-import org.usfirst.frc.team226.robot.commands.cmdToggleCameraTurret;
+import org.usfirst.frc.team226.robot.commands.cmdPIDTurnToAngle;
 import org.usfirst.frc.team226.robot.extlib.Controller;
 
 
@@ -30,9 +25,15 @@ public class OI {
 //		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
 //		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());
 //		manip.getBButton().whenPressed(new cmdToggleCameraTurret());
+		
 		driver.getAButton().whenPressed(new cmdPIDDriveInches(-75.0, 0.7));
-		driver.getXButton().whenPressed(new cmdPIDDriveInches(-19.0, 0.7));
-		driver.getYButton().whenPressed(new cmdResetDTSensors());
+//		driver.getXButton().whenPressed(new cmdPIDDriveInches(-19.0, 0.7));
+//		driver.getYButton().whenPressed(new cmdResetDTSensors());
+		
+//		driver.getAButton().whenPressed(new cmdPIDTurnToAngle(20, 0.7));
+		driver.getXButton().whenPressed(new cmdPIDTurnToAngle(60, 0.7));
+//		driver.getYButton().whenPressed(new cmdPIDTurnToAngle(140, 0.7));
+		
 		
 //		manip.getSTARTButton().whenPressed(new cmdExpandRobot());
 //		manip.getBACKButton().whenPressed(new cmdResetRobot());

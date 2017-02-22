@@ -39,6 +39,6 @@ public class CameraTurret extends Subsystem {
 	}
 
 	public void servoBackward() {
-		cameraServo.set(0.93);
+		cameraServo.set(1);
 	}
 }

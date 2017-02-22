@@ -11,14 +11,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class cmdPIDDriveInches extends Command {
 
 	private double driveSetpoint;
+	private double multiplier;
 //	
 //	private boolean wasOnTarget = false;
 //	private long startTime;
 //	private int onTargetDuration;
 //	
-	public cmdPIDDriveInches(double driveSetpoint) {
+	public cmdPIDDriveInches(double driveSetpoint, double multiplier) {
 		// driveSetpoint is in inches
 		requires(Robot.driveTrain);
+		
+		this.multiplier = multiplier;
 		// Convert inches to encoder ticks (pulses?)
 		this.driveSetpoint = driveSetpoint;
 		double conversionFactor = 4096.0 / (Math.PI * 6); 
@@ -41,7 +44,7 @@ public class cmdPIDDriveInches extends Command {
 		double throttle = Robot.driveTrain.distController.get();
 		double turn = Robot.driveTrain.dirController.get();
 
-		Robot.driveTrain.arcadeDrive(throttle*0.7, turn);
+		Robot.driveTrain.arcadeDrive(throttle*multiplier, turn);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -2,6 +2,8 @@
 package org.usfirst.frc.team226.robot;
 
 import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team226.robot.extlib.GRIPPipeline;
 import org.usfirst.frc.team226.robot.subsystems.CameraTurret;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
@@ -53,6 +55,7 @@ public class Robot extends IterativeRobot {
 	public static double centerX;
 	public static Rect cntRect;
 	private VisionThread visionThread;
+	private UsbCamera camera1;
 	private final Object imgLock = new Object();
 	
 	public static double angle;
@@ -107,74 +110,83 @@ public class Robot extends IterativeRobot {
 		this.robotLog();
 		
 		// initialize the camera and the vision thread
+<<<<<<< HEAD
 		UsbCamera visionCam = CameraServer.getInstance().startAutomaticCapture(0);
 		visionCam.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		visionCam.setExposureManual(0);
 		
 		UsbCamera driverCam = CameraServer.getInstance().startAutomaticCapture(1);
 		driverCam.setResolution(640, 480);
-
-		/*visionThread = new VisionThread(camera1, new GRIPPipeline(), pipeline -> {
-			numContours = 0;
-
-			if (!pipeline.filterContoursOutput().isEmpty()) {
-
-				synchronized (imgLock) {
-
-					cntRect = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-					numContours = pipeline.filterContoursOutput().size();
-
-					Rect[] gearCnt = new Rect[pipeline.filterContoursOutput().size()];
-					double max1 = 0, max2 = 0;
-					int idx1 = -1, idx2 = -1;
-
-					for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
-						gearCnt[i] = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
-//						double area = gearCnt[i].area();
-
-						if (gearCnt[i].area() > max1) {
-							max2 = max1;
-							idx2 = idx1;
-							max1 = gearCnt[i].area();
-							idx1 = i;
-						} else if (gearCnt[i].area() > max2) {
-							max2 = gearCnt[i].area();
-							idx2 = i;
-						}
-					}
-
-					if (idx1 >= 0 && idx2 >= 0) {
-						if (gearCnt[idx1].x < gearCnt[idx2].x) {
-							midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
-						} else {
-							midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
-						}
-					}
-//					if (idx1 >= 0 && idx2 >= 0) {
-//						if (gearCnt[idx1].x < gearCnt[idx2].x) {
-//							midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
-//							SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
-//							SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
-//							SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
-//							SmartDashboard.putNumber("Gear Tape 2 Width", gearCnt[idx2].width);
-//							SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
-//							SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
-//						} else {
-//							midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
-//							SmartDashboard.putNumber("Tape 2 Width", gearCnt[idx2].width);
-//							SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
-//							SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
-//							SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
-//							SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
-//							SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
-//						}
-//					}
-				}
-			}
-		});
-		visionThread.start();*/
+=======
+		camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+		camera1.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		camera1.setExposureManual(0);
 	}
+>>>>>>> 48e2e93f18da04603442b5cfd2868fb61e17b5c0
 
+	public void visionInit() {
+		if (visionThread == null || !visionThread.isAlive()) {
+			visionThread = new VisionThread(camera1, new GRIPPipeline(), pipeline -> {
+				numContours = 0;
+	
+				if (!pipeline.filterContoursOutput().isEmpty()) {
+	
+					synchronized (imgLock) {
+	
+						cntRect = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+						numContours = pipeline.filterContoursOutput().size();
+	
+						Rect[] gearCnt = new Rect[pipeline.filterContoursOutput().size()];
+						double max1 = 0, max2 = 0;
+						int idx1 = -1, idx2 = -1;
+	
+						for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
+							gearCnt[i] = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
+	//						double area = gearCnt[i].area();
+	
+							if (gearCnt[i].area() > max1) {
+								max2 = max1;
+								idx2 = idx1;
+								max1 = gearCnt[i].area();
+								idx1 = i;
+							} else if (gearCnt[i].area() > max2) {
+								max2 = gearCnt[i].area();
+								idx2 = i;
+							}
+						}
+	
+						if (idx1 >= 0 && idx2 >= 0) {
+							if (gearCnt[idx1].x < gearCnt[idx2].x) {
+								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
+							} else {
+								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
+							}
+						}
+	//					if (idx1 >= 0 && idx2 >= 0) {
+	//						if (gearCnt[idx1].x < gearCnt[idx2].x) {
+	//							midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
+	//							SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
+	//							SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
+	//							SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
+	//							SmartDashboard.putNumber("Gear Tape 2 Width", gearCnt[idx2].width);
+	//							SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
+	//							SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
+	//						} else {
+	//							midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
+	//							SmartDashboard.putNumber("Tape 2 Width", gearCnt[idx2].width);
+	//							SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
+	//							SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
+	//							SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
+	//							SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
+	//							SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
+	//						}
+	//					}
+					}
+				}
+			});
+			visionThread.start();
+		}
+	}		
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
@@ -182,7 +194,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-//		visionThread.interrupt();
+		if(visionThread != null) {
+			visionThread.interrupt();
+		}
 	}
 
 	@Override
@@ -203,8 +217,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		visionInit();
 		autonomousCommand = chooser.getSelected();
-
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -231,6 +246,7 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		visionInit();
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	}

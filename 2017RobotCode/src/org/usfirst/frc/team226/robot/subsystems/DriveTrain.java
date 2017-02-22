@@ -46,7 +46,7 @@ public class DriveTrain extends Subsystem {
 
 	private static double distKp = 0.003;
 	private static double distKi = 0.0;
-	private static double distKd = 0.004;
+	private static double distKd = 0.0035;
 
 	public DoubleEncoder doubleEncoder = new DoubleEncoder(frontLeftMotor, frontRightMotor,
 			PIDSourceType.kDisplacement);

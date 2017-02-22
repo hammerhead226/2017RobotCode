@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
 	public static double centerX;
 	public static Rect cntRect;
 	private VisionThread visionThread;
-	private UsbCamera camera1;
+	private UsbCamera visionCam;
 	private final Object imgLock = new Object();
 	
 	public static double angle;
@@ -110,23 +110,17 @@ public class Robot extends IterativeRobot {
 		this.robotLog();
 		
 		// initialize the camera and the vision thread
-<<<<<<< HEAD
 		UsbCamera visionCam = CameraServer.getInstance().startAutomaticCapture(0);
 		visionCam.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		visionCam.setExposureManual(0);
 		
 		UsbCamera driverCam = CameraServer.getInstance().startAutomaticCapture(1);
 		driverCam.setResolution(640, 480);
-=======
-		camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-		camera1.setResolution(IMG_WIDTH, IMG_HEIGHT);
-		camera1.setExposureManual(0);
 	}
->>>>>>> 48e2e93f18da04603442b5cfd2868fb61e17b5c0
 
 	public void visionInit() {
 		if (visionThread == null || !visionThread.isAlive()) {
-			visionThread = new VisionThread(camera1, new GRIPPipeline(), pipeline -> {
+			visionThread = new VisionThread(visionCam, new GRIPPipeline(), pipeline -> {
 				numContours = 0;
 	
 				if (!pipeline.filterContoursOutput().isEmpty()) {

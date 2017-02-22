@@ -43,6 +43,7 @@ public class Robot extends IterativeRobot {
 	public static final CameraTurret cameraTurret = new CameraTurret();
 	public static final PopoutServos popoutServos = new PopoutServos();
 	public static OI oi;
+	
 
 	public static final int IMG_WIDTH = 320;
 	public static final int IMG_HEIGHT = 240;
@@ -106,9 +107,12 @@ public class Robot extends IterativeRobot {
 		this.robotLog();
 		
 		// initialize the camera and the vision thread
-		UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-		camera1.setResolution(IMG_WIDTH, IMG_HEIGHT);
-		camera1.setExposureManual(0);
+		UsbCamera visionCam = CameraServer.getInstance().startAutomaticCapture(0);
+		visionCam.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		visionCam.setExposureManual(0);
+		
+		UsbCamera driverCam = CameraServer.getInstance().startAutomaticCapture(1);
+		driverCam.setResolution(640, 480);
 
 		/*visionThread = new VisionThread(camera1, new GRIPPipeline(), pipeline -> {
 			numContours = 0;
@@ -238,15 +242,10 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 
-		// SmartDashboard.putNumber("Intake mult", Robot.climberIntake.multiplier);
-		//
-		// SmartDashboard.putNumber("RPM", Robot.leftShooter.getShooterRPM());
-		// SmartDashboard.putNumber("EncVel",
-		// Robot.leftShooter.getShooterVelocity());
 //		this.robotLog();
 //		this.visionLog();
 //		climberIntake.log();
-		leftShooter.log();
+//		leftShooter.log();
 //		rightShooter.log();
 //		leftFeeder.log();
 //		rightFeeder.log();

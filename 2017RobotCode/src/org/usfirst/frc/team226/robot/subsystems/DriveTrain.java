@@ -25,17 +25,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveTrain extends Subsystem {
 
 	public boolean wasTurn = true;
-	//left encoder
+	// left encoder
 	public CANTalon frontLeftMotor = new CANTalon(DT_FL_MOTOR);
 	public CANTalon rearLeftMotor = new CANTalon(DT_RL_MOTOR);
-	//right encoder
+	// right encoder
 	public CANTalon frontRightMotor = new CANTalon(DT_FR_MOTOR);
 	public CANTalon rearRightMotor = new CANTalon(DT_RR_MOTOR);
 
 	RobotDrive drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 
 	// Direction PID
-	private static double dirKp = 0.0;
+	private static double dirKp = 0.003;
 	private static double dirKi = 0.0;
 	private static double dirKd = 0.0;
 
@@ -43,21 +43,23 @@ public class DriveTrain extends Subsystem {
 	public AHRS navX = new AHRS(I2C.Port.kOnboard);
 	public PIDOutputMimic dirMimic = new PIDOutputMimic();
 	public PIDController dirController = new PIDController(dirKp, dirKi, dirKd, navX, dirMimic);
-	
-	private static double distKp = 0.0;
-	private static double distKi = 0.0;
-	private static double distKd = 0.0;
 
-	public DoubleEncoder doubleEncoder = new DoubleEncoder(rearLeftMotor, rearRightMotor, true, false, PIDSourceType.kDisplacement);
+	private static double distKp = 0.003;
+	private static double distKi = 0.0;
+	private static double distKd = 0.004;
+
+	public DoubleEncoder doubleEncoder = new DoubleEncoder(frontLeftMotor, frontRightMotor,
+			PIDSourceType.kDisplacement);
 	public PIDOutputMimic distMimic = new PIDOutputMimic();
 	public PIDController distController = new PIDController(distKp, distKi, distKd, doubleEncoder, distMimic);
 
 	public DriveTrain() {
-		frontLeftMotor.setPIDSourceType(PIDSourceType.kDisplacement);
-		frontRightMotor.setPIDSourceType(PIDSourceType.kDisplacement);
+//		frontLeftMotor.setPIDSourceType(PIDSourceType.kDisplacement);
+//		frontRightMotor.setPIDSourceType(PIDSourceType.kDisplacement);
 		frontLeftMotor.reverseSensor(true);
-		frontLeftMotor.reset();
-		frontRightMotor.reset();
+		distController.setOutputRange(-1, 1);
+		dirController.setOutputRange(-1, 1);
+//		doubleEncoder.setRightEncoderInverted(true);
 	}
 
 	public void initDefaultCommand() {
@@ -71,35 +73,39 @@ public class DriveTrain extends Subsystem {
 	public void arcadeDrive(double throttle, double turn) {
 		drive.arcadeDrive(throttle, turn, true);
 	}
-	
+
 	public void voltageDrive(double left, double right) {
-	    	left *= 12.5;
-	    	right *= 12.5;
-	    	frontLeftMotor.set(left);
-	    	rearLeftMotor.set(left);
-	    	frontRightMotor.set(right);
-	    	rearRightMotor.set(right);
-	    }
+		left *= 12.5;
+		right *= 12.5;
+		frontLeftMotor.set(left);
+		rearLeftMotor.set(left);
+		frontRightMotor.set(right);
+		rearRightMotor.set(right);
+	}
 
 	public double getGyroAngle() {
 		return navX.getYaw();
 	}
-	
+
 	public void resetAllSensors() {
 		navX.reset();
-		rearLeftMotor.setPosition(0);
-		rearRightMotor.setPosition(0);
-		dirController.reset();
+		frontLeftMotor.setPosition(0);
+		frontRightMotor.setPosition(0);
 	}
-	
 
 	public void log() {
 		SmartDashboard.putNumber("DT_LeftPos", frontLeftMotor.getPosition());
 		SmartDashboard.putNumber("DT_RightPos", frontRightMotor.getPosition());
-		SmartDashboard.putNumber("DT_DoubleEncoder", doubleEncoder.pidGet());
 		SmartDashboard.putNumber("DT_FLTalon", frontLeftMotor.getOutputVoltage());
 		SmartDashboard.putNumber("DT_RLTalon", rearLeftMotor.getOutputVoltage());
 		SmartDashboard.putNumber("DT_FRTalon", frontRightMotor.getOutputVoltage());
 		SmartDashboard.putNumber("DT_RRTalon", rearRightMotor.getOutputVoltage());
+		SmartDashboard.putData("DT_DistPID", distController);
+		SmartDashboard.putData("DT_DirPID", dirController);
+		SmartDashboard.putNumber("DT_DirPIDOutput", dirController.get());
+		SmartDashboard.putNumber("DT_DoubleEncoder", doubleEncoder.pidGet());
+		SmartDashboard.putNumber("DT_DoubleEncodernum", doubleEncoder.pidGet());
+		SmartDashboard.putNumber("DT_NavXHeading", navX.getYaw());
+		SmartDashboard.putNumber("DT_NavXHeadingnum", navX.getYaw());
 	}
 }

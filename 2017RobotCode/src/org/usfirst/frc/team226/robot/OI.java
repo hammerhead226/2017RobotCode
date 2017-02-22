@@ -6,7 +6,9 @@ import static org.usfirst.frc.team226.robot.RobotMap.MANIP_CONTROLLER;
 
 import org.usfirst.frc.team226.robot.commands.cmdExpandRobot;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_button;
+import org.usfirst.frc.team226.robot.commands.cmdPIDDriveInches;
 import org.usfirst.frc.team226.robot.commands.cmdPIDLeftShooter;
+import org.usfirst.frc.team226.robot.commands.cmdResetDTSensors;
 import org.usfirst.frc.team226.robot.commands.cmdResetRobot;
 import org.usfirst.frc.team226.robot.commands.cmdToggleCameraTurret;
 import org.usfirst.frc.team226.robot.extlib.Controller;
@@ -22,18 +24,18 @@ public class OI {
 	public Controller manip = new Controller(MANIP_CONTROLLER, 0.2);
 	
 	public OI() {
-		driver.getRSButton().whenPressed(new cmdToggleCameraTurret());
-//		driver.getAButton().whenPressed(new cmdPIDTurnWithVision());
-
 		
-		manip.getAButton().whenPressed(new cmdPIDLeftShooter(2950));
+//		manip.getAButton().whenPressed(new cmdPIDLeftShooter(2950));
 //		manip.getAButton().whenPressed(new cmdPIDRightShooter(3000));
-		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
+//		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
 //		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());
-		manip.getBButton().whenPressed(new cmdToggleCameraTurret());
+//		manip.getBButton().whenPressed(new cmdToggleCameraTurret());
+		driver.getAButton().whenPressed(new cmdPIDDriveInches(80.0));
+		driver.getXButton().whenPressed(new cmdPIDDriveInches(144.0));
+		driver.getYButton().whenPressed(new cmdResetDTSensors());
 		
-		manip.getSTARTButton().whenPressed(new cmdExpandRobot());
-		manip.getBACKButton().whenPressed(new cmdResetRobot());
+//		manip.getSTARTButton().whenPressed(new cmdExpandRobot());
+//		manip.getBACKButton().whenPressed(new cmdResetRobot());
 	  	
 	}
 	

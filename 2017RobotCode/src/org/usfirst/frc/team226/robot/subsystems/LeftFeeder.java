@@ -1,15 +1,12 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
+import static org.usfirst.frc.team226.robot.RobotMap.L_AGITATOR_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.L_FEEDER_MOTOR;
 
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_manual;
-import org.usfirst.frc.team226.robot.extlib.LeftMagEncoderVelocityMimic;
-import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 
 import com.ctre.CANTalon;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,22 +18,13 @@ public class LeftFeeder extends Subsystem {
 	public double multiplier = 0.7;
 
 	private CANTalon motor = new CANTalon(L_FEEDER_MOTOR);
-
-	private static double Kp = 0;
-	private static double Ki = 0;
-	private static double Kd = 0;
-	private static double Kf = 0;
-
-	private PIDOutputMimic velMimic = new PIDOutputMimic();
-	private LeftMagEncoderVelocityMimic sm = new LeftMagEncoderVelocityMimic(motor, PIDSourceType.kRate);
-	public PIDController velPID = new PIDController(Kp, Ki, Kd, Kf, sm, velMimic);
+	private CANTalon agitatorMotor = new CANTalon(L_AGITATOR_MOTOR);
 
 	public LeftFeeder() {
 		motor.setInverted(true);
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new cmdMoveLeftFeeder_manual());
 	}
 
 	// Getters
@@ -51,13 +39,15 @@ public class LeftFeeder extends Subsystem {
 		motor.set(speed);
 	}
 
+	public void setAgitatorSpeed(double speed) {
+		agitatorMotor.set(speed);
+	}
+
 	// Utility
 
 	public void log() {
 		SmartDashboard.putNumber("LF_RPM", getFeederVelocity());
-		SmartDashboard.putNumber("LF_PIDOutput", velPID.get());
-		SmartDashboard.putNumber("LF_PIDSetpoint", velPID.getSetpoint());
-		SmartDashboard.putBoolean("LF_PIDEnabled", velPID.isEnabled());
-		SmartDashboard.putNumber("LF_Talon", motor.getBusVoltage());
+		SmartDashboard.putNumber("LF_Talon", motor.getOutputVoltage());
+		SmartDashboard.putNumber("LF_Ag_Talon", agitatorMotor.getOutputVoltage());
 	}
 }

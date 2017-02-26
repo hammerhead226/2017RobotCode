@@ -1,15 +1,12 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
+import static org.usfirst.frc.team226.robot.RobotMap.R_AGITATOR_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.R_FEEDER_MOTOR;
 
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_manual;
-import org.usfirst.frc.team226.robot.extlib.RightMagEncoderVelocityMimic;
-import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 
 import com.ctre.CANTalon;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -17,22 +14,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class RightFeeder extends Subsystem {
+	
 	public double multiplier = 0.7;
 
 	private CANTalon motor = new CANTalon(R_FEEDER_MOTOR);
-
-	private static double Kp = 0;
-	private static double Ki = 0;
-	private static double Kd = 0;
-	private static double Kf = 0;
-
-	private PIDOutputMimic velMimic = new PIDOutputMimic();
-	private RightMagEncoderVelocityMimic sm = new RightMagEncoderVelocityMimic(motor, PIDSourceType.kRate);
-	public PIDController velPID = new PIDController(Kp, Ki, Kd, Kf, sm, velMimic);
-
+	private CANTalon agitatorMotor = new CANTalon(R_AGITATOR_MOTOR);
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new cmdMoveRightFeeder_manual());
 	}
 
 	// Getters
@@ -47,13 +35,15 @@ public class RightFeeder extends Subsystem {
 		motor.set(speed);
 	}
 
+	public void setAgitatorSpeed(double speed) {
+		agitatorMotor.set(speed);
+	}
+
 	// Utility
 
 	public void log() {
 		SmartDashboard.putNumber("RF_RPM", getFeederVelocity());
-		SmartDashboard.putNumber("RF_PIDOutput", velPID.get());
-		SmartDashboard.putNumber("RF_PIDSetpoint", velPID.getSetpoint());
-		SmartDashboard.putBoolean("RF_PIDEnabled", velPID.isEnabled());
-		SmartDashboard.putNumber("RF_Talon", motor.getBusVoltage());
+		SmartDashboard.putNumber("RF_Talon", motor.getOutputVoltage());
+		SmartDashboard.putNumber("RF_Ag_Talon", agitatorMotor.getOutputVoltage());
 	}
 }

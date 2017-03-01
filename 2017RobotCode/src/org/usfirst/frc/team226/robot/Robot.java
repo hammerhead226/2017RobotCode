@@ -7,9 +7,11 @@ import org.usfirst.frc.team226.robot.extlib.GRIPPipeline;
 import org.usfirst.frc.team226.robot.subsystems.CameraTurret;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team226.robot.subsystems.LeftAgitator;
 import org.usfirst.frc.team226.robot.subsystems.LeftFeeder;
 import org.usfirst.frc.team226.robot.subsystems.LeftShooter;
 import org.usfirst.frc.team226.robot.subsystems.PopoutServos;
+import org.usfirst.frc.team226.robot.subsystems.RightAgitator;
 import org.usfirst.frc.team226.robot.subsystems.RightFeeder;
 import org.usfirst.frc.team226.robot.subsystems.RightShooter;
 
@@ -40,8 +42,10 @@ public class Robot extends IterativeRobot {
 	public static final ClimberIntake climberIntake = new ClimberIntake();
 	public static final LeftShooter leftShooter = new LeftShooter();
 	public static final LeftFeeder leftFeeder = new LeftFeeder();
+	public static final LeftAgitator leftAgitator = new LeftAgitator();
 	public static final RightShooter rightShooter = new RightShooter();
 	public static final RightFeeder rightFeeder = new RightFeeder();
+	public static final RightAgitator rightAgitator = new RightAgitator();
 	public static final CameraTurret cameraTurret = new CameraTurret();
 	public static final PopoutServos popoutServos = new PopoutServos();
 	public static OI oi;
@@ -255,9 +259,9 @@ public class Robot extends IterativeRobot {
 //		this.robotLog();
 //		this.visionLog();
 //		climberIntake.log();
-//		leftShooter.log();
+		leftShooter.log();
 //		rightShooter.log();
-//		leftFeeder.log();
+		leftFeeder.log();
 //		rightFeeder.log();
 		driveTrain.log();
 	}

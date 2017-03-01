@@ -18,7 +18,6 @@ public class LeftFeeder extends Subsystem {
 	public double multiplier = 0.7;
 
 	private CANTalon motor = new CANTalon(L_FEEDER_MOTOR);
-	private CANTalon agitatorMotor = new CANTalon(L_AGITATOR_MOTOR);
 
 	public LeftFeeder() {
 		motor.setInverted(true);
@@ -39,15 +38,10 @@ public class LeftFeeder extends Subsystem {
 		motor.set(speed);
 	}
 
-	public void setAgitatorSpeed(double speed) {
-		agitatorMotor.set(speed);
-	}
-
 	// Utility
 
 	public void log() {
 		SmartDashboard.putNumber("LF_RPM", getFeederVelocity());
 		SmartDashboard.putNumber("LF_Talon", motor.getOutputVoltage());
-		SmartDashboard.putNumber("LF_Ag_Talon", agitatorMotor.getOutputVoltage());
 	}
 }

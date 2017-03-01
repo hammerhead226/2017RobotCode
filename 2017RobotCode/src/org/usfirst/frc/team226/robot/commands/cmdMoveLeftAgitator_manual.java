@@ -7,20 +7,21 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class cmdMoveLeftFeeder_button extends Command {
+public class cmdMoveLeftAgitator_manual extends Command {
 
-    public cmdMoveLeftFeeder_button() {
+    public cmdMoveLeftAgitator_manual() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.leftFeeder);
+        // eg. requires(chassis);
+    	requires(Robot.leftAgitator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.leftFeeder.setFeederSpeed(0.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.leftAgitator.setAgitatorSpeed(Robot.oi.manip.getRightJoystick_Y());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -30,12 +31,10 @@ public class cmdMoveLeftFeeder_button extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.leftFeeder.setFeederSpeed(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.leftFeeder.setFeederSpeed(0);
     }
 }

@@ -3,8 +3,6 @@ package org.usfirst.frc.team226.robot.subsystems;
 import static org.usfirst.frc.team226.robot.RobotMap.R_AGITATOR_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.R_FEEDER_MOTOR;
 
-import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_manual;
-
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;

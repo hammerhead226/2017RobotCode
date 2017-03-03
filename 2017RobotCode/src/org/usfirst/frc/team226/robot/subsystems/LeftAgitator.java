@@ -2,8 +2,6 @@ package org.usfirst.frc.team226.robot.subsystems;
 
 import static org.usfirst.frc.team226.robot.RobotMap.L_AGITATOR_MOTOR;
 
-import org.usfirst.frc.team226.robot.commands.cmdMoveLeftAgitator_manual;
-
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;

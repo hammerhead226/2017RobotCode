@@ -1,9 +1,6 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
-import static org.usfirst.frc.team226.robot.RobotMap.L_AGITATOR_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.L_FEEDER_MOTOR;
-
-import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_manual;
 
 import com.ctre.CANTalon;
 

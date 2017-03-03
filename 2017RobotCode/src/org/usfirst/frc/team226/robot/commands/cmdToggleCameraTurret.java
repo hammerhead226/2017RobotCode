@@ -22,10 +22,10 @@ public class cmdToggleCameraTurret extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (Robot.oi.driver.getLeftTrigger() > 0.1) {
-    		Robot.cameraTurret.servoBackward();
+    		Robot.cameraTurret.servoForward();
     	}
     	else {
-    		Robot.cameraTurret.servoForward();
+    		Robot.cameraTurret.servoBackward();
     	}
     }
 

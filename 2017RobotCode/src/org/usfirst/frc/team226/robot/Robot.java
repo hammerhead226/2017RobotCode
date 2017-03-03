@@ -216,7 +216,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		visionInit();
-		autonomousCommand = chooser.getSelected();
+//		autonomousCommand = chooser.getSelected();
 		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -259,10 +259,10 @@ public class Robot extends IterativeRobot {
 //		this.robotLog();
 //		this.visionLog();
 //		climberIntake.log();
-		leftShooter.log();
-//		rightShooter.log();
-		leftFeeder.log();
-//		rightFeeder.log();
+//		leftShooter.log();
+		rightShooter.log();
+//		leftFeeder.log();
+		rightFeeder.log();
 		driveTrain.log();
 	}
 

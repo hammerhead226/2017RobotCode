@@ -61,6 +61,7 @@ public class Robot extends IterativeRobot {
 	public static Rect cntRect;
 	private VisionThread visionThread;
 	private UsbCamera visionCam;
+	private UsbCamera driverCam;
 	private final Object imgLock = new Object();
 	
 	public static double angle;
@@ -115,11 +116,11 @@ public class Robot extends IterativeRobot {
 		this.robotLog();
 		
 		// initialize the camera and the vision thread
-		UsbCamera visionCam = CameraServer.getInstance().startAutomaticCapture(0);
+		visionCam = CameraServer.getInstance().startAutomaticCapture(0);
 		visionCam.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		visionCam.setExposureManual(0);
 		
-		UsbCamera driverCam = CameraServer.getInstance().startAutomaticCapture(1);
+		driverCam = CameraServer.getInstance().startAutomaticCapture(1);
 		driverCam.setResolution(640, 480);
 	}
 
@@ -161,25 +162,25 @@ public class Robot extends IterativeRobot {
 								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
 							}
 						}
-	//					if (idx1 >= 0 && idx2 >= 0) {
-	//						if (gearCnt[idx1].x < gearCnt[idx2].x) {
-	//							midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
-	//							SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
-	//							SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
-	//							SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
-	//							SmartDashboard.putNumber("Gear Tape 2 Width", gearCnt[idx2].width);
-	//							SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
-	//							SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
-	//						} else {
-	//							midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
-	//							SmartDashboard.putNumber("Tape 2 Width", gearCnt[idx2].width);
-	//							SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
-	//							SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
-	//							SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
-	//							SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
-	//							SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
-	//						}
-	//					}
+//						if (idx1 >= 0 && idx2 >= 0) {
+//							if (gearCnt[idx1].x < gearCnt[idx2].x) {
+//								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
+//								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
+//								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
+//								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
+//								SmartDashboard.putNumber("Gear Tape 2 Width", gearCnt[idx2].width);
+//								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
+//								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
+//							} else {
+//								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
+//								SmartDashboard.putNumber("Tape 2 Width", gearCnt[idx2].width);
+//								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
+//								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
+//								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
+//								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
+//								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
+//							}
+//						}
 					}
 				}
 			});
@@ -258,13 +259,13 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 
 //		this.robotLog();
-//		this.visionLog();
+		this.visionLog();
 //		climberIntake.log();
 //		leftShooter.log();
-		rightShooter.log();
+//		rightShooter.log();
 //		leftFeeder.log();
-		rightFeeder.log();
-		driveTrain.log();
+//		rightFeeder.log();
+//		driveTrain.log();
 	}
 
 	/**

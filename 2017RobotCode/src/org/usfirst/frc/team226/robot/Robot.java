@@ -3,6 +3,7 @@ package org.usfirst.frc.team226.robot;
 
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team226.robot.commands.grpMiddleGearAuton;
 import org.usfirst.frc.team226.robot.extlib.GRIPPipeline;
 import org.usfirst.frc.team226.robot.subsystems.CameraTurret;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
@@ -108,9 +109,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		// chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		// SmartDashboard.putData("Auto mode", chooser);
+		 chooser.addDefault("Default Auto", new grpMiddleGearAuton());
+//		 chooser.addObject("My Auto", new MyAutoCommand());
+		 SmartDashboard.putData("Auto mode", chooser);
 		this.robotLog();
 		
 		// initialize the camera and the vision thread
@@ -216,7 +217,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		visionInit();
-//		autonomousCommand = chooser.getSelected();
+		autonomousCommand = chooser.getSelected();
 		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

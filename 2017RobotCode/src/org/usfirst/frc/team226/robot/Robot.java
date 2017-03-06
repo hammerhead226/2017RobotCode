@@ -162,25 +162,25 @@ public class Robot extends IterativeRobot {
 								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
 							}
 						}
-//						if (idx1 >= 0 && idx2 >= 0) {
-//							if (gearCnt[idx1].x < gearCnt[idx2].x) {
-//								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
-//								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
-//								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
-//								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
-//								SmartDashboard.putNumber("Gear Tape 2 Width", gearCnt[idx2].width);
-//								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
-//								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
-//							} else {
-//								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
-//								SmartDashboard.putNumber("Tape 2 Width", gearCnt[idx2].width);
-//								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
-//								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
-//								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
-//								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
-//								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
-//							}
-//						}
+						if (idx1 >= 0 && idx2 >= 0) {
+							if (gearCnt[idx1].x < gearCnt[idx2].x) {
+								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
+								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
+								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
+								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
+								SmartDashboard.putNumber("Gear Tape 2 Width", gearCnt[idx2].width);
+								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
+								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
+							} else {
+								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
+								SmartDashboard.putNumber("Tape 2 Width", gearCnt[idx2].width);
+								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
+								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
+								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
+								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
+								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
+							}
+						}
 					}
 				}
 			});
@@ -265,7 +265,9 @@ public class Robot extends IterativeRobot {
 //		rightShooter.log();
 //		leftFeeder.log();
 //		rightFeeder.log();
-//		driveTrain.log();
+//		rightAgitator.log();
+//		leftAgitator.log();
+		driveTrain.log();
 	}
 
 	/**

@@ -69,19 +69,19 @@ public class cmdPIDTurnWithVision extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 
-		if (Math.abs(Robot.driveTrain.dirController.getError()) < 1.3) {
-			if (!wasOnTarget) {
-				startTime = System.currentTimeMillis();
-				wasOnTarget = true;
-			}
-			long timeOnTarget = System.currentTimeMillis() - startTime;
-			if (timeOnTarget >= onTargetDuration) {
-				wasOnTarget = false;
-				return true;
-			}
-			
-		} else wasOnTarget = false;
-		
+//		if (Math.abs(Robot.driveTrain.dirController.getError()) < 1.3) {
+//			if (!wasOnTarget) {
+//				startTime = System.currentTimeMillis();
+//				wasOnTarget = true;
+//			}
+//			long timeOnTarget = System.currentTimeMillis() - startTime;
+//			if (timeOnTarget >= onTargetDuration) {
+//				wasOnTarget = false;
+//				return true;
+//			}
+//			
+//		} else wasOnTarget = false;
+//		
 		if (Robot.oi.driver.getBACKButtonPressed())
 			return true;
 		return false;
@@ -91,6 +91,10 @@ public class cmdPIDTurnWithVision extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.driveTrain.dirController.reset();
+		Robot.driveTrain.frontLeftMotor.changeControlMode(TalonControlMode.PercentVbus);
+		Robot.driveTrain.rearLeftMotor.changeControlMode(TalonControlMode.PercentVbus);
+		Robot.driveTrain.frontRightMotor.changeControlMode(TalonControlMode.PercentVbus);
+		Robot.driveTrain.rearRightMotor.changeControlMode(TalonControlMode.PercentVbus);
 	}
 
 	// Called when another command which requires one or more of the same

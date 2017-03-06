@@ -25,7 +25,7 @@ public class cmdPIDDriveInches extends Command {
 		// Convert inches to encoder ticks (pulses?)
 		this.driveSetpoint = driveSetpoint;
 		double conversionFactor = 4096.0 / (Math.PI * 6); 
-		// 4096 ppr (1024 at 4x) per 8pi inches (wheel circumference)
+		// 4096 ppr (1024 at 4x) per 6pi inches (wheel circumference)
 		this.driveSetpoint = driveSetpoint * conversionFactor;
 		SmartDashboard.putNumber("DT_DistSetpoint", this.driveSetpoint);
 	}

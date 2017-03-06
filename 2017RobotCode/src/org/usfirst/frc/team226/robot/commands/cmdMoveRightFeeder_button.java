@@ -16,7 +16,7 @@ public class cmdMoveRightFeeder_button extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.rightFeeder.setFeederSpeed(0.5);
+    	Robot.rightFeeder.setFeederSpeed(1.0);
     }
 
     // Called repeatedly when this Command is scheduled to run

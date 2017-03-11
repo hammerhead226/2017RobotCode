@@ -12,9 +12,9 @@ public class cmdPIDTurnToAngle extends Command {
 	private int angle;
 	private double multiplier;
 
-//	 private boolean wasOnTarget = false;
-//	 private long startTime;
-//	 private int onTargetDuration = 1000;
+	 private boolean wasOnTarget = false;
+	 private long startTime;
+	 private int onTargetDuration = 100;
 
 	public cmdPIDTurnToAngle(int angle, double multiplier) {
 		// Use requires() here to declare subsystem dependencies
@@ -22,11 +22,12 @@ public class cmdPIDTurnToAngle extends Command {
 		requires(Robot.driveTrain);
 		this.multiplier = multiplier;
 		this.angle = angle;
-		// this.onTargetDuration = secondsOnTarget * 1000;
+//		this.onTargetDuration = secondsOnTarget * 1000;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		// Different PID control for different angles
 		// if (Math.abs(angle) <= 15) {
 		// Robot.driveTrain.dirController.setPID(0.045, 0.0075, 0);
 		// Robot.driveTrain.dirController.setAbsoluteTolerance(0.05);
@@ -49,25 +50,28 @@ public class cmdPIDTurnToAngle extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.oi.driver.getBACKButtonPressed();
-//		 if (Math.abs(Robot.driveTrain.dirController.getError()) < 0.8) {
-//		 if (!wasOnTarget) {
-//		 startTime = System.currentTimeMillis();
-//		 wasOnTarget = true;
-//		 }
-//		 long timeOnTarget = System.currentTimeMillis() - startTime;
-//		 if (timeOnTarget >= onTargetDuration) {
-//		 wasOnTarget = false;
-//		 return true;
-//		 }
-//		 }
-//		 wasOnTarget = false;
-//		 return false;
+		if (Math.abs(Robot.driveTrain.dirController.getError()) < 1.5) {
+			if (!wasOnTarget) {
+				startTime = System.currentTimeMillis();
+				wasOnTarget = true;
+			}
+			long timeOnTarget = System.currentTimeMillis() - startTime;
+			if (timeOnTarget >= onTargetDuration) {
+				wasOnTarget = false;
+				return true;
+			}
+			
+		} else wasOnTarget = false;
+		
+		if (Robot.oi.driver.getBACKButtonPressed())
+			return true;
+		return false;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.driveTrain.dirController.disable();
+		Robot.driveTrain.dirController.reset();
 
 	}
 

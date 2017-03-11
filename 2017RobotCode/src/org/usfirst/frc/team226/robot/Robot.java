@@ -110,7 +110,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		 chooser.addDefault("Default Auto", new grpMiddleGearAuton());
+		 chooser.addDefault("Middle Gear Auton", new grpMiddleGearAuton());
 //		 chooser.addObject("My Auto", new MyAutoCommand());
 		 SmartDashboard.putData("Auto mode", chooser);
 		this.robotLog();
@@ -261,8 +261,8 @@ public class Robot extends IterativeRobot {
 //		this.robotLog();
 		this.visionLog();
 //		climberIntake.log();
-//		leftShooter.log();
-//		rightShooter.log();
+		leftShooter.log();
+		rightShooter.log();
 //		leftFeeder.log();
 //		rightFeeder.log();
 //		rightAgitator.log();

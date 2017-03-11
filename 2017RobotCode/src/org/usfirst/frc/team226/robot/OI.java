@@ -4,11 +4,14 @@ package org.usfirst.frc.team226.robot;
 import static org.usfirst.frc.team226.robot.RobotMap.DRIVER_CONTROLLER;
 import static org.usfirst.frc.team226.robot.RobotMap.MANIP_CONTROLLER;
 
-import org.usfirst.frc.team226.robot.commands.cmdMoveRightAgitator_manual;
+import org.usfirst.frc.team226.robot.commands.cmdExpandRobot;
+import org.usfirst.frc.team226.robot.commands.cmdMoveLeftAgitator_button;
+import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_button;
+import org.usfirst.frc.team226.robot.commands.cmdMoveRightAgitator_button;
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_button;
+import org.usfirst.frc.team226.robot.commands.cmdPIDLeftShooter;
 import org.usfirst.frc.team226.robot.commands.cmdPIDRightShooter;
-import org.usfirst.frc.team226.robot.commands.cmdPIDTurnToAngle;
-import org.usfirst.frc.team226.robot.commands.cmdPIDTurnWithVision;
+import org.usfirst.frc.team226.robot.commands.cmdResetRobot;
 import org.usfirst.frc.team226.robot.extlib.Controller;
 
 
@@ -23,48 +26,43 @@ public class OI {
 	
 	public OI() {
 		
-//		manip.getAButton().whenPressed(new cmdPIDLeftShooter(3000));
+		manip.getAButton().whenPressed(new cmdPIDLeftShooter(3000));
 		manip.getAButton().whenPressed(new cmdPIDRightShooter(3150));
+//		manip.getAButton().whenPressed(new cmdPIDLeftShooter(3150));
+		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
 		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());
 		
-//		manip.getYButton().whileHeld(new cmdMoveRightAgitator_button(3, 0.5, 0.5, 1.0));
-		manip.getYButton().whenPressed(new cmdMoveRightAgitator_manual());
-		
-//		manip.getBButton().whenPressed(new cmdToggleCameraTurret());
+		manip.getYButton().whileHeld(new cmdMoveRightAgitator_button(3, 0.5, 0.5, 1.0));
+		manip.getYButton().whileHeld(new cmdMoveLeftAgitator_button(3, 0.5, 0.5, 1.0));
 		
 //		driver.getAButton().whenPressed(new cmdPIDDriveInches(-75.0, 0.7));
 //		driver.getXButton().whenPressed(new cmdPIDDriveInches(-19.0, 0.7));
 //		driver.getYButton().whenPressed(new cmdResetDTSensors());
 		
 //		driver.getAButton().whenPressed(new cmdPIDTurnToAngle(20, 0.7));
-		driver.getXButton().whenPressed(new cmdPIDTurnToAngle(60, 0.7));
-		driver.getYButton().whenPressed(new cmdPIDTurnToAngle(140, 0.7));
+//		driver.getXButton().whenPressed(new cmdPIDTurnToAngle(60, 0.7));
+//		driver.getYButton().whenPressed(new cmdPIDTurnToAngle(140, 0.7));
 		
-		driver.getAButton().whenPressed(new cmdPIDTurnWithVision());
+//		driver.getAButton().whenPressed(new cmdPIDTurnWithVision());
 		
 		
-//		manip.getSTARTButton().whenPressed(new cmdExpandRobot());
-//		manip.getBACKButton().whenPressed(new cmdResetRobot());
+		manip.getSTARTButton().whenPressed(new cmdExpandRobot());
+		manip.getBACKButton().whenPressed(new cmdResetRobot());
 	  	
 	}
 	
 	/*Controller Bindings
 	 * Driver:
-	 * A - vision align
-	 * B - stop vision align
 	 * LT hold - backwards driving toggle & camera servo toggle
 	 * RT hold - half speed driving toggle
 	 * 
 	 * Manip:
 	 * A - shooter/feeder pid start
 	 * B - shooter/feeder pid stop
-	 * START - release servos
-	 * BACK - reset servos
-	 * LT - intake forwards
-	 * RT - intake backwards
+	 * Y(HOLD) - feeder/agitator move on button
+	 * START - toggle servos in and out
+	 * LT(HOLD) - intake forwards
+	 * RT(HOLD) - intake backwards
 	 * RS - manual shooter/feeder control
-	 * Dpad left - switch to hopper shooting angle
-	 * Dpad right - switch to airship shooting angle
-	 * Dpad down - switch to boiler shooting angle
 	 */
 }

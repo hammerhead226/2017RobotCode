@@ -3,6 +3,8 @@ package org.usfirst.frc.team226.robot.subsystems;
 import static org.usfirst.frc.team226.robot.RobotMap.R_AGITATOR_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.R_FEEDER_MOTOR;
 
+import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_manual;
+
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,6 +21,7 @@ public class RightFeeder extends Subsystem {
 	private CANTalon agitatorMotor = new CANTalon(R_AGITATOR_MOTOR);
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new cmdMoveRightFeeder_manual());
 	}
 
 	// Getters

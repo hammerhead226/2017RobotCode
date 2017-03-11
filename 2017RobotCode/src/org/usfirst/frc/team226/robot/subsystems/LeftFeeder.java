@@ -2,6 +2,8 @@ package org.usfirst.frc.team226.robot.subsystems;
 
 import static org.usfirst.frc.team226.robot.RobotMap.L_FEEDER_MOTOR;
 
+import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_manual;
+
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,6 +23,8 @@ public class LeftFeeder extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new cmdMoveLeftFeeder_manual());
+
 	}
 
 	// Getters

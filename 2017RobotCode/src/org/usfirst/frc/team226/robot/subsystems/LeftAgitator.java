@@ -2,6 +2,8 @@ package org.usfirst.frc.team226.robot.subsystems;
 
 import static org.usfirst.frc.team226.robot.RobotMap.L_AGITATOR_MOTOR;
 
+import org.usfirst.frc.team226.robot.commands.cmdMoveLeftAgitator_manual;
+
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -15,7 +17,7 @@ public class LeftAgitator extends Subsystem {
 	private CANTalon agitatorMotor = new CANTalon(L_AGITATOR_MOTOR);
 
     public void initDefaultCommand() {
-//    	setDefaultCommand(new cmdMoveLeftAgitator_manual());
+    	setDefaultCommand(new cmdMoveLeftAgitator_manual());
     }
     
     public void setAgitatorSpeed(double speed) {

@@ -35,7 +35,7 @@ public class RightShooter extends Subsystem {
 
 	private static double Kp = 0.000016;
 	private static double Ki = 0;
-	private static double Kd = 0;
+	private static double Kd = 0.00005; //potentially too high D
 	private static double Kf = 0.00005;
 
 	private PIDOutputMimic velMimic = new PIDOutputMimic();

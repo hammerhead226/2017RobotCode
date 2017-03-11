@@ -18,7 +18,7 @@ public class cmdExpandRobot extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.popoutServos.expandRobot();
-    	Timer.delay(0.5);
+    	Timer.delay(0.7);
     	Robot.popoutServos.resetRobot();
     }
 

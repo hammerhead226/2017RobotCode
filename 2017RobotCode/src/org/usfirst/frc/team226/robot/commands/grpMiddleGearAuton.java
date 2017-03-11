@@ -24,9 +24,10 @@ public class grpMiddleGearAuton extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addParallel(new cmdExpandRobot());
     	addSequential(new cmdPIDDriveInches(-65, 0.5));
-    	addSequential(new cmdPIDDriveInches(-15, 0.65));
-    	addSequential(new cmdWait(2));
+    	addSequential(new cmdPIDDriveInches(-15, 0.65), 1.5);
+    	addSequential(new cmdWait(2.5));
     	addSequential(new cmdPIDDriveInches(50, 0.5));
     }
 }

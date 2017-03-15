@@ -43,8 +43,7 @@ public class RightFeeder extends Subsystem {
 	// Utility
 
 	public void log() {
-		SmartDashboard.putNumber("RF_RPM", getFeederVelocity());
-		SmartDashboard.putNumber("RF_Talon", motor.getOutputVoltage());
-		SmartDashboard.putNumber("RF_Ag_Talon", agitatorMotor.getOutputVoltage());
+//		SmartDashboard.putNumber("RF_RPM", getFeederVelocity());
+//		SmartDashboard.putNumber("RF_Talon", motor.getOutputVoltage());
 	}
 }

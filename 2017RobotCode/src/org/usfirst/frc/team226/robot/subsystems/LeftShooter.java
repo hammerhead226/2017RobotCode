@@ -82,11 +82,11 @@ public class LeftShooter extends Subsystem {
 	public void log() {
 		SmartDashboard.putNumber("LS_RPM", getShooterRPM());
 		SmartDashboard.putNumber("LS_RPMnum", getShooterRPM());
-		SmartDashboard.putNumber("LS_PIDOutput", velPID.get());
-		SmartDashboard.putNumber("LS_PIDSetpoint", velPID.getSetpoint());
-		SmartDashboard.putBoolean("LS_PIDEnabled", velPID.isEnabled());
-		SmartDashboard.putNumber("LS_LTalon", frontMotor.getBusVoltage());
-		SmartDashboard.putNumber("LS_RTalon", backMotor.getBusVoltage());
+//		SmartDashboard.putNumber("LS_PIDOutput", velPID.get());
+//		SmartDashboard.putNumber("LS_PIDSetpoint", velPID.getSetpoint());
+//		SmartDashboard.putBoolean("LS_PIDEnabled", velPID.isEnabled());
+		SmartDashboard.putNumber("LS_LTalon", frontMotor.getOutputVoltage());
+		SmartDashboard.putNumber("LS_RTalon", backMotor.getOutputVoltage());
 		SmartDashboard.putData("LS_PID", velPID);
 	}
 }

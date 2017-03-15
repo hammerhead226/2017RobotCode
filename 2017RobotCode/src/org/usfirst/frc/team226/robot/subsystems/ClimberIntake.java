@@ -34,7 +34,7 @@ public class ClimberIntake extends Subsystem {
 	}
 
 	public void log() {
-		SmartDashboard.putNumber("CI_LTalon", leftMotor.getBusVoltage());
-		SmartDashboard.putNumber("CI_RTalon", rightMotor.getBusVoltage());
+		SmartDashboard.putNumber("CI_LTalon", leftMotor.getOutputVoltage());
+		SmartDashboard.putNumber("CI_RTalon", rightMotor.getOutputVoltage());
 	}
 }

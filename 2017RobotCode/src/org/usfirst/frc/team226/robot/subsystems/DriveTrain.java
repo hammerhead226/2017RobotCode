@@ -94,18 +94,18 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void log() {
-		SmartDashboard.putNumber("DT_LeftPos", frontLeftMotor.getPosition());
-		SmartDashboard.putNumber("DT_RightPos", frontRightMotor.getPosition());
-		SmartDashboard.putNumber("DT_FLTalon", frontLeftMotor.getOutputVoltage());
-		SmartDashboard.putNumber("DT_RLTalon", rearLeftMotor.getOutputVoltage());
-		SmartDashboard.putNumber("DT_FRTalon", frontRightMotor.getOutputVoltage());
-		SmartDashboard.putNumber("DT_RRTalon", rearRightMotor.getOutputVoltage());
+//		SmartDashboard.putNumber("DT_LeftPos", frontLeftMotor.getPosition());
+//		SmartDashboard.putNumber("DT_RightPos", frontRightMotor.getPosition());
+//		SmartDashboard.putNumber("DT_FLTalon", frontLeftMotor.getOutputVoltage());
+//		SmartDashboard.putNumber("DT_RLTalon", rearLeftMotor.getOutputVoltage());
+//		SmartDashboard.putNumber("DT_FRTalon", frontRightMotor.getOutputVoltage());
+//		SmartDashboard.putNumber("DT_RRTalon", rearRightMotor.getOutputVoltage());
 		SmartDashboard.putData("DT_DistPID", distController);
 		SmartDashboard.putData("DT_DirPID", dirController);
-		SmartDashboard.putNumber("DT_DirPIDOutput", dirController.get());
+//		SmartDashboard.putNumber("DT_DirPIDOutput", dirController.get());
 		SmartDashboard.putNumber("DT_DoubleEncoder", doubleEncoder.pidGet());
 		SmartDashboard.putNumber("DT_DoubleEncodernum", doubleEncoder.pidGet());
 		SmartDashboard.putNumber("DT_NavXHeading", navX.getYaw());
-		SmartDashboard.putNumber("DT_NavXHeadingnum", navX.getYaw());
+//		SmartDashboard.putNumber("DT_NavXHeadingnum", navX.getYaw());
 	}
 }

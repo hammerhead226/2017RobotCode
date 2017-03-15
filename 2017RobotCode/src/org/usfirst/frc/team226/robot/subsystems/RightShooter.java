@@ -35,7 +35,7 @@ public class RightShooter extends Subsystem {
 
 	private static double Kp = 0.000016;
 	private static double Ki = 0;
-	private static double Kd = 0.00005; //potentially too high D
+	private static double Kd = 0.000035; //potentially too high D
 	private static double Kf = 0.00005;
 
 	private PIDOutputMimic velMimic = new PIDOutputMimic();
@@ -84,11 +84,11 @@ public class RightShooter extends Subsystem {
 	public void log() {
 		SmartDashboard.putNumber("RS_RPM", getShooterRPM());
 		SmartDashboard.putNumber("RS_RPMnum", getShooterRPM());
-		SmartDashboard.putNumber("RS_PIDOutput", velPID.get());
-		SmartDashboard.putNumber("RS_PIDSetpoint", velPID.getSetpoint());
-		SmartDashboard.putBoolean("RS_PIDEnabled", velPID.isEnabled());
-		SmartDashboard.putNumber("RS_LTalon", backMotor.getBusVoltage());
-		SmartDashboard.putNumber("RS_RTalon", frontMotor.getBusVoltage());
+//		SmartDashboard.putNumber("RS_PIDOutput", velPID.get());
+//		SmartDashboard.putNumber("RS_PIDSetpoint", velPID.getSetpoint());
+//		SmartDashboard.putBoolean("RS_PIDEnabled", velPID.isEnabled());
+		SmartDashboard.putNumber("RS_LTalon", backMotor.getOutputVoltage());
+		SmartDashboard.putNumber("RS_RTalon", frontMotor.getOutputVoltage());
 		SmartDashboard.putData("RS_PID", velPID);
 	}
 }

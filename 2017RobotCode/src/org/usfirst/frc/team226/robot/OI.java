@@ -26,14 +26,12 @@ public class OI {
 	
 	public OI() {
 		
-		manip.getAButton().whenPressed(new cmdPIDLeftShooter(3000));
-		manip.getAButton().whenPressed(new cmdPIDRightShooter(3150));
-//		manip.getAButton().whenPressed(new cmdPIDLeftShooter(3150));
+		manip.getAButton().whenPressed(new cmdPIDLeftShooter(3150));
+		manip.getAButton().whenPressed(new cmdPIDRightShooter(3075));
 		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
 		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());
-		
-		manip.getYButton().whileHeld(new cmdMoveRightAgitator_button(3, 0.5, 0.5, 1.0));
-		manip.getYButton().whileHeld(new cmdMoveLeftAgitator_button(3, 0.5, 0.5, 1.0));
+		manip.getYButton().whileHeld(new cmdMoveRightAgitator_button(3, 1, 0.5, 0.75));
+		manip.getYButton().whileHeld(new cmdMoveLeftAgitator_button(3, 1, 0.5, -0.75));
 		
 //		driver.getAButton().whenPressed(new cmdPIDDriveInches(-75.0, 0.7));
 //		driver.getXButton().whenPressed(new cmdPIDDriveInches(-19.0, 0.7));
@@ -44,7 +42,6 @@ public class OI {
 //		driver.getYButton().whenPressed(new cmdPIDTurnToAngle(140, 0.7));
 		
 //		driver.getAButton().whenPressed(new cmdPIDTurnWithVision());
-		
 		
 		manip.getSTARTButton().whenPressed(new cmdExpandRobot());
 		manip.getBACKButton().whenPressed(new cmdResetRobot());

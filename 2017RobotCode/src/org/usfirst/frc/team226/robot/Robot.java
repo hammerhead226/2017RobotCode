@@ -3,7 +3,9 @@ package org.usfirst.frc.team226.robot;
 
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team226.robot.commands.grpBaselineAuton;
 import org.usfirst.frc.team226.robot.commands.grpMiddleGearAuton;
+import org.usfirst.frc.team226.robot.commands.grpShooterAutonRED;
 import org.usfirst.frc.team226.robot.extlib.GRIPPipeline;
 import org.usfirst.frc.team226.robot.subsystems.CameraTurret;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
@@ -110,8 +112,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		 chooser.addDefault("Middle Gear Auton", new grpMiddleGearAuton());
-//		 chooser.addObject("My Auto", new MyAutoCommand());
+		 chooser.addObject("Middle Gear Auton", new grpMiddleGearAuton());
+		 chooser.addObject("Baseline Cross", new grpBaselineAuton());
+		 chooser.addDefault("Red Shooter Auton", new grpShooterAutonRED());
 		 SmartDashboard.putData("Auto mode", chooser);
 		this.robotLog();
 		
@@ -259,14 +262,14 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 
 //		this.robotLog();
-		this.visionLog();
-//		climberIntake.log();
+//		this.visionLog();
+		climberIntake.log();
 		leftShooter.log();
 		rightShooter.log();
 //		leftFeeder.log();
 //		rightFeeder.log();
-//		rightAgitator.log();
-//		leftAgitator.log();
+		rightAgitator.log();
+		leftAgitator.log();
 		driveTrain.log();
 	}
 

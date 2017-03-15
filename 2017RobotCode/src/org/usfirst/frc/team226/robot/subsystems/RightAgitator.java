@@ -1,20 +1,18 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
-import static org.usfirst.frc.team226.robot.RobotMap.R_AGITATOR_MOTOR;
-
+import org.usfirst.frc.team226.robot.RobotMap;
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightAgitator_manual;
 
-import com.ctre.CANTalon;
-
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class RightAgitator extends Subsystem {
 	
-	private CANTalon agitatorMotor = new CANTalon(R_AGITATOR_MOTOR);
+	private SpeedController agitatorMotor = new TalonSRX(RobotMap.R_AGITATOR_MOTOR);
 
     public void initDefaultCommand() {
     	setDefaultCommand(new cmdMoveRightAgitator_manual());
@@ -25,7 +23,7 @@ public class RightAgitator extends Subsystem {
 	}
     
     public void log() {
-		SmartDashboard.putNumber("RAg_Talon", agitatorMotor.getOutputVoltage());
+//		SmartDashboard.putNumber("RAg_Talon", agitatorMotor.getOutputVoltage());
     }
 }
 

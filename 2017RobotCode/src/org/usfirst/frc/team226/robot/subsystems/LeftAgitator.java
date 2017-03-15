@@ -15,6 +15,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class LeftAgitator extends Subsystem {
 	
 	private CANTalon agitatorMotor = new CANTalon(L_AGITATOR_MOTOR);
+	
+	public LeftAgitator() {
+		agitatorMotor.setInverted(true);
+	}
 
     public void initDefaultCommand() {
     	setDefaultCommand(new cmdMoveLeftAgitator_manual());
@@ -22,6 +26,7 @@ public class LeftAgitator extends Subsystem {
     
     public void setAgitatorSpeed(double speed) {
 		agitatorMotor.set(speed);
+//		System.out.println("Left speed" + speed);
 	}
     
     public void log() {

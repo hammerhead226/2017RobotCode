@@ -43,6 +43,6 @@ public class LeftFeeder extends Subsystem {
 
 	public void log() {
 //		SmartDashboard.putNumber("LF_RPM", getFeederVelocity());
-//		SmartDashboard.putNumber("LF_Talon", motor.getOutputVoltage());
+		SmartDashboard.putNumber("LF_Talon", motor.getOutputVoltage());
 	}
 }

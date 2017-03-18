@@ -44,6 +44,6 @@ public class RightFeeder extends Subsystem {
 
 	public void log() {
 //		SmartDashboard.putNumber("RF_RPM", getFeederVelocity());
-//		SmartDashboard.putNumber("RF_Talon", motor.getOutputVoltage());
+		SmartDashboard.putNumber("RF_Talon", motor.getOutputVoltage());
 	}
 }

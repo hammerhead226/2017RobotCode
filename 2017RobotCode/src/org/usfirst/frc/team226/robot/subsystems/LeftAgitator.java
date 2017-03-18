@@ -17,7 +17,7 @@ public class LeftAgitator extends Subsystem {
 	private CANTalon agitatorMotor = new CANTalon(L_AGITATOR_MOTOR);
 	
 	public LeftAgitator() {
-		agitatorMotor.setInverted(true);
+//		agitatorMotor.setInverted(true);
 	}
 
     public void initDefaultCommand() {

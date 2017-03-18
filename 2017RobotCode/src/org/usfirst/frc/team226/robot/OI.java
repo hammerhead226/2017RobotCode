@@ -11,6 +11,8 @@ import org.usfirst.frc.team226.robot.commands.cmdMoveRightAgitator_button;
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_button;
 import org.usfirst.frc.team226.robot.commands.cmdPIDLeftShooter;
 import org.usfirst.frc.team226.robot.commands.cmdPIDRightShooter;
+import org.usfirst.frc.team226.robot.commands.cmdPIDTurnToAngle;
+import org.usfirst.frc.team226.robot.commands.cmdPIDTurnToAngleCurved;
 import org.usfirst.frc.team226.robot.commands.cmdResetRobot;
 import org.usfirst.frc.team226.robot.extlib.Controller;
 
@@ -37,9 +39,9 @@ public class OI {
 //		driver.getXButton().whenPressed(new cmdPIDDriveInches(-19.0, 0.7));
 //		driver.getYButton().whenPressed(new cmdResetDTSensors());
 		
-//		driver.getAButton().whenPressed(new cmdPIDTurnToAngle(20, 0.7));
-//		driver.getXButton().whenPressed(new cmdPIDTurnToAngle(60, 0.7));
-//		driver.getYButton().whenPressed(new cmdPIDTurnToAngle(140, 0.7));
+		driver.getAButton().whenPressed(new cmdPIDTurnToAngleCurved(31.5, 0.72, 0.68));
+		driver.getXButton().whenPressed(new cmdPIDTurnToAngle(32, 0.7));
+		driver.getYButton().whenPressed(new cmdPIDTurnToAngleCurved(75, 0.75, 0.85));
 		
 //		driver.getAButton().whenPressed(new cmdPIDTurnWithVision());
 		

@@ -71,6 +71,7 @@ public class cmdMoveRightAgitator_button extends Command {
 		
 		double output = speed;
 		if (reverse) {
+			output = 1;
 			output *= -1;
 		}
 		if (wait) {

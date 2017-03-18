@@ -13,8 +13,8 @@ public class cmdMoveLeftAgitator_button extends Command {
 	private Timer timer = new Timer();
 
 	private boolean reverse = false;
-	private boolean wait = false;
-	private int state = 1;
+	private boolean wait = true;
+	private int state = 0;
 	private double forwardTime;
 	private double backTime;
 	private double waitTime;
@@ -45,6 +45,15 @@ public class cmdMoveLeftAgitator_button extends Command {
 //			reverse = !reverse;
 //		}
 		switch (state) {
+		
+		case 0: 
+			if (timer.get() >= waitTime) {
+				timer.reset();
+				wait = false;
+				state = 1;
+			}
+			break;
+			
 		case 1: 
 			if (timer.get() >= forwardTime) {
 				timer.reset();
@@ -52,6 +61,7 @@ public class cmdMoveLeftAgitator_button extends Command {
 				state = 2;
 			}
 			break;
+			
 		case 2:
 			if (timer.get() >= waitTime) {
 				timer.reset();
@@ -60,17 +70,19 @@ public class cmdMoveLeftAgitator_button extends Command {
 				state = 3;
 			}
 			break;
+			
 		case 3:
 			if (timer.get() >= backTime) {
 				timer.reset();
 				reverse = false;
-				state = 1;
+				state = 0;
 			}
 			break;
 		}
 		
 		double output = speed;
 		if (reverse) {
+			output = 1;
 			output *= -1;
 		}
 		if (wait) {

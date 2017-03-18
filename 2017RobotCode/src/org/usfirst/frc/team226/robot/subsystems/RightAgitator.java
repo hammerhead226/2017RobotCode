@@ -16,6 +16,10 @@ public class RightAgitator extends Subsystem {
 	
 //	private CANTalon agitatorMotor = new CANTalon(RobotMap.R_AGITATOR_MOTOR);
 	
+	public RightAgitator() {
+		agitatorMotor.setInverted(true);
+	}
+	
     public void initDefaultCommand() {
     	setDefaultCommand(new cmdMoveRightAgitator_manual());
     }

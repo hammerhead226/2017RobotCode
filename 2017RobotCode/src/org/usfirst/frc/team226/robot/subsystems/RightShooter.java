@@ -2,7 +2,6 @@ package org.usfirst.frc.team226.robot.subsystems;
 
 import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_B_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_F_MOTOR;
-import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_LINEAR_ACTUATOR;
 
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightShooter_manual;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
@@ -13,7 +12,6 @@ import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -31,7 +29,6 @@ public class RightShooter extends Subsystem {
 	private CANTalon backMotor = new CANTalon(R_SHOOTER_B_MOTOR);
 	private CANTalon frontMotor = new CANTalon(R_SHOOTER_F_MOTOR);
 	
-	private Servo linearActuator = new Servo(R_SHOOTER_LINEAR_ACTUATOR);
 
 	private static double Kp = 0.000016;
 	private static double Ki = 0;
@@ -50,7 +47,6 @@ public class RightShooter extends Subsystem {
 		backMotor.setInverted(true);
 		frontMotor.setInverted(true);
 		
-		setLinearActuator(0);
 	}
 
 	public void initDefaultCommand() {
@@ -64,9 +60,6 @@ public class RightShooter extends Subsystem {
 		frontMotor.set(speed);
 	}
 	
-	public void setLinearActuator(double value) {
-		linearActuator.set(value);
-	}
 
 	// Getters
 

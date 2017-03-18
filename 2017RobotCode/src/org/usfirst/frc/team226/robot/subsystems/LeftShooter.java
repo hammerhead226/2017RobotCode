@@ -2,7 +2,6 @@ package org.usfirst.frc.team226.robot.subsystems;
 
 import static org.usfirst.frc.team226.robot.RobotMap.L_SHOOTER_B_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.L_SHOOTER_F_MOTOR;
-import static org.usfirst.frc.team226.robot.RobotMap.L_SHOOTER_LINEAR_ACTUATOR;
 
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftShooter_manual;
 import org.usfirst.frc.team226.robot.extlib.LeftMagEncoderVelocityMimic;
@@ -13,7 +12,6 @@ import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -31,7 +29,6 @@ public class LeftShooter extends Subsystem {
 	private CANTalon frontMotor = new CANTalon(L_SHOOTER_F_MOTOR);
 	private CANTalon backMotor = new CANTalon(L_SHOOTER_B_MOTOR);
 	
-	private Servo linearActuator = new Servo(L_SHOOTER_LINEAR_ACTUATOR);
 
 	private static double Kp = 0.000016;
 	private static double Ki = 0;
@@ -48,7 +45,6 @@ public class LeftShooter extends Subsystem {
 		velPID.setPercentTolerance(5);
 		velPID.setOutputRange(-1.0, 1.0);
 		
-		setLinearActuator(0);
 	}
 
 	public void initDefaultCommand() {
@@ -62,9 +58,6 @@ public class LeftShooter extends Subsystem {
 		backMotor.set(speed);
 	}
 	
-	public void setLinearActuator(double value) {
-		linearActuator.set(value);
-	}
 
 	// Getters
 

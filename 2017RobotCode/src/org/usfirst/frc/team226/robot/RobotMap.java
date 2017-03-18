@@ -40,7 +40,7 @@ public class RobotMap {
 	public static final int L_SHOOTER_F_MOTOR = 10;
 	public static final int L_SHOOTER_B_MOTOR = 11;
 	public static final int L_FEEDER_MOTOR = 12;
-	public static final int L_AGITATOR_MOTOR = 14;
+	public static final int L_AGITATOR_MOTOR = 7;
 
 	public static final int R_SHOOTER_F_MOTOR = 4;
 	public static final int R_SHOOTER_B_MOTOR = 5;

@@ -1,20 +1,20 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
-import static org.usfirst.frc.team226.robot.RobotMap.L_AGITATOR_MOTOR;
-
+import org.usfirst.frc.team226.robot.RobotMap;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftAgitator_manual;
 
-import com.ctre.CANTalon;
-
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class LeftAgitator extends Subsystem {
 	
-	private CANTalon agitatorMotor = new CANTalon(L_AGITATOR_MOTOR);
+	private SpeedController agitatorMotor = new TalonSRX(RobotMap.L_AGITATOR_MOTOR);
+	
+//	private CANTalon agitatorMotor = new CANTalon(RobotMap.R_AGITATOR_MOTOR);
 	
 	public LeftAgitator() {
 //		agitatorMotor.setInverted(true);
@@ -26,11 +26,10 @@ public class LeftAgitator extends Subsystem {
     
     public void setAgitatorSpeed(double speed) {
 		agitatorMotor.set(speed);
-//		System.out.println("Left speed" + speed);
 	}
     
     public void log() {
-		SmartDashboard.putNumber("LAg_Talon", agitatorMotor.getOutputVoltage());
+//		SmartDashboard.putNumber("LAg_Talon", agitatorMotor.getOutputVoltage());
     }
 }
 

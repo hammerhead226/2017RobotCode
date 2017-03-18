@@ -6,7 +6,6 @@ import org.usfirst.frc.team226.robot.commands.cmdMoveRightAgitator_manual;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -16,6 +15,7 @@ public class RightAgitator extends Subsystem {
 	private SpeedController agitatorMotor = new TalonSRX(RobotMap.R_AGITATOR_MOTOR);
 	
 //	private CANTalon agitatorMotor = new CANTalon(RobotMap.R_AGITATOR_MOTOR);
+	
     public void initDefaultCommand() {
     	setDefaultCommand(new cmdMoveRightAgitator_manual());
     }

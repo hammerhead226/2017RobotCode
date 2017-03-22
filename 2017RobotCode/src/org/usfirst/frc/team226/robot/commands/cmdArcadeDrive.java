@@ -36,12 +36,12 @@ public class cmdArcadeDrive extends Command {
     	double turn = Robot.oi.driver.getRightJoystick_X();
     	
     	if (Robot.oi.driver.getRightTrigger() > 0.5) {
-    		throttle *= 0.65;
-    		turn *= 0.75;
+    		throttle *= 0.55;
+    		turn *= 0.55;
     	}
-    	if (Robot.oi.driver.getLeftTrigger() > 0.5) {
-    		throttle *= -1;
-    	}
+//    	if (Robot.oi.driver.getLeftTrigger() > 0.5) {
+//    		throttle *= -1;
+//    	}
     	
     	Robot.driveTrain.arcadeDrive(throttle, turn);
     }

@@ -15,7 +15,7 @@ public class cmdPIDTurnToAngleCurved extends Command {
 
 	 private boolean wasOnTarget = false;
 	 private long startTime;
-	 private int onTargetDuration = 100;
+	 private int onTargetDuration = 300;
 
 	public cmdPIDTurnToAngleCurved(double angle, double leftMultiplier, double rightMultiplier) {
 		// Use requires() here to declare subsystem dependencies
@@ -51,7 +51,7 @@ public class cmdPIDTurnToAngleCurved extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Math.abs(Robot.driveTrain.dirController.getError()) < 0.5) {
+		if (Math.abs(Robot.driveTrain.dirController.getError()) < 1.5) {
 			if (!wasOnTarget) {
 				startTime = System.currentTimeMillis();
 				wasOnTarget = true;

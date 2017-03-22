@@ -29,7 +29,7 @@ public class cmdPIDTurnToAngle extends Command {
 	protected void initialize() {
 		// Different PID control for different angles
 		// if (Math.abs(angle) <= 15) {
-		// Robot.driveTrain.dirController.setPID(0.045, 0.0075, 0);
+//		 Robot.driveTrain.dirController.setPID(0.11, 0.02, 0.205); //ROBOT 1
 		// Robot.driveTrain.dirController.setAbsoluteTolerance(0.05);
 		// }
 		// else {

@@ -10,7 +10,7 @@ public class RobotMap {
 
 	// Motor Ports - ROBOT 1
 	
-	public static final int DT_FL_MOTOR = 8;
+	/*public static final int DT_FL_MOTOR = 8;
 	public static final int DT_FR_MOTOR = 2;
 	public static final int DT_RL_MOTOR = 7;
 	public static final int DT_RR_MOTOR = 3;
@@ -27,11 +27,11 @@ public class RobotMap {
 
 
 	public static final int CLIMBERINTAKE_LEFT_MOTOR = 9;
-	public static final int CLIMBERINTAKE_RIGHT_MOTOR = 1;
+	public static final int CLIMBERINTAKE_RIGHT_MOTOR = 1;*/
 	
 	//Motor Ports - ROBOT 2
 	
-	/*public static final int DT_FL_MOTOR = 8;
+	public static final int DT_FL_MOTOR = 8;
 	public static final int DT_FR_MOTOR = 2;
 	public static final int DT_RL_MOTOR = 9;
 	public static final int DT_RR_MOTOR = 3;
@@ -47,7 +47,7 @@ public class RobotMap {
 	public static final int R_AGITATOR_MOTOR = 6; //PWM
 
 	public static final int CLIMBERINTAKE_LEFT_MOTOR = 7;
-	public static final int CLIMBERINTAKE_RIGHT_MOTOR = 1;*/
+	public static final int CLIMBERINTAKE_RIGHT_MOTOR = 1;
 
 	
 	

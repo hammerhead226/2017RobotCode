@@ -34,13 +34,13 @@ public class OI {
 		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
 		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());
 		manip.getYButton().whileHeld(new cmdMoveRightAgitator_button(3, 0.5, 0.5, 0.75));
-		manip.getYButton().whileHeld(new cmdMoveLeftAgitator_button(3, 0.5, 0.5, -0.75));
+		manip.getYButton().whileHeld(new cmdMoveLeftAgitator_button(3, 0.5, 0.5, 0.75));
 		
 //		driver.getAButton().whenPressed(new cmdPIDDriveInches(-75.0, 0.7));
 //		driver.getXButton().whenPressed(new cmdPIDDriveInches(-19.0, 0.7));
 //		driver.getYButton().whenPressed(new cmdResetDTSensors());
 		
-		driver.getAButton().whenPressed(new cmdPIDTurnToAngleCurved(31.5, 0.72, 0.68));
+		driver.getAButton().whenPressed(new cmdPIDTurnToAngleCurved(35, 0.72, 0.68));
 		driver.getXButton().whenPressed(new cmdPIDTurnToAngle(32, 0.7));
 		driver.getYButton().whenPressed(new cmdPIDTurnToAngleCurved(75, 0.75, 0.85));
 		

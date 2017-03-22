@@ -4,8 +4,11 @@ package org.usfirst.frc.team226.robot;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team226.robot.commands.grpBaselineAuton;
+import org.usfirst.frc.team226.robot.commands.grpHopperAutonBLUE;
 import org.usfirst.frc.team226.robot.commands.grpHopperAutonRED;
 import org.usfirst.frc.team226.robot.commands.grpMiddleGearAuton;
+import org.usfirst.frc.team226.robot.commands.grpRightGearAutonRED;
+import org.usfirst.frc.team226.robot.commands.grpShooterAutonBLUE;
 import org.usfirst.frc.team226.robot.commands.grpShooterAutonRED;
 import org.usfirst.frc.team226.robot.extlib.GRIPPipeline;
 import org.usfirst.frc.team226.robot.subsystems.CameraTurret;
@@ -113,10 +116,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		 chooser.addObject("Middle Gear Auton", new grpMiddleGearAuton());
+		 chooser.addDefault("Middle Gear Auton", new grpMiddleGearAuton());
 		 chooser.addObject("Baseline Cross", new grpBaselineAuton());
 		 chooser.addObject("Red Shooter Auton", new grpShooterAutonRED());
-		 chooser.addDefault("Red Hopper Auton", new grpHopperAutonRED());
+		 chooser.addObject("Blue Shooter Auton", new grpShooterAutonBLUE());
+		 chooser.addObject("Red Hopper Auton", new grpHopperAutonRED());
+		 chooser.addObject("Blue Hopper Auton", new grpHopperAutonBLUE());
+		 chooser.addObject("Red Right Gear Auton", new grpRightGearAutonRED());
+
 		 SmartDashboard.putData("Auto mode", chooser);
 		this.robotLog();
 		
@@ -263,7 +270,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 
-		this.robotLog();
+//		this.robotLog();
 //		this.visionLog();
 //		climberIntake.log();
 //		leftShooter.log();
@@ -272,7 +279,7 @@ public class Robot extends IterativeRobot {
 //		rightFeeder.log();
 //		rightAgitator.log();
 //		leftAgitator.log();
-//		driveTrain.log();
+		driveTrain.log();
 	}
 
 	/**

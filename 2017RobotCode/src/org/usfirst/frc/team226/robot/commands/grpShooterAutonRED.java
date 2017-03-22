@@ -33,9 +33,9 @@ public class grpShooterAutonRED extends CommandGroup {
     	addParallel(new cmdPIDLeftShooter(3150));
     	
     	//drive out, turn, drive up to boiler
-    	addSequential(new cmdPIDDriveInches(-35, 0.6));
+    	addSequential(new cmdPIDDriveInches(-40, 0.65));
     	addSequential(new cmdPIDTurnToAngle(-45, 0.7));
-    	addSequential(new cmdPIDDriveInches(36, 0.7), 1.5);
+    	addSequential(new cmdPIDDriveInches(40, 0.5), 2.0);
     	
     	//run agitators, feeders :: shoot
     	addParallel(new cmdMoveLeftAgitator_button(10, 0, 0, 0.55));

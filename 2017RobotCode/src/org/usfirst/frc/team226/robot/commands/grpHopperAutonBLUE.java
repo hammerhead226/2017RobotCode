@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class grpHopperAutonRED extends CommandGroup {
+public class grpHopperAutonBLUE extends CommandGroup {
 
-    public grpHopperAutonRED() {
+    public grpHopperAutonBLUE() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -48,7 +48,7 @@ public class grpHopperAutonRED extends CommandGroup {
 //    	
 //    	addSequential(new cmdPIDTurnToAngleCurved(80, 0.75, 0.73));  
     	addParallel(new cmdExpandRobot());
-    	addSequential(new cmdPIDTurnToAngleCurved(37, 0.72, 0.68));
+    	addSequential(new cmdPIDTurnToAngleCurved(37, 0.68, 0.72));
     	
     	addSequential(new cmdPIDDriveInches(160, 0.85), 2.0);
     	
@@ -62,7 +62,7 @@ public class grpHopperAutonRED extends CommandGroup {
     	addParallel(new cmdPIDRightShooter(3075));
     	addParallel(new cmdPIDLeftShooter(3150));
     	addParallel(new cmdMoveClimberIntake_button(1));
-    	addSequential(new cmdPIDTurnToAngleCurved(70, 0.80, 0.90));
+    	addSequential(new cmdPIDTurnToAngleCurved(70, 0.90, 0.80));
 //    	addSequential(new cmdPIDTurnToAngle(70, 0.7));
     	
     	addSequential(new cmdPIDDriveInches(135, 0.9), 2);

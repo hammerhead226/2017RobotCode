@@ -28,8 +28,8 @@ public class OI {
 	
 	public OI() {
 		
-		manip.getAButton().whenPressed(new cmdPIDLeftShooter(3150));
-		manip.getAButton().whenPressed(new cmdPIDRightShooter(3075));
+		manip.getAButton().whenPressed(new cmdPIDLeftShooter(RobotMap.L_SHOOTER_SETPOINT)); //3075 maybe decrease to 3000?
+		manip.getAButton().whenPressed(new cmdPIDRightShooter(RobotMap.R_SHOOTER_SETPOINT)); //3150 maybe decrease to 3075?
 		
 		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
 		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());

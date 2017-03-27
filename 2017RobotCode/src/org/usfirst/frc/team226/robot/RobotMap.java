@@ -7,10 +7,14 @@ package org.usfirst.frc.team226.robot;
  * floating around.
  */
 public class RobotMap {
+	
+	// Constants
+	public static final int L_SHOOTER_SETPOINT = 3075;
+	public static final int R_SHOOTER_SETPOINT = 3150;
 
 	// Motor Ports - ROBOT 1
 	
-	/*public static final int DT_FL_MOTOR = 8;
+	public static final int DT_FL_MOTOR = 8;
 	public static final int DT_FR_MOTOR = 2;
 	public static final int DT_RL_MOTOR = 7;
 	public static final int DT_RR_MOTOR = 3;
@@ -27,11 +31,11 @@ public class RobotMap {
 
 
 	public static final int CLIMBERINTAKE_LEFT_MOTOR = 9;
-	public static final int CLIMBERINTAKE_RIGHT_MOTOR = 1;*/
+	public static final int CLIMBERINTAKE_RIGHT_MOTOR = 1;
 	
 	//Motor Ports - ROBOT 2
 	
-	public static final int DT_FL_MOTOR = 8;
+	/*public static final int DT_FL_MOTOR = 8;
 	public static final int DT_FR_MOTOR = 2;
 	public static final int DT_RL_MOTOR = 9;
 	public static final int DT_RR_MOTOR = 3;
@@ -45,9 +49,9 @@ public class RobotMap {
 	public static final int R_SHOOTER_B_MOTOR = 5;
 	public static final int R_FEEDER_MOTOR = 6;
 	public static final int R_AGITATOR_MOTOR = 6; //PWM
-
+o
 	public static final int CLIMBERINTAKE_LEFT_MOTOR = 7;
-	public static final int CLIMBERINTAKE_RIGHT_MOTOR = 1;
+	public static final int CLIMBERINTAKE_RIGHT_MOTOR = 1;*/
 
 	
 	

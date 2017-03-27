@@ -15,7 +15,7 @@ public class cmdPIDTurnToAngleCurved extends Command {
 
 	 private boolean wasOnTarget = false;
 	 private long startTime;
-	 private int onTargetDuration = 300;
+	 private int onTargetDuration = 100;
 
 	public cmdPIDTurnToAngleCurved(double angle, double leftMultiplier, double rightMultiplier) {
 		// Use requires() here to declare subsystem dependencies
@@ -30,7 +30,7 @@ public class cmdPIDTurnToAngleCurved extends Command {
 	protected void initialize() {
 		// Different PID control for different angles
 		// if (Math.abs(angle) <= 15) {
-		// Robot.driveTrain.dirController.setPID(0.045, 0.0075, 0);
+		 Robot.driveTrain.dirController.setPID(0.42, 0.00, 0.92);
 		// Robot.driveTrain.dirController.setAbsoluteTolerance(0.05);
 		// }
 		// else {

@@ -3,13 +3,15 @@ package org.usfirst.frc.team226.robot;
 
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team226.robot.commands.cmdStraightDrive;
 import org.usfirst.frc.team226.robot.commands.grpBaselineAuton;
+import org.usfirst.frc.team226.robot.commands.grpBoilerAutonBLUE;
+import org.usfirst.frc.team226.robot.commands.grpBoilerAutonRED;
 import org.usfirst.frc.team226.robot.commands.grpHopperAutonBLUE;
 import org.usfirst.frc.team226.robot.commands.grpHopperAutonRED;
+import org.usfirst.frc.team226.robot.commands.grpLeftGearBoilerAutonBLUE;
 import org.usfirst.frc.team226.robot.commands.grpMiddleGearAuton;
-import org.usfirst.frc.team226.robot.commands.grpRightGearAutonRED;
-import org.usfirst.frc.team226.robot.commands.grpShooterAutonBLUE;
-import org.usfirst.frc.team226.robot.commands.grpShooterAutonRED;
+import org.usfirst.frc.team226.robot.commands.grpRightGearBoilerAutonRED;
 import org.usfirst.frc.team226.robot.extlib.GRIPPipeline;
 import org.usfirst.frc.team226.robot.subsystems.CameraTurret;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
@@ -56,11 +58,10 @@ public class Robot extends IterativeRobot {
 	public static final CameraTurret cameraTurret = new CameraTurret();
 	public static final PopoutServos popoutServos = new PopoutServos();
 	public static OI oi;
-	
 
 	public static final int IMG_WIDTH = 320;
 	public static final int IMG_HEIGHT = 240;
-	
+
 	public static int numContours = 0;
 	public static int midpoint;
 	public static double centerX;
@@ -69,12 +70,16 @@ public class Robot extends IterativeRobot {
 	private UsbCamera visionCam;
 	private UsbCamera driverCam;
 	private final Object imgLock = new Object();
-	
+
 	public static double angle;
-	public static double theta; // horizontal FOV angle (calculated to be 57.175)
-	public static double dist; // distance to the plane perpendicular to the camera that the target is on
-	public static double delta; // pixel distance from perpendicular plane to target
-	public static double lambda; // angle required to turn to face target (angle to make delta = 0);
+	public static double theta; // horizontal FOV angle (calculated to be
+								// 57.175)
+	public static double dist; // distance to the plane perpendicular to the
+								// camera that the target is on
+	public static double delta; // pixel distance from perpendicular plane to
+								// target
+	public static double lambda; // angle required to turn to face target (angle
+									// to make delta = 0);
 	public static double turn;
 
 	Command autonomousCommand;
@@ -93,7 +98,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("BatteryVoltage", DriverStation.getInstance().getBatteryVoltage());
 		SmartDashboard.putBoolean("BrownedOut", DriverStation.getInstance().isBrownedOut());
 	}
-	
+
 	public void visionLog() {
 		SmartDashboard.putNumber("Lambda", lambda);
 		SmartDashboard.putNumber("Delta", delta);
@@ -102,12 +107,11 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("DirPID error graph", driveTrain.dirController.getError());
 		SmartDashboard.putNumber("DirPID direction", driveTrain.navX.pidGet());
 		SmartDashboard.putNumber("Number of Contours", numContours);
-    	SmartDashboard.putNumber("Midpoint of Gears", midpoint);
-    	SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
-    	SmartDashboard.putBoolean("Connected", driveTrain.navX.isConnected());
-    	SmartDashboard.putBoolean("Calibrating", driveTrain.navX.isCalibrating());
+		SmartDashboard.putNumber("Midpoint of Gears", midpoint);
+		SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
+		SmartDashboard.putBoolean("Connected", driveTrain.navX.isConnected());
+		SmartDashboard.putBoolean("Calibrating", driveTrain.navX.isCalibrating());
 	}
-	
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -116,22 +120,23 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		 chooser.addDefault("Middle Gear Auton", new grpMiddleGearAuton());
-		 chooser.addObject("Baseline Cross", new grpBaselineAuton());
-		 chooser.addObject("Red Shooter Auton", new grpShooterAutonRED());
-		 chooser.addObject("Blue Shooter Auton", new grpShooterAutonBLUE());
-		 chooser.addObject("Red Hopper Auton", new grpHopperAutonRED());
-		 chooser.addObject("Blue Hopper Auton", new grpHopperAutonBLUE());
-		 chooser.addObject("Red Right Gear Auton", new grpRightGearAutonRED());
+		chooser.addDefault("Middle Gear Auton", new grpMiddleGearAuton());
+		chooser.addObject("Baseline Cross", new grpBaselineAuton());
+		chooser.addObject("Red Shooter Auton", new grpBoilerAutonRED());
+		chooser.addObject("Blue Shooter Auton", new grpBoilerAutonBLUE());
+		chooser.addObject("Red Hopper Auton", new grpHopperAutonRED());
+		chooser.addObject("Blue Hopper Auton", new grpHopperAutonBLUE());
+		chooser.addObject("Red Right Gear + Boiler Auton", new grpRightGearBoilerAutonRED());
+		chooser.addObject("Blue Left Gear + Boiler Auton", new grpLeftGearBoilerAutonBLUE());
 
-		 SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Auto mode", chooser);
 		this.robotLog();
-		
+
 		// initialize the camera and the vision thread
 		visionCam = CameraServer.getInstance().startAutomaticCapture(0);
 		visionCam.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		visionCam.setExposureManual(0);
-		
+
 		driverCam = CameraServer.getInstance().startAutomaticCapture(1);
 		driverCam.setResolution(640, 480);
 	}
@@ -140,22 +145,22 @@ public class Robot extends IterativeRobot {
 		if (visionThread == null || !visionThread.isAlive()) {
 			visionThread = new VisionThread(visionCam, new GRIPPipeline(), pipeline -> {
 				numContours = 0;
-	
+
 				if (!pipeline.filterContoursOutput().isEmpty()) {
-	
+
 					synchronized (imgLock) {
-	
+
 						cntRect = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
 						numContours = pipeline.filterContoursOutput().size();
-	
+
 						Rect[] gearCnt = new Rect[pipeline.filterContoursOutput().size()];
 						double max1 = 0, max2 = 0;
 						int idx1 = -1, idx2 = -1;
-	
+
 						for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
 							gearCnt[i] = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
-	//						double area = gearCnt[i].area();
-	
+							// double area = gearCnt[i].area();
+
 							if (gearCnt[i].area() > max1) {
 								max2 = max1;
 								idx2 = idx1;
@@ -166,7 +171,7 @@ public class Robot extends IterativeRobot {
 								idx2 = i;
 							}
 						}
-	
+
 						if (idx1 >= 0 && idx2 >= 0) {
 							if (gearCnt[idx1].x < gearCnt[idx2].x) {
 								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
@@ -198,7 +203,8 @@ public class Robot extends IterativeRobot {
 			});
 			visionThread.start();
 		}
-	}		
+	}
+
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
@@ -206,13 +212,15 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		if(visionThread != null) {
+		if (visionThread != null) {
 			visionThread.interrupt();
 		}
+
 	}
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
 		Scheduler.getInstance().run();
 	}
 
@@ -231,7 +239,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		visionInit();
 		autonomousCommand = chooser.getSelected();
-		
+
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -268,18 +276,20 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
+		SmartDashboard.putData("Drive Straight", new cmdStraightDrive(36, 0.5, 0.5));
 		Scheduler.getInstance().run();
 
-//		this.robotLog();
-//		this.visionLog();
-//		climberIntake.log();
-//		leftShooter.log();
-//		rightShooter.log();
-//		leftFeeder.log();
-//		rightFeeder.log();
-//		rightAgitator.log();
-//		leftAgitator.log();
-		driveTrain.log();
+		// this.robotLog();
+		// this.visionLog();
+		// climberIntake.log();
+		leftShooter.log();
+		rightShooter.log();
+		// leftFeeder.log();
+		// rightFeeder.log();
+		// rightAgitator.log();
+		// leftAgitator.log();
+		// driveTrain.log();
 	}
 
 	/**

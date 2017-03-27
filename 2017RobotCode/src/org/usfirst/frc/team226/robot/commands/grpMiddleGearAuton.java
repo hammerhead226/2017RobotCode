@@ -27,7 +27,7 @@ public class grpMiddleGearAuton extends CommandGroup {
     	addParallel(new cmdExpandRobot());
     	addSequential(new cmdPIDDriveInches(-60, 0.55));
 //    	addParallel(new cmdExpandRobot());
-    	addSequential(new cmdPIDDriveInches(-10, 0.45), 2);
+    	addSequential(new cmdPIDDriveInches(-10, 0.45), 1.5);
     	addSequential(new cmdWait(2.0));
     	addSequential(new cmdPIDDriveInches(-15, 0.45), 2);
     	addSequential(new cmdPIDDriveInches(40, 0.6));

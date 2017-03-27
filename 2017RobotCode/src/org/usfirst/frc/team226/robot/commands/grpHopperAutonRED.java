@@ -1,5 +1,7 @@
 package org.usfirst.frc.team226.robot.commands;
 
+import org.usfirst.frc.team226.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -59,8 +61,8 @@ public class grpHopperAutonRED extends CommandGroup {
     	addParallel(new cmdMoveClimberIntake_button(1), 3.0);
     	addSequential(new cmdPIDDriveInches(-71, 0.90));
     	
-    	addParallel(new cmdPIDRightShooter(3075));
-    	addParallel(new cmdPIDLeftShooter(3150));
+    	addParallel(new cmdPIDRightShooter(RobotMap.R_SHOOTER_SETPOINT));
+    	addParallel(new cmdPIDLeftShooter(RobotMap.L_SHOOTER_SETPOINT));
     	addParallel(new cmdMoveClimberIntake_button(1));
     	addSequential(new cmdPIDTurnToAngleCurved(70, 0.80, 0.90));
 //    	addSequential(new cmdPIDTurnToAngle(70, 0.7));

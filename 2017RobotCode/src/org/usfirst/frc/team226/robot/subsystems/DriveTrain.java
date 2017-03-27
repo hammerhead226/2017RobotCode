@@ -35,9 +35,9 @@ public class DriveTrain extends Subsystem {
 	RobotDrive drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 
 	// Direction PID
-	private static double dirKp = 1.00; //DRIVE STRAIGHT - P=0.003, NO I OR D //0.11, 0.02, 0.205 
-	private static double dirKi = 0.00;
-	private static double dirKd = 0.00;
+	private static double dirKp = 0.11; //DRIVE STRAIGHT - P=0.003, NO  I OR D //0.11, 0.02, 0.205 
+	private static double dirKi = 0.02;
+	private static double dirKd = 0.205;
 	//DRIVE STRAIGHT - P=0.003
 	//ROBOT 1 CURVE - P=0.42, I=0.00, D=0.92
 	//ROBOT 1 POINT TURN - P=0.11, I=0.02, D=0.205

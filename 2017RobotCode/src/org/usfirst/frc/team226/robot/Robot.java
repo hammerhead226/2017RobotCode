@@ -3,19 +3,21 @@ package org.usfirst.frc.team226.robot;
 
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc.team226.robot.commands.cmdStraightDrive;
-import org.usfirst.frc.team226.robot.commands.grpBaselineAuton;
-import org.usfirst.frc.team226.robot.commands.grpBoilerAutonBLUE;
-import org.usfirst.frc.team226.robot.commands.grpBoilerAutonRED;
-import org.usfirst.frc.team226.robot.commands.grpHopperAutonBLUE;
-import org.usfirst.frc.team226.robot.commands.grpHopperAutonRED;
-import org.usfirst.frc.team226.robot.commands.grpLeftGearBoilerAutonBLUE;
-import org.usfirst.frc.team226.robot.commands.grpMiddleGearAuton;
-import org.usfirst.frc.team226.robot.commands.grpRightGearBoilerAutonRED;
+import org.usfirst.frc.team226.robot.autons.grpBaselineAuton;
+import org.usfirst.frc.team226.robot.autons.grpBoilerAutonBLUE;
+import org.usfirst.frc.team226.robot.autons.grpBoilerAutonRED;
+import org.usfirst.frc.team226.robot.autons.grpHopperAutonBLUE;
+import org.usfirst.frc.team226.robot.autons.grpHopperAutonRED;
+import org.usfirst.frc.team226.robot.autons.grpLeftGearBoilerAutonBLUE;
+import org.usfirst.frc.team226.robot.autons.grpMiddleGearAuton;
+import org.usfirst.frc.team226.robot.autons.grpMiddleGearBoilerBLUE;
+import org.usfirst.frc.team226.robot.autons.grpMiddleGearBoilerRED;
+import org.usfirst.frc.team226.robot.autons.grpRightGearBoilerAutonRED;
 import org.usfirst.frc.team226.robot.extlib.GRIPPipeline;
 import org.usfirst.frc.team226.robot.subsystems.CameraTurret;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team226.robot.subsystems.GearMech;
 import org.usfirst.frc.team226.robot.subsystems.LeftAgitator;
 import org.usfirst.frc.team226.robot.subsystems.LeftFeeder;
 import org.usfirst.frc.team226.robot.subsystems.LeftShooter;
@@ -29,8 +31,6 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Utility;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -57,6 +57,7 @@ public class Robot extends IterativeRobot {
 	public static final RightAgitator rightAgitator = new RightAgitator();
 	public static final CameraTurret cameraTurret = new CameraTurret();
 	public static final PopoutServos popoutServos = new PopoutServos();
+	public static final GearMech gearMech = new GearMech();
 	public static OI oi;
 
 	public static final int IMG_WIDTH = 320;
@@ -86,9 +87,6 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	public void robotLog() {
-		SmartDashboard.putNumber("time", Timer.getFPGATimestamp());
-		SmartDashboard.putNumber("time2", Utility.getFPGATime());
-		SmartDashboard.putNumber("time3", Timer.getMatchTime());
 		SmartDashboard.putNumber("3.3Voltage", ControllerPower.getVoltage3V3());
 		SmartDashboard.putNumber("5Voltage", ControllerPower.getVoltage5V());
 		SmartDashboard.putNumber("6Voltage", ControllerPower.getVoltage6V());
@@ -128,6 +126,8 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Blue Hopper Auton", new grpHopperAutonBLUE());
 		chooser.addObject("Red Right Gear + Boiler Auton", new grpRightGearBoilerAutonRED());
 		chooser.addObject("Blue Left Gear + Boiler Auton", new grpLeftGearBoilerAutonBLUE());
+		chooser.addObject("Blue Mid Gear + Boiler", new grpMiddleGearBoilerBLUE());
+		chooser.addObject("Red Mid Gear + Boiler", new grpMiddleGearBoilerRED());
 
 		SmartDashboard.putData("Auto mode", chooser);
 		this.robotLog();
@@ -257,6 +257,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
 		Scheduler.getInstance().run();
 	}
 
@@ -277,19 +278,19 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
-		SmartDashboard.putData("Drive Straight", new cmdStraightDrive(36, 0.5, 0.5));
 		Scheduler.getInstance().run();
 
 		// this.robotLog();
 		// this.visionLog();
 		// climberIntake.log();
-		leftShooter.log();
-		rightShooter.log();
+		// leftShooter.log();
+		// rightShooter.log();
 		// leftFeeder.log();
 		// rightFeeder.log();
 		// rightAgitator.log();
 		// leftAgitator.log();
 		// driveTrain.log();
+
 	}
 
 	/**

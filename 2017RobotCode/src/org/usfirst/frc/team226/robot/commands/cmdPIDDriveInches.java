@@ -35,8 +35,6 @@ public class cmdPIDDriveInches extends Command {
 		Robot.driveTrain.resetAllSensors();
 		Robot.driveTrain.distController.setSetpoint(driveSetpoint);
 		Robot.driveTrain.distController.enable();
-//		Robot.driveTrain.dirController.setSetpoint(0);
-//		Robot.driveTrain.dirController.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

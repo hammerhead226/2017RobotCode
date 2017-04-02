@@ -9,17 +9,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class cmdStraightDrive extends Command {
-	
+
 	private double driveSetpoint;
+	private double angle;
 	private double multiplier;
 	private double turnMultiplier;
 
-	public cmdStraightDrive(double driveSetpoint, double multiplier, double turnMultiplier) {
+	public cmdStraightDrive(double driveSetpoint, double angle, double multiplier, double turnMultiplier) {
 		// driveSetpoint is in inches
 		requires(Robot.driveTrain);
 
 		this.multiplier = multiplier;
 		this.turnMultiplier = turnMultiplier;
+		this.angle = angle;
 		// Convert inches to encoder ticks (pulses?)
 		this.driveSetpoint = driveSetpoint;
 		double conversionFactor = 4096.0 / (Math.PI * 6);
@@ -33,7 +35,7 @@ public class cmdStraightDrive extends Command {
 		Robot.driveTrain.resetAllSensors();
 		Robot.driveTrain.distController.setSetpoint(driveSetpoint);
 		Robot.driveTrain.distController.enable();
-		Robot.driveTrain.dirController.setSetpoint(0);
+		Robot.driveTrain.dirController.setSetpoint(angle);
 		Robot.driveTrain.dirController.enable();
 	}
 
@@ -42,20 +44,26 @@ public class cmdStraightDrive extends Command {
 		double throttle = Robot.driveTrain.distController.get();
 		double turn = Robot.driveTrain.dirController.get();
 
-		Robot.driveTrain.arcadeDrive(throttle*multiplier, turn*turnMultiplier);
+		Robot.driveTrain.tankDrive(turn * turnMultiplier + throttle * multiplier,
+				-turn * turnMultiplier + throttle * multiplier);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return Math.abs(Robot.driveTrain.dirController.getError()) < 1
+				&& Math.abs(Robot.driveTrain.distController.getError()) < 25;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.driveTrain.distController.reset();
+		Robot.driveTrain.dirController.reset();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		Robot.driveTrain.distController.reset();
+		Robot.driveTrain.dirController.reset();
 	}
 }

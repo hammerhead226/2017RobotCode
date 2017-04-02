@@ -50,7 +50,7 @@ public class cmdPIDTurnToAngle extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Math.abs(Robot.driveTrain.dirController.getError()) < 1.5) {
+		if (Math.abs(Robot.driveTrain.dirController.getError()) < 0.7) {
 			if (!wasOnTarget) {
 				startTime = System.currentTimeMillis();
 				wasOnTarget = true;

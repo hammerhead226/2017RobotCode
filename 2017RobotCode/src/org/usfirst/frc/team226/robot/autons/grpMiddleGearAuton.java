@@ -1,13 +1,19 @@
-package org.usfirst.frc.team226.robot.commands;
+package org.usfirst.frc.team226.robot.autons;
+
+import org.usfirst.frc.team226.robot.commands.cmdContractGearMech;
+import org.usfirst.frc.team226.robot.commands.cmdExpandGearMech;
+import org.usfirst.frc.team226.robot.commands.cmdExpandRobot;
+import org.usfirst.frc.team226.robot.commands.cmdStraightDrive;
+import org.usfirst.frc.team226.robot.commands.cmdWait;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class grpBaselineAuton extends CommandGroup {
+public class grpMiddleGearAuton extends CommandGroup {
 
-    public grpBaselineAuton() {
+    public grpMiddleGearAuton() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -25,6 +31,13 @@ public class grpBaselineAuton extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addParallel(new cmdExpandRobot());
-    	addSequential(new cmdPIDDriveInches(160, 0.8));
+    	addSequential(new cmdStraightDrive(-60, 0, 0.65, 0.4));
+    	addSequential(new cmdStraightDrive(-12, 0, 0.45, 0.65), 1.5);
+    	
+    	addParallel(new cmdExpandGearMech());
+    	addSequential(new cmdWait(0.5));
+    	
+    	addSequential(new cmdStraightDrive(40, 0, 0.65, 0.65));
+    	addSequential(new cmdContractGearMech());
     }
 }

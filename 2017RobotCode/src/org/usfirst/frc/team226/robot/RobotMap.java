@@ -10,7 +10,7 @@ public class RobotMap {
 	
 	// Constants
 	public static final int L_SHOOTER_SETPOINT = 3075;
-	public static final int R_SHOOTER_SETPOINT = 3150;
+	public static final int R_SHOOTER_SETPOINT = 3075;
 
 	// Motor Ports - ROBOT 1
 	
@@ -49,7 +49,7 @@ public class RobotMap {
 	public static final int R_SHOOTER_B_MOTOR = 5;
 	public static final int R_FEEDER_MOTOR = 6;
 	public static final int R_AGITATOR_MOTOR = 6; //PWM
-o
+
 	public static final int CLIMBERINTAKE_LEFT_MOTOR = 7;
 	public static final int CLIMBERINTAKE_RIGHT_MOTOR = 1;*/
 
@@ -61,6 +61,9 @@ o
 	public static final int LEFT_HOPPER_SERVO = 2;
 	public static final int RIGHT_HOPPER_SERVO = 0;
 	public static final int INTAKE_SERVO = 1;
+	public static final int LEFT_GEARMECH_SERVO = 8;
+	public static final int RIGHT_GEARMECH_SERVO = 9;
+
 	
 	// Controller Ports
 	public static final int DRIVER_CONTROLLER = 0;

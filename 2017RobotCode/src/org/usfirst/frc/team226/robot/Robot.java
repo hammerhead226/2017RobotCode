@@ -1,27 +1,29 @@
 
 package org.usfirst.frc.team226.robot;
 
+import java.sql.Driver;
+
 import org.opencv.core.Rect;
-import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team226.robot.autons.grpBaselineAuton;
 import org.usfirst.frc.team226.robot.autons.grpBoilerAutonBLUE;
 import org.usfirst.frc.team226.robot.autons.grpBoilerAutonRED;
 import org.usfirst.frc.team226.robot.autons.grpHopperAutonBLUE;
 import org.usfirst.frc.team226.robot.autons.grpHopperAutonRED;
 import org.usfirst.frc.team226.robot.autons.grpLeftGearBoilerAutonBLUE;
+import org.usfirst.frc.team226.robot.autons.grpLeftGearRED;
 import org.usfirst.frc.team226.robot.autons.grpMiddleGearAuton;
 import org.usfirst.frc.team226.robot.autons.grpMiddleGearBoilerBLUE;
 import org.usfirst.frc.team226.robot.autons.grpMiddleGearBoilerRED;
+import org.usfirst.frc.team226.robot.autons.grpRightGearBLUE;
 import org.usfirst.frc.team226.robot.autons.grpRightGearBoilerAutonRED;
-import org.usfirst.frc.team226.robot.extlib.GRIPPipeline;
 import org.usfirst.frc.team226.robot.subsystems.CameraTurret;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
+import org.usfirst.frc.team226.robot.subsystems.CruncherServos;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team226.robot.subsystems.GearMech;
 import org.usfirst.frc.team226.robot.subsystems.LeftAgitator;
 import org.usfirst.frc.team226.robot.subsystems.LeftFeeder;
 import org.usfirst.frc.team226.robot.subsystems.LeftShooter;
-import org.usfirst.frc.team226.robot.subsystems.PopoutServos;
 import org.usfirst.frc.team226.robot.subsystems.RightAgitator;
 import org.usfirst.frc.team226.robot.subsystems.RightFeeder;
 import org.usfirst.frc.team226.robot.subsystems.RightShooter;
@@ -31,12 +33,13 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.vision.VisionThread;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -56,7 +59,7 @@ public class Robot extends IterativeRobot {
 	public static final RightFeeder rightFeeder = new RightFeeder();
 	public static final RightAgitator rightAgitator = new RightAgitator();
 	public static final CameraTurret cameraTurret = new CameraTurret();
-	public static final PopoutServos popoutServos = new PopoutServos();
+	public static final CruncherServos cruncherServos = new CruncherServos();
 	public static final GearMech gearMech = new GearMech();
 	public static OI oi;
 
@@ -67,10 +70,10 @@ public class Robot extends IterativeRobot {
 	public static int midpoint;
 	public static double centerX;
 	public static Rect cntRect;
-	private VisionThread visionThread;
-	private UsbCamera visionCam;
+//	private VisionThread visionThread;
+//	private UsbCamera visionCam;
 	private UsbCamera driverCam;
-	private final Object imgLock = new Object();
+//	private final Object imgLock = new Object();
 
 	public static double angle;
 	public static double theta; // horizontal FOV angle (calculated to be
@@ -85,16 +88,27 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	
+	public static NetworkTable sharklogTable;
+	
+	public static NetworkTable getSharkLogTable() {
+		return sharklogTable;
+	}
 
-	public void robotLog() {
-		SmartDashboard.putNumber("3.3Voltage", ControllerPower.getVoltage3V3());
-		SmartDashboard.putNumber("5Voltage", ControllerPower.getVoltage5V());
-		SmartDashboard.putNumber("6Voltage", ControllerPower.getVoltage6V());
-		SmartDashboard.putNumber("3.3Current", ControllerPower.getCurrent3V3());
-		SmartDashboard.putNumber("5Current", ControllerPower.getCurrent5V());
-		SmartDashboard.putNumber("6Current", ControllerPower.getCurrent6V());
-		SmartDashboard.putNumber("BatteryVoltage", DriverStation.getInstance().getBatteryVoltage());
-		SmartDashboard.putBoolean("BrownedOut", DriverStation.getInstance().isBrownedOut());
+	public void robotSharkLog() {
+		sharklogTable.putNumber("3.3Voltage", ControllerPower.getVoltage3V3());
+		sharklogTable.putNumber("5Voltage", ControllerPower.getVoltage5V());
+		sharklogTable.putNumber("6Voltage", ControllerPower.getVoltage6V());
+		sharklogTable.putNumber("3.3Current", ControllerPower.getCurrent3V3());
+		sharklogTable.putNumber("5Current", ControllerPower.getCurrent5V());
+		sharklogTable.putNumber("6Current", ControllerPower.getCurrent6V());
+		sharklogTable.putNumber("BatteryVoltage", DriverStation.getInstance().getBatteryVoltage());
+		sharklogTable.putBoolean("BrownedOut", DriverStation.getInstance().isBrownedOut());
+		
+		sharklogTable.putBoolean("TeleopEnabled", DriverStation.getInstance().isOperatorControl());
+		sharklogTable.putBoolean("AutonEnabled", DriverStation.getInstance().isAutonomous());
+		
+		sharklogTable.putNumber("MatchTime", Timer.getMatchTime());
 	}
 
 	public void visionLog() {
@@ -128,82 +142,87 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Blue Left Gear + Boiler Auton", new grpLeftGearBoilerAutonBLUE());
 		chooser.addObject("Blue Mid Gear + Boiler", new grpMiddleGearBoilerBLUE());
 		chooser.addObject("Red Mid Gear + Boiler", new grpMiddleGearBoilerRED());
+		chooser.addObject("Red Left Gear", new grpLeftGearRED());
+		chooser.addObject("Blue Right Gear", new grpRightGearBLUE());		
 
 		SmartDashboard.putData("Auto mode", chooser);
-		this.robotLog();
-
+//		this.robotSharkLog();
+		
 		// initialize the camera and the vision thread
-		visionCam = CameraServer.getInstance().startAutomaticCapture(0);
-		visionCam.setResolution(IMG_WIDTH, IMG_HEIGHT);
-		visionCam.setExposureManual(0);
+//		visionCam = CameraServer.getInstance().startAutomaticCapture(0);
+//		visionCam.setResolution(IMG_WIDTH, IMG_HEIGHT);
+//		visionCam.setExposureManual(0);
 
-		driverCam = CameraServer.getInstance().startAutomaticCapture(1);
-		driverCam.setResolution(640, 480);
+//		driverCam = CameraServer.getInstance().startAutomaticCapture(0);
+//		driverCam.setFPS(15);
+//		driverCam.setResolution(320, 240);
+		
+		sharklogTable = NetworkTable.getTable("sharklog");
 	}
 
-	public void visionInit() {
-		if (visionThread == null || !visionThread.isAlive()) {
-			visionThread = new VisionThread(visionCam, new GRIPPipeline(), pipeline -> {
-				numContours = 0;
-
-				if (!pipeline.filterContoursOutput().isEmpty()) {
-
-					synchronized (imgLock) {
-
-						cntRect = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-						numContours = pipeline.filterContoursOutput().size();
-
-						Rect[] gearCnt = new Rect[pipeline.filterContoursOutput().size()];
-						double max1 = 0, max2 = 0;
-						int idx1 = -1, idx2 = -1;
-
-						for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
-							gearCnt[i] = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
-							// double area = gearCnt[i].area();
-
-							if (gearCnt[i].area() > max1) {
-								max2 = max1;
-								idx2 = idx1;
-								max1 = gearCnt[i].area();
-								idx1 = i;
-							} else if (gearCnt[i].area() > max2) {
-								max2 = gearCnt[i].area();
-								idx2 = i;
-							}
-						}
-
-						if (idx1 >= 0 && idx2 >= 0) {
-							if (gearCnt[idx1].x < gearCnt[idx2].x) {
-								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
-							} else {
-								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
-							}
-						}
-						if (idx1 >= 0 && idx2 >= 0) {
-							if (gearCnt[idx1].x < gearCnt[idx2].x) {
-								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
-								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
-								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
-								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
-								SmartDashboard.putNumber("Gear Tape 2 Width", gearCnt[idx2].width);
-								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
-								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
-							} else {
-								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
-								SmartDashboard.putNumber("Tape 2 Width", gearCnt[idx2].width);
-								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
-								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
-								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
-								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
-								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
-							}
-						}
-					}
-				}
-			});
-			visionThread.start();
-		}
-	}
+//	public void visionInit() {
+//		if (visionThread == null || !visionThread.isAlive()) {
+//			visionThread = new VisionThread(visionCam, new GRIPPipeline(), pipeline -> {
+//				numContours = 0;
+//
+//				if (!pipeline.filterContoursOutput().isEmpty()) {
+//
+//					synchronized (imgLock) {
+//
+//						cntRect = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+//						numContours = pipeline.filterContoursOutput().size();
+//
+//						Rect[] gearCnt = new Rect[pipeline.filterContoursOutput().size()];
+//						double max1 = 0, max2 = 0;
+//						int idx1 = -1, idx2 = -1;
+//
+//						for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
+//							gearCnt[i] = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
+//							// double area = gearCnt[i].area();
+//
+//							if (gearCnt[i].area() > max1) {
+//								max2 = max1;
+//								idx2 = idx1;
+//								max1 = gearCnt[i].area();
+//								idx1 = i;
+//							} else if (gearCnt[i].area() > max2) {
+//								max2 = gearCnt[i].area();
+//								idx2 = i;
+//							}
+//						}
+//
+//						if (idx1 >= 0 && idx2 >= 0) {
+//							if (gearCnt[idx1].x < gearCnt[idx2].x) {
+//								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
+//							} else {
+//								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
+//							}
+//						}
+//						if (idx1 >= 0 && idx2 >= 0) {
+//							if (gearCnt[idx1].x < gearCnt[idx2].x) {
+//								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
+//								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
+//								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
+//								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
+//								SmartDashboard.putNumber("Gear Tape 2 Width", gearCnt[idx2].width);
+//								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
+//								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
+//							} else {
+//								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
+//								SmartDashboard.putNumber("Tape 2 Width", gearCnt[idx2].width);
+//								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
+//								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
+//								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
+//								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
+//								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
+//							}
+//						}
+//					}
+//				}
+//			});
+//			visionThread.start();
+//		}
+//	}
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
@@ -212,15 +231,26 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		if (visionThread != null) {
-			visionThread.interrupt();
-		}
+//		if (visionThread != null) {
+//			visionThread.interrupt();
+//		}
 
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
+//		this.robotSharkLog();
+		driveTrain.sharkLog();
+		oi.sharkLog();
+//		climberIntake.sharkLog();
+//		leftAgitator.sharkLog();
+//		rightAgitator.sharkLog();
+//		leftFeeder.sharkLog();
+//		rightFeeder.sharkLog();
+//		leftShooter.sharkLog();
+//		rightShooter.sharkLog();
+//		oi.sharkLog();
 		Scheduler.getInstance().run();
 	}
 
@@ -237,7 +267,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		visionInit();
+//		visionInit();
 		autonomousCommand = chooser.getSelected();
 
 		/*
@@ -267,7 +297,7 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		visionInit();
+//		visionInit();
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	}
@@ -283,14 +313,15 @@ public class Robot extends IterativeRobot {
 		// this.robotLog();
 		// this.visionLog();
 		// climberIntake.log();
-		// leftShooter.log();
-		// rightShooter.log();
+//		 leftShooter.log();
+//		 rightShooter.log();
 		// leftFeeder.log();
 		// rightFeeder.log();
 		// rightAgitator.log();
 		// leftAgitator.log();
 		// driveTrain.log();
-
+		driveTrain.sharkLog();
+		oi.sharkLog();
 	}
 
 	/**

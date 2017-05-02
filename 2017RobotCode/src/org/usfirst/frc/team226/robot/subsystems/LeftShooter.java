@@ -3,6 +3,7 @@ package org.usfirst.frc.team226.robot.subsystems;
 import static org.usfirst.frc.team226.robot.RobotMap.L_SHOOTER_B_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.L_SHOOTER_F_MOTOR;
 
+import org.usfirst.frc.team226.robot.Robot;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftShooter_manual;
 import org.usfirst.frc.team226.robot.extlib.LeftMagEncoderVelocityMimic;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
@@ -82,4 +83,15 @@ public class LeftShooter extends Subsystem {
 		SmartDashboard.putNumber("LS_RTalon", backMotor.getOutputVoltage());
 		SmartDashboard.putData("LS_PID", velPID);
 	}
+	
+//	public void sharkLog() {
+//		Robot.getSharkLogTable().putNumber("LS_RPM", getShooterRPM());
+//		Robot.getSharkLogTable().putNumber("LS_PIDOutput", velPID.get());
+//		Robot.getSharkLogTable().putNumber("LS_PIDSetpoint", velPID.getSetpoint());
+//		Robot.getSharkLogTable().putBoolean("LS_PIDEnabled", velPID.isEnabled());
+//		Robot.getSharkLogTable().putNumber("LS_BTalonVoltage", backMotor.getOutputVoltage());
+//		Robot.getSharkLogTable().putNumber("LS_BTalonCurrent", backMotor.getOutputCurrent());
+//		Robot.getSharkLogTable().putNumber("LS_FTalonVoltage", frontMotor.getOutputVoltage());
+//		Robot.getSharkLogTable().putNumber("LS_FTalonCurrent", frontMotor.getOutputCurrent());
+//	}
 }

@@ -3,6 +3,7 @@ package org.usfirst.frc.team226.robot.autons;
 import org.usfirst.frc.team226.robot.commands.cmdContractGearMech;
 import org.usfirst.frc.team226.robot.commands.cmdExpandGearMech;
 import org.usfirst.frc.team226.robot.commands.cmdExpandIntake;
+import org.usfirst.frc.team226.robot.commands.cmdPIDTurnToAngle;
 import org.usfirst.frc.team226.robot.commands.cmdStraightDrive;
 import org.usfirst.frc.team226.robot.commands.cmdWait;
 
@@ -11,9 +12,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class grpMiddleGearAuton extends CommandGroup {
+public class grpLeftGearRED extends CommandGroup {
 
-    public grpMiddleGearAuton() {
+    public grpLeftGearRED() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -30,14 +31,19 @@ public class grpMiddleGearAuton extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addParallel(new cmdExpandIntake());
-    	addSequential(new cmdStraightDrive(-60, 0, 0.65, 0.4));
-    	addSequential(new cmdStraightDrive(-12, 0, 0.45, 0.65), 1.5);
+     	addParallel(new cmdExpandIntake());
+    	addSequential(new cmdStraightDrive(-73, 0, 0.6, 0.5), 2);
+    	addSequential(new cmdPIDTurnToAngle(65, 0.6), 2.0);
+    	addSequential(new cmdStraightDrive(-45, 0, 0.6, 0.5), 2);
+    	addSequential(new cmdStraightDrive(-12, 0, 0.4, 0.45), 1.5);
     	
-    	addParallel(new cmdExpandGearMech());
+    	addSequential(new cmdExpandGearMech());
     	addSequential(new cmdWait(0.5));
+    	addSequential(new cmdStraightDrive(20, 0, 0.7, 0.6), 1.5);
+    	addParallel(new cmdContractGearMech());
     	
-    	addSequential(new cmdStraightDrive(38, 0, 0.65, 0.65));
-    	addSequential(new cmdContractGearMech());
+    	//teleop prep
+    	addSequential(new cmdPIDTurnToAngle(-70, 0.6), 1);
+    	addSequential(new cmdStraightDrive(-150, 0, 0.7, 0.6), 3);
     }
 }

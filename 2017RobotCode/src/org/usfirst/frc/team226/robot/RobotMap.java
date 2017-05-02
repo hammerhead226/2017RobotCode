@@ -9,7 +9,7 @@ package org.usfirst.frc.team226.robot;
 public class RobotMap {
 	
 	// Constants
-	public static final int L_SHOOTER_SETPOINT = 3075;
+	public static final int L_SHOOTER_SETPOINT = 3025;
 	public static final int R_SHOOTER_SETPOINT = 3075;
 
 	// Motor Ports - ROBOT 1

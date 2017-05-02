@@ -3,6 +3,7 @@ package org.usfirst.frc.team226.robot.subsystems;
 import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_B_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.R_SHOOTER_F_MOTOR;
 
+import org.usfirst.frc.team226.robot.Robot;
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightShooter_manual;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 import org.usfirst.frc.team226.robot.extlib.RightMagEncoderVelocityMimic;
@@ -32,7 +33,7 @@ public class RightShooter extends Subsystem {
 
 	private static double Kp = 0.000016;
 	private static double Ki = 0;
-	private static double Kd = 0.000035; //potentially too high D
+	private static double Kd = 0.000025; 
 	private static double Kf = 0.00005;
 
 	private PIDOutputMimic velMimic = new PIDOutputMimic();
@@ -84,4 +85,15 @@ public class RightShooter extends Subsystem {
 		SmartDashboard.putNumber("RS_RTalon", frontMotor.getOutputVoltage());
 		SmartDashboard.putData("RS_PID", velPID);
 	}
+	
+//	public void sharkLog() {
+//		Robot.getSharkLogTable().putNumber("RS_RPM", getShooterRPM());
+//		Robot.getSharkLogTable().putNumber("RS_PIDOutput", velPID.get());
+//		Robot.getSharkLogTable().putNumber("RS_PIDSetpoint", velPID.getSetpoint());
+//		Robot.getSharkLogTable().putBoolean("RS_PIDEnabled", velPID.isEnabled());
+//		Robot.getSharkLogTable().putNumber("RS_BTalonVoltage", backMotor.getOutputVoltage());
+//		Robot.getSharkLogTable().putNumber("RS_BTalonCurrent", backMotor.getOutputCurrent());
+//		Robot.getSharkLogTable().putNumber("RS_FTalonVoltage", frontMotor.getOutputVoltage());
+//		Robot.getSharkLogTable().putNumber("RS_FTalonCurrent", frontMotor.getOutputCurrent());
+//	}
 }

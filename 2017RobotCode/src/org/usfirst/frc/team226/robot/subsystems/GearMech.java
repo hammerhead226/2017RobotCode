@@ -20,19 +20,19 @@ public class GearMech extends Subsystem {
     }
     
     private void expandLeftServo() {
-    	
+    	leftServo.set(0.6);
     }
     
     private void contractLeftServo() {
-    	
+    	leftServo.set(0.06);
     }
     
     private void expandRightServo() {
-    	
+    	rightServo.set(0.3);
     }
     
     private void contractRightServo() {
-    	
+    	rightServo.set(0.84);
     }
     
     public void expandGearMech() {

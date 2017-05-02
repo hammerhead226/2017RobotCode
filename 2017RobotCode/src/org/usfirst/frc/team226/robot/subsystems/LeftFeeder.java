@@ -2,6 +2,7 @@ package org.usfirst.frc.team226.robot.subsystems;
 
 import static org.usfirst.frc.team226.robot.RobotMap.L_FEEDER_MOTOR;
 
+import org.usfirst.frc.team226.robot.Robot;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_manual;
 
 import com.ctre.CANTalon;
@@ -39,10 +40,14 @@ public class LeftFeeder extends Subsystem {
 		motor.set(speed);
 	}
 
-	// Utility
-
 	public void log() {
 //		SmartDashboard.putNumber("LF_RPM", getFeederVelocity());
 		SmartDashboard.putNumber("LF_Talon", motor.getOutputVoltage());
 	}
+	
+//	public void sharkLog() {
+//		Robot.getSharkLogTable().putNumber("LF_RPM", getFeederVelocity());
+//		Robot.getSharkLogTable().putNumber("LF_TalonVoltage", motor.getOutputVoltage());
+//		Robot.getSharkLogTable().putNumber("LF_TalonCurrent", motor.getOutputCurrent());
+//	}
 }

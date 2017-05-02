@@ -1,6 +1,6 @@
 package org.usfirst.frc.team226.robot.autons;
 
-import org.usfirst.frc.team226.robot.commands.cmdExpandRobot;
+import org.usfirst.frc.team226.robot.commands.cmdExpandIntake;
 import org.usfirst.frc.team226.robot.commands.cmdPIDDriveInches;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -27,7 +27,7 @@ public class grpBaselineAuton extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addParallel(new cmdExpandRobot());
+    	addParallel(new cmdExpandIntake());
     	addSequential(new cmdPIDDriveInches(160, 0.8));
     }
 }

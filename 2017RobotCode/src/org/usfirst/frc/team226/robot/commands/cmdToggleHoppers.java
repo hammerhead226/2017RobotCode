@@ -2,30 +2,43 @@ package org.usfirst.frc.team226.robot.commands;
 
 import org.usfirst.frc.team226.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class cmdResetRobot extends Command {
+public class cmdToggleHoppers extends Command {
+	
+	private boolean expanded =false;
 
-    public cmdResetRobot() {
+    public cmdToggleHoppers() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.popoutServos);
+        // eg. requires(chassis);
+    	requires(Robot.cruncherServos);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.popoutServos.resetRobot();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if (Robot.oi.manip.getSTARTButtonPressed()) {
+    		expanded = !expanded;
+    		Timer.delay(0.25);
+    	}
+    	if (expanded) {
+    		Robot.cruncherServos.expandHopper();
+    	}
+    	else {
+    		Robot.cruncherServos.contractHopper();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

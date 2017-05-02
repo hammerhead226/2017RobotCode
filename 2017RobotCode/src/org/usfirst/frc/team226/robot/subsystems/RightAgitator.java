@@ -1,5 +1,6 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
+import org.usfirst.frc.team226.robot.Robot;
 import org.usfirst.frc.team226.robot.RobotMap;
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightAgitator_manual;
 
@@ -31,5 +32,9 @@ public class RightAgitator extends Subsystem {
     public void log() {
 //		SmartDashboard.putNumber("RAg_Talon", agitatorMotor.getOutputVoltage());
     }
+    
+//    public void sharkLog() {
+//		Robot.getSharkLogTable().putNumber("RAg_Talon_get", agitatorMotor.get());
+//    }
 }
 

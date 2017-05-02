@@ -1,7 +1,7 @@
 package org.usfirst.frc.team226.robot.autons;
 
 import org.usfirst.frc.team226.robot.RobotMap;
-import org.usfirst.frc.team226.robot.commands.cmdExpandRobot;
+import org.usfirst.frc.team226.robot.commands.cmdExpandIntake;
 import org.usfirst.frc.team226.robot.commands.cmdMoveClimberIntake_button;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftAgitator_button;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_button;
@@ -59,7 +59,7 @@ public class grpHopperAutonRED extends CommandGroup {
 //    	addSequential(new cmdPIDDriveInches(105, 0.70));
 //    	
 //    	addSequential(new cmdPIDTurnToAngleCurved(80, 0.75, 0.73));  
-    	addParallel(new cmdExpandRobot());
+    	addParallel(new cmdExpandIntake());
     	addSequential(new cmdPIDTurnToAngleCurved(37, 0.72, 0.68));
     	
     	addSequential(new cmdPIDDriveInches(160, 0.85), 2.0);

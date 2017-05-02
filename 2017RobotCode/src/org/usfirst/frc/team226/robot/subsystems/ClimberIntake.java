@@ -3,6 +3,7 @@ package org.usfirst.frc.team226.robot.subsystems;
 import static org.usfirst.frc.team226.robot.RobotMap.CLIMBERINTAKE_LEFT_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.CLIMBERINTAKE_RIGHT_MOTOR;
 
+import org.usfirst.frc.team226.robot.Robot;
 import org.usfirst.frc.team226.robot.commands.cmdMoveClimberIntake;
 
 import com.ctre.CANTalon;
@@ -37,4 +38,11 @@ public class ClimberIntake extends Subsystem {
 		SmartDashboard.putNumber("CI_LTalon", leftMotor.getOutputVoltage());
 		SmartDashboard.putNumber("CI_RTalon", rightMotor.getOutputVoltage());
 	}
+	
+//	public void sharkLog() {
+//		Robot.getSharkLogTable().putNumber("CI_LTalonVoltage", leftMotor.getOutputVoltage());
+//		Robot.getSharkLogTable().putNumber("CI_LTalonCurrent", leftMotor.getOutputCurrent());
+//		Robot.getSharkLogTable().putNumber("CI_RTalonVoltage", rightMotor.getOutputVoltage());
+//		Robot.getSharkLogTable().putNumber("CI_RTalonCurrent", rightMotor.getOutputCurrent());
+//	}
 }

@@ -3,6 +3,7 @@ package org.usfirst.frc.team226.robot.subsystems;
 import static org.usfirst.frc.team226.robot.RobotMap.R_AGITATOR_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.R_FEEDER_MOTOR;
 
+import org.usfirst.frc.team226.robot.Robot;
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_manual;
 
 import com.ctre.CANTalon;
@@ -40,10 +41,14 @@ public class RightFeeder extends Subsystem {
 		agitatorMotor.set(speed);
 	}
 
-	// Utility
-
 	public void log() {
 //		SmartDashboard.putNumber("RF_RPM", getFeederVelocity());
 		SmartDashboard.putNumber("RF_Talon", motor.getOutputVoltage());
 	}
+	
+//	public void sharkLog() {
+//		Robot.getSharkLogTable().putNumber("RF_RPM", getFeederVelocity());
+//		Robot.getSharkLogTable().putNumber("RF_TalonVoltage", motor.getOutputVoltage());
+//		Robot.getSharkLogTable().putNumber("RF_TalonCurrent", motor.getOutputCurrent());
+//	}
 }

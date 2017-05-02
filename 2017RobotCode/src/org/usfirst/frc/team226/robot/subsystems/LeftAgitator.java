@@ -1,5 +1,6 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
+import org.usfirst.frc.team226.robot.Robot;
 import org.usfirst.frc.team226.robot.RobotMap;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftAgitator_manual;
 
@@ -31,5 +32,9 @@ public class LeftAgitator extends Subsystem {
     public void log() {
 //		SmartDashboard.putNumber("LAg_Talon", agitatorMotor.getOutputVoltage());
     }
+    
+//    public void sharkLog() {
+//		Robot.getSharkLogTable().putNumber("LAg_Talon_get", agitatorMotor.get());
+//    }
 }
 

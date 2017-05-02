@@ -1,7 +1,8 @@
 package org.usfirst.frc.team226.robot.autons;
 
 import org.usfirst.frc.team226.robot.RobotMap;
-import org.usfirst.frc.team226.robot.commands.cmdExpandRobot;
+import org.usfirst.frc.team226.robot.commands.cmdCrunchHoppers;
+import org.usfirst.frc.team226.robot.commands.cmdExpandIntake;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftAgitator_button;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_button;
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightAgitator_button;
@@ -10,6 +11,7 @@ import org.usfirst.frc.team226.robot.commands.cmdPIDDriveInches;
 import org.usfirst.frc.team226.robot.commands.cmdPIDLeftShooter;
 import org.usfirst.frc.team226.robot.commands.cmdPIDRightShooter;
 import org.usfirst.frc.team226.robot.commands.cmdPIDTurnToAngle;
+import org.usfirst.frc.team226.robot.commands.cmdStraightDrive;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -38,7 +40,7 @@ public class grpBoilerAutonRED extends CommandGroup {
     	
     	//DRIVE OUT, TURN, DRIVE IN, SHOOT
     	//expand robot
-    	addParallel(new cmdExpandRobot());
+    	addParallel(new cmdExpandIntake());
     	//rev up shooters
     	addParallel(new cmdPIDRightShooter(RobotMap.R_SHOOTER_SETPOINT));
     	addParallel(new cmdPIDLeftShooter(RobotMap.L_SHOOTER_SETPOINT));
@@ -48,16 +50,17 @@ public class grpBoilerAutonRED extends CommandGroup {
     	addSequential(new cmdPIDTurnToAngle(-45, 0.7));
     	addSequential(new cmdPIDDriveInches(40, 0.5), 2.0);
     	
-    	//run agitators, feeders :: shoot
+    	//run agitators, feeders, hopper agitators :: shoot
+    	addParallel(new cmdCrunchHoppers());
     	addParallel(new cmdMoveLeftAgitator_button(10, 0, 0, 0.60), 5);
     	addParallel(new cmdMoveRightAgitator_button(10, 0, 0, 0.60), 5);
     	addParallel(new cmdMoveRightFeeder_button(), 5);
     	addSequential(new cmdMoveLeftFeeder_button(), 5);
     	
-    	//baseline cross
-    	addSequential(new cmdPIDDriveInches(-90, .75));
-
-    	
+    	//teleop prep
+    	addSequential(new cmdStraightDrive(-20, 0, 0.7, 0.0), 1.5);
+    	addSequential(new cmdPIDTurnToAngle(45, 0.7), 2);
+    	addSequential(new cmdStraightDrive(-150, 0, 0.8, 0.4)); 	
     	
     }
 }

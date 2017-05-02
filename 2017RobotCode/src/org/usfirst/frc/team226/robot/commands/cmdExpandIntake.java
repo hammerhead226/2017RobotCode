@@ -8,19 +8,19 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class cmdExpandRobot extends Command {
+public class cmdExpandIntake extends Command {
 	
 	private Timer timer = new Timer();
 
-    public cmdExpandRobot() {
+    public cmdExpandIntake() {
         // Use requires() here to declare subsystem dependencies
-       requires(Robot.popoutServos);
+       requires(Robot.cruncherServos);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	timer.start();
-    	Robot.popoutServos.expandRobot();
+    	Robot.cruncherServos.expandIntakeServo();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -34,7 +34,7 @@ public class cmdExpandRobot extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.popoutServos.resetRobot();
+    	Robot.cruncherServos.contractIntakeServo();
     }
 
     // Called when another command which requires one or more of the same

@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class cmdResetDTSensors extends Command {
+public class ResetDTSensors extends Command {
 
-    public cmdResetDTSensors() {
+    public ResetDTSensors() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

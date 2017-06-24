@@ -1,7 +1,7 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
 import org.usfirst.frc.team226.robot.RobotMap;
-import org.usfirst.frc.team226.robot.commands.cmdControlGearMech;
+import org.usfirst.frc.team226.robot.commands.ControlGearMech;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,7 +16,7 @@ public class GearMech extends Subsystem {
 
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new cmdControlGearMech());
+    	setDefaultCommand(new ControlGearMech());
     }
     
     private void expandLeftServo() {

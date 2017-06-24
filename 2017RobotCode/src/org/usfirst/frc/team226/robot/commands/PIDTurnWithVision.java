@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class cmdPIDTurnWithVision extends Command {
+public class PIDTurnWithVision extends Command {
 
 	private boolean wasOnTarget = false;
 	private long startTime;
 	private int onTargetDuration = 500;
 
-	public cmdPIDTurnWithVision() {
+	public PIDTurnWithVision() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveTrain);

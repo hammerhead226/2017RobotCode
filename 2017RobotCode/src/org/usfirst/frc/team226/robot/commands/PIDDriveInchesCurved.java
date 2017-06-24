@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class cmdPIDDriveInchesCurved extends Command {
+public class PIDDriveInchesCurved extends Command {
 
 	private double driveSetpoint;
 	private double leftMultiplier;
@@ -18,7 +18,7 @@ public class cmdPIDDriveInchesCurved extends Command {
 //	private long startTime;
 //	private int onTargetDuration;
 //	
-	public cmdPIDDriveInchesCurved(double driveSetpoint, double leftMultiplier, double rightMultiplier) {
+	public PIDDriveInchesCurved(double driveSetpoint, double leftMultiplier, double rightMultiplier) {
 		// driveSetpoint is in inches
 		requires(Robot.driveTrain);
 		

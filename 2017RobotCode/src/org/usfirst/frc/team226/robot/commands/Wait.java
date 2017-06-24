@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class cmdWait extends Command {
+public class Wait extends Command {
 	
-    public cmdWait(double seconds) {
+    public Wait(double seconds) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	setTimeout(seconds);

@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class cmdExpandGearMech extends Command {
+public class ExpandGearMech extends Command {
 
-	public cmdExpandGearMech() {
+	public ExpandGearMech() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.gearMech);

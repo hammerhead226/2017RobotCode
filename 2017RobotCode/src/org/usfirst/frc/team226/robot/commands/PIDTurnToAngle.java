@@ -7,21 +7,20 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class cmdPIDTurnToAngleCurved extends Command {
+public class PIDTurnToAngle extends Command {
 
-	private double angle;
-	private double leftMultiplier;
-	private double rightMultiplier;
+	private int angle;
+	private double multiplier;
 
 	 private boolean wasOnTarget = false;
 	 private long startTime;
 	 private int onTargetDuration = 100;
 
-	public cmdPIDTurnToAngleCurved(double angle, double leftMultiplier, double rightMultiplier) {
+	public PIDTurnToAngle(int angle, double multiplier) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveTrain);
-		this.leftMultiplier = leftMultiplier;
+		this.multiplier = multiplier;
 		this.angle = angle;
 //		this.onTargetDuration = secondsOnTarget * 1000;
 	}
@@ -30,7 +29,7 @@ public class cmdPIDTurnToAngleCurved extends Command {
 	protected void initialize() {
 		// Different PID control for different angles
 		// if (Math.abs(angle) <= 15) {
-		 Robot.driveTrain.dirController.setPID(0.42, 0.00, 0.92);
+//		 Robot.driveTrain.dirController.setPID(0.11, 0.02, 0.205); //ROBOT 1
 		// Robot.driveTrain.dirController.setAbsoluteTolerance(0.05);
 		// }
 		// else {
@@ -46,12 +45,12 @@ public class cmdPIDTurnToAngleCurved extends Command {
 	protected void execute() {
 		double turn = Robot.driveTrain.dirController.get();
 
-		Robot.driveTrain.tankDrive(turn * leftMultiplier, -turn * rightMultiplier);
+		Robot.driveTrain.tankDrive(turn * multiplier, -turn * multiplier);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Math.abs(Robot.driveTrain.dirController.getError()) < 1.5) {
+		if (Math.abs(Robot.driveTrain.dirController.getError()) < 0.7) {
 			if (!wasOnTarget) {
 				startTime = System.currentTimeMillis();
 				wasOnTarget = true;

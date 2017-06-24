@@ -2,18 +2,18 @@
 package org.usfirst.frc.team226.robot;
 
 import org.opencv.core.Rect;
-import org.usfirst.frc.team226.robot.autons.grpBaselineAuton;
-import org.usfirst.frc.team226.robot.autons.grpBoilerAutonBLUE;
-import org.usfirst.frc.team226.robot.autons.grpBoilerAutonRED;
-import org.usfirst.frc.team226.robot.autons.grpHopperAutonBLUE;
-import org.usfirst.frc.team226.robot.autons.grpHopperAutonRED;
-import org.usfirst.frc.team226.robot.autons.grpLeftGearBoilerAutonBLUE;
-import org.usfirst.frc.team226.robot.autons.grpLeftGearRED;
-import org.usfirst.frc.team226.robot.autons.grpMiddleGearAuton;
-import org.usfirst.frc.team226.robot.autons.grpMiddleGearBoilerBLUE;
-import org.usfirst.frc.team226.robot.autons.grpMiddleGearBoilerRED;
-import org.usfirst.frc.team226.robot.autons.grpRightGearBLUE;
-import org.usfirst.frc.team226.robot.autons.grpRightGearBoilerAutonRED;
+import org.usfirst.frc.team226.robot.autons.BaselineAuton;
+import org.usfirst.frc.team226.robot.autons.BoilerAutonBLUE;
+import org.usfirst.frc.team226.robot.autons.BoilerAutonRED;
+import org.usfirst.frc.team226.robot.autons.HopperAutonBLUE;
+import org.usfirst.frc.team226.robot.autons.HopperAutonRED;
+import org.usfirst.frc.team226.robot.autons.LeftGearBoilerAutonBLUE;
+import org.usfirst.frc.team226.robot.autons.LeftGearRED;
+import org.usfirst.frc.team226.robot.autons.MiddleGearAuton;
+import org.usfirst.frc.team226.robot.autons.MiddleGearBoilerBLUE;
+import org.usfirst.frc.team226.robot.autons.MiddleGearBoilerRED;
+import org.usfirst.frc.team226.robot.autons.RightGearBLUE;
+import org.usfirst.frc.team226.robot.autons.RightGearBoilerAutonRED;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team226.robot.subsystems.GearMech;
@@ -115,18 +115,18 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Middle Gear Auton", new grpMiddleGearAuton());
-		chooser.addObject("Baseline Cross", new grpBaselineAuton());
-		chooser.addObject("Red Shooter Auton", new grpBoilerAutonRED());
-		chooser.addObject("Blue Shooter Auton", new grpBoilerAutonBLUE());
-		chooser.addObject("Red Hopper Auton", new grpHopperAutonRED());
-		chooser.addObject("Blue Hopper Auton", new grpHopperAutonBLUE());
-		chooser.addObject("Red Right Gear + Boiler Auton", new grpRightGearBoilerAutonRED());
-		chooser.addObject("Blue Left Gear + Boiler Auton", new grpLeftGearBoilerAutonBLUE());
-		chooser.addObject("Blue Mid Gear + Boiler", new grpMiddleGearBoilerBLUE());
-		chooser.addObject("Red Mid Gear + Boiler", new grpMiddleGearBoilerRED());
-		chooser.addObject("Red Left Gear", new grpLeftGearRED());
-		chooser.addObject("Blue Right Gear", new grpRightGearBLUE());		
+		chooser.addDefault("Middle Gear Auton", new MiddleGearAuton());
+		chooser.addObject("Baseline Cross", new BaselineAuton());
+		chooser.addObject("Red Shooter Auton", new BoilerAutonRED());
+		chooser.addObject("Blue Shooter Auton", new BoilerAutonBLUE());
+		chooser.addObject("Red Hopper Auton", new HopperAutonRED());
+		chooser.addObject("Blue Hopper Auton", new HopperAutonBLUE());
+		chooser.addObject("Red Right Gear + Boiler Auton", new RightGearBoilerAutonRED());
+		chooser.addObject("Blue Left Gear + Boiler Auton", new LeftGearBoilerAutonBLUE());
+		chooser.addObject("Blue Mid Gear + Boiler", new MiddleGearBoilerBLUE());
+		chooser.addObject("Red Mid Gear + Boiler", new MiddleGearBoilerRED());
+		chooser.addObject("Red Left Gear", new LeftGearRED());
+		chooser.addObject("Blue Right Gear", new RightGearBLUE());		
 
 		SmartDashboard.putData("Auto mode", chooser);
 //		this.robotSharkLog();

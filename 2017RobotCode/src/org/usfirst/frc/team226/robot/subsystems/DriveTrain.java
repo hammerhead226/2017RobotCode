@@ -6,7 +6,7 @@ import static org.usfirst.frc.team226.robot.RobotMap.DT_RL_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.DT_RR_MOTOR;
 
 import org.usfirst.frc.team226.robot.Robot;
-import org.usfirst.frc.team226.robot.commands.cmdArcadeDrive;
+import org.usfirst.frc.team226.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team226.robot.extlib.DoubleEncoder;
 import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
 
@@ -70,7 +70,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new cmdArcadeDrive());
+		setDefaultCommand(new ArcadeDrive());
 	}
 
 	public void tankDrive(double left, double right) {

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class cmdStableDrive extends Command {
+public class StableDrive extends Command {
 	private double incrementAmount = 10;
 	private double increment = 1 / incrementAmount;
 	private double incrementRotate = increment;
@@ -17,7 +17,7 @@ public class cmdStableDrive extends Command {
 	private double kp = .05;
 	private double angle = 0;
 
-	public cmdStableDrive() {
+	public StableDrive() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveTrain);
 	}

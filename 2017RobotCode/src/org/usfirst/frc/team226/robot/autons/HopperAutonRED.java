@@ -1,25 +1,25 @@
 package org.usfirst.frc.team226.robot.autons;
 
 import org.usfirst.frc.team226.robot.RobotMap;
-import org.usfirst.frc.team226.robot.commands.cmdExpandIntake;
-import org.usfirst.frc.team226.robot.commands.cmdMoveClimberIntake_button;
+import org.usfirst.frc.team226.robot.commands.ExpandIntake;
+import org.usfirst.frc.team226.robot.commands.MoveClimberIntake_button;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftAgitator_button;
 import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_button;
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightAgitator_button;
 import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_button;
-import org.usfirst.frc.team226.robot.commands.cmdPIDDriveInches;
+import org.usfirst.frc.team226.robot.commands.PIDDriveInches;
 import org.usfirst.frc.team226.robot.commands.cmdPIDLeftShooter;
 import org.usfirst.frc.team226.robot.commands.cmdPIDRightShooter;
-import org.usfirst.frc.team226.robot.commands.cmdPIDTurnToAngleCurved;
+import org.usfirst.frc.team226.robot.commands.PIDTurnToAngleCurved;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class grpHopperAutonRED extends CommandGroup {
+public class HopperAutonRED extends CommandGroup {
 
-    public grpHopperAutonRED() {
+    public HopperAutonRED() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -59,25 +59,25 @@ public class grpHopperAutonRED extends CommandGroup {
 //    	addSequential(new cmdPIDDriveInches(105, 0.70));
 //    	
 //    	addSequential(new cmdPIDTurnToAngleCurved(80, 0.75, 0.73));  
-    	addParallel(new cmdExpandIntake());
-    	addSequential(new cmdPIDTurnToAngleCurved(37, 0.72, 0.68));
+    	addParallel(new ExpandIntake());
+    	addSequential(new PIDTurnToAngleCurved(37, 0.72, 0.68));
     	
-    	addSequential(new cmdPIDDriveInches(160, 0.85), 2.0);
+    	addSequential(new PIDDriveInches(160, 0.85), 2.0);
     	
 //    	addSequential(new cmdPIDDriveInches(25, 0.6), 0.75);
     	
-    	addSequential(new cmdMoveClimberIntake_button(-1), 0.5);
+    	addSequential(new MoveClimberIntake_button(-1), 0.5);
     	
-    	addParallel(new cmdMoveClimberIntake_button(1), 3.0);
-    	addSequential(new cmdPIDDriveInches(-71, 0.90));
+    	addParallel(new MoveClimberIntake_button(1), 3.0);
+    	addSequential(new PIDDriveInches(-71, 0.90));
     	
     	addParallel(new cmdPIDRightShooter(RobotMap.R_SHOOTER_SETPOINT));
     	addParallel(new cmdPIDLeftShooter(RobotMap.L_SHOOTER_SETPOINT));
-    	addParallel(new cmdMoveClimberIntake_button(1));
-    	addSequential(new cmdPIDTurnToAngleCurved(70, 0.80, 0.90));
+    	addParallel(new MoveClimberIntake_button(1));
+    	addSequential(new PIDTurnToAngleCurved(70, 0.80, 0.90));
 //    	addSequential(new cmdPIDTurnToAngle(70, 0.7));
     	
-    	addSequential(new cmdPIDDriveInches(135, 0.9), 2);
+    	addSequential(new PIDDriveInches(135, 0.9), 2);
     	
     	addParallel(new cmdMoveLeftAgitator_button(10, 0, 0, 0.7));
     	addParallel(new cmdMoveRightAgitator_button(10, 0, 0, 0.7));

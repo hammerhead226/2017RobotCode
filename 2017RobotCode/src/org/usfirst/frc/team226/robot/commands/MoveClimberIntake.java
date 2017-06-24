@@ -2,39 +2,41 @@ package org.usfirst.frc.team226.robot.commands;
 
 import org.usfirst.frc.team226.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class cmdExpandIntake extends Command {
-	
-	private Timer timer = new Timer();
+public class MoveClimberIntake extends Command {
 
-    public cmdExpandIntake() {
+    public MoveClimberIntake() {
         // Use requires() here to declare subsystem dependencies
-       requires(Robot.cruncherServos);
+        // eg. requires(chassis);
+    	requires(Robot.climberIntake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	timer.start();
-    	Robot.cruncherServos.expandIntakeServo();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	double output;
+
+		output = Robot.oi.manip.getTriggers();
+		if (Robot.oi.manip.getLBButtonPressed()) {
+			output *= Robot.climberIntake.multiplier;
+		}
+		Robot.climberIntake.setMotors(output);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.get() > 0.7;
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.cruncherServos.contractIntakeServo();
     }
 
     // Called when another command which requires one or more of the same

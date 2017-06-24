@@ -1,15 +1,15 @@
 package org.usfirst.frc.team226.robot.autons;
 
-import org.usfirst.frc.team226.robot.commands.cmdPIDDriveInches;
+import org.usfirst.frc.team226.robot.commands.PIDDriveInches;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class grpBackOut2 extends CommandGroup {
+public class BackOut2 extends CommandGroup {
 
-    public grpBackOut2() {
+    public BackOut2() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -26,6 +26,6 @@ public class grpBackOut2 extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new cmdPIDDriveInches(2.0, 0.65));
+    	addSequential(new PIDDriveInches(2.0, 0.65));
     }
 }

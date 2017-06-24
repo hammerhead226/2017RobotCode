@@ -4,8 +4,8 @@ package org.usfirst.frc.team226.robot;
 import static org.usfirst.frc.team226.robot.RobotMap.DRIVER_CONTROLLER;
 import static org.usfirst.frc.team226.robot.RobotMap.MANIP_CONTROLLER;
 
-import org.usfirst.frc.team226.robot.autons.grpBackOut2;
-import org.usfirst.frc.team226.robot.commands.cmdExpandIntake;
+import org.usfirst.frc.team226.robot.autons.BackOut2;
+import org.usfirst.frc.team226.robot.commands.ExpandIntake;
 import org.usfirst.frc.team226.robot.commands.cmdPIDLeftShooter;
 import org.usfirst.frc.team226.robot.commands.cmdPIDRightShooter;
 import org.usfirst.frc.team226.robot.extlib.Controller;
@@ -22,12 +22,12 @@ public class OI {
 	
 	public OI() {
 		
-		driver.getAButton().whenPressed(new grpBackOut2());
+		driver.getAButton().whenPressed(new BackOut2());
 		
 		manip.getAButton().whenPressed(new cmdPIDLeftShooter(RobotMap.L_SHOOTER_SETPOINT)); //3075 maybe decrease to 3000?
 		manip.getAButton().whenPressed(new cmdPIDRightShooter(RobotMap.R_SHOOTER_SETPOINT)); //3150 maybe decrease to 3075?
 		
-		manip.getSTARTButton().whenPressed(new cmdExpandIntake());
+		manip.getSTARTButton().whenPressed(new ExpandIntake());
 	}
 	
 	public void sharkLog() {

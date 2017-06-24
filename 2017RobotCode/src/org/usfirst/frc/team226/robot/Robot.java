@@ -1,8 +1,6 @@
 
 package org.usfirst.frc.team226.robot;
 
-import java.sql.Driver;
-
 import org.opencv.core.Rect;
 import org.usfirst.frc.team226.robot.autons.grpBaselineAuton;
 import org.usfirst.frc.team226.robot.autons.grpBoilerAutonBLUE;
@@ -16,20 +14,12 @@ import org.usfirst.frc.team226.robot.autons.grpMiddleGearBoilerBLUE;
 import org.usfirst.frc.team226.robot.autons.grpMiddleGearBoilerRED;
 import org.usfirst.frc.team226.robot.autons.grpRightGearBLUE;
 import org.usfirst.frc.team226.robot.autons.grpRightGearBoilerAutonRED;
-import org.usfirst.frc.team226.robot.subsystems.CameraTurret;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
-import org.usfirst.frc.team226.robot.subsystems.CruncherServos;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team226.robot.subsystems.GearMech;
-import org.usfirst.frc.team226.robot.subsystems.LeftAgitator;
-import org.usfirst.frc.team226.robot.subsystems.LeftFeeder;
 import org.usfirst.frc.team226.robot.subsystems.LeftShooter;
-import org.usfirst.frc.team226.robot.subsystems.RightAgitator;
-import org.usfirst.frc.team226.robot.subsystems.RightFeeder;
-import org.usfirst.frc.team226.robot.subsystems.RightShooter;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -53,13 +43,6 @@ public class Robot extends IterativeRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final ClimberIntake climberIntake = new ClimberIntake();
 	public static final LeftShooter leftShooter = new LeftShooter();
-	public static final LeftFeeder leftFeeder = new LeftFeeder();
-	public static final LeftAgitator leftAgitator = new LeftAgitator();
-	public static final RightShooter rightShooter = new RightShooter();
-	public static final RightFeeder rightFeeder = new RightFeeder();
-	public static final RightAgitator rightAgitator = new RightAgitator();
-	public static final CameraTurret cameraTurret = new CameraTurret();
-	public static final CruncherServos cruncherServos = new CruncherServos();
 	public static final GearMech gearMech = new GearMech();
 	public static OI oi;
 

@@ -5,15 +5,9 @@ import static org.usfirst.frc.team226.robot.RobotMap.DRIVER_CONTROLLER;
 import static org.usfirst.frc.team226.robot.RobotMap.MANIP_CONTROLLER;
 
 import org.usfirst.frc.team226.robot.autons.grpBackOut2;
-import org.usfirst.frc.team226.robot.commands.cmdCrunchHoppers;
 import org.usfirst.frc.team226.robot.commands.cmdExpandIntake;
-import org.usfirst.frc.team226.robot.commands.cmdMoveLeftAgitator_button;
-import org.usfirst.frc.team226.robot.commands.cmdMoveLeftFeeder_button;
-import org.usfirst.frc.team226.robot.commands.cmdMoveRightAgitator_button;
-import org.usfirst.frc.team226.robot.commands.cmdMoveRightFeeder_button;
 import org.usfirst.frc.team226.robot.commands.cmdPIDLeftShooter;
 import org.usfirst.frc.team226.robot.commands.cmdPIDRightShooter;
-import org.usfirst.frc.team226.robot.commands.cmdToggleHoppers;
 import org.usfirst.frc.team226.robot.extlib.Controller;
 
 
@@ -32,12 +26,6 @@ public class OI {
 		
 		manip.getAButton().whenPressed(new cmdPIDLeftShooter(RobotMap.L_SHOOTER_SETPOINT)); //3075 maybe decrease to 3000?
 		manip.getAButton().whenPressed(new cmdPIDRightShooter(RobotMap.R_SHOOTER_SETPOINT)); //3150 maybe decrease to 3075?
-		
-		manip.getYButton().whileHeld(new cmdMoveLeftFeeder_button());
-		manip.getYButton().whileHeld(new cmdMoveRightFeeder_button());
-		manip.getYButton().whileHeld(new cmdMoveRightAgitator_button(3, 0.5, 0.5, 0.75));
-		manip.getYButton().whileHeld(new cmdMoveLeftAgitator_button(3, 0.5, 0.5, 0.75));
-		manip.getYButton().whileHeld(new cmdCrunchHoppers());
 		
 		manip.getSTARTButton().whenPressed(new cmdExpandIntake());
 	}

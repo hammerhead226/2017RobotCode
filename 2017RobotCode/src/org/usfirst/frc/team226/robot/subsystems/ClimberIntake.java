@@ -4,7 +4,7 @@ import static org.usfirst.frc.team226.robot.RobotMap.CLIMBERINTAKE_LEFT_MOTOR;
 import static org.usfirst.frc.team226.robot.RobotMap.CLIMBERINTAKE_RIGHT_MOTOR;
 
 import org.usfirst.frc.team226.robot.Robot;
-import org.usfirst.frc.team226.robot.commands.MoveClimberIntake;
+import org.usfirst.frc.team226.robot.commands.ControlClimberIntake;
 
 import com.ctre.CANTalon;
 
@@ -26,7 +26,7 @@ public class ClimberIntake extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new MoveClimberIntake());
+		setDefaultCommand(new ControlClimberIntake());
 	}
 
 	public void setMotors(double throttle) {

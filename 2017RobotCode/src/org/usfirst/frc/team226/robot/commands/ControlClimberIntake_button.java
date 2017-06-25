@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 
-public class MoveClimberIntake_button extends Command {
+public class ControlClimberIntake_button extends Command {
 
 	private double direction;
-    public MoveClimberIntake_button(double direction) {
+    public ControlClimberIntake_button(double direction) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.climberIntake);

@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveClimberIntake extends Command {
+public class ControlClimberIntake extends Command {
 
-    public MoveClimberIntake() {
+    public ControlClimberIntake() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.climberIntake);

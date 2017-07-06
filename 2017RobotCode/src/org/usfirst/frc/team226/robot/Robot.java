@@ -35,9 +35,9 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	
+
 	public static NetworkTable sharklogTable;
-	
+
 	public static NetworkTable getSharkLogTable() {
 		return sharklogTable;
 	}
@@ -51,12 +51,9 @@ public class Robot extends IterativeRobot {
 		sharklogTable.putNumber("6Current", ControllerPower.getCurrent6V());
 		sharklogTable.putNumber("BatteryVoltage", DriverStation.getInstance().getBatteryVoltage());
 		sharklogTable.putBoolean("BrownedOut", DriverStation.getInstance().isBrownedOut());
-		
+
 		sharklogTable.putBoolean("TeleopEnabled", DriverStation.getInstance().isOperatorControl());
 		sharklogTable.putBoolean("AutonEnabled", DriverStation.getInstance().isAutonomous());
-		
-		sharklogTable.putNumber("MatchTime", Timer.getMatchTime());
-	}
 
 		sharklogTable.putNumber("MatchTime", Timer.getMatchTime());
 	}
@@ -90,7 +87,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-//		visionInit();
 		autonomousCommand = chooser.getSelected();
 
 		/*

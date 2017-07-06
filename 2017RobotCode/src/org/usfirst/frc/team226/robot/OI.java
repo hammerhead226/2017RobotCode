@@ -4,10 +4,6 @@ package org.usfirst.frc.team226.robot;
 import static org.usfirst.frc.team226.robot.RobotMap.DRIVER_CONTROLLER;
 import static org.usfirst.frc.team226.robot.RobotMap.MANIP_CONTROLLER;
 
-import org.usfirst.frc.team226.robot.autons.BackOut2;
-import org.usfirst.frc.team226.robot.commands.ExpandIntake;
-import org.usfirst.frc.team226.robot.commands.cmdPIDLeftShooter;
-import org.usfirst.frc.team226.robot.commands.cmdPIDRightShooter;
 import org.usfirst.frc.team226.robot.extlib.Controller;
 
 
@@ -58,10 +54,4 @@ public class OI {
 		Robot.getSharkLogTable().putBoolean("MC_LSClick", manip.getLSButtonPressed());
 		Robot.getSharkLogTable().putBoolean("MC_RSClick", manip.getRSButtonPressed());
 	}
-	
-	/*Controller Bindings
-	 * Manip:
-	 * LT(HOLD) - intake forwards
-	 * RT(HOLD) - intake backwards
-	 */
 }

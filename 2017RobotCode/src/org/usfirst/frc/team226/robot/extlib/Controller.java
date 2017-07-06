@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * 
  * @author Alec Minchington, Team 226
  * 
- * @version 1.1
+ * @version 1.2
  */
 
 public class Controller extends Joystick {
@@ -35,7 +35,7 @@ public class Controller extends Joystick {
 	private Button Y = new JoystickButton(this, 4);
 	private Button LB = new JoystickButton(this, 5);
 	private Button RB = new JoystickButton(this, 6);
-	private Button BACK = new JoystickButton(this, 7);
+	private Button SELECT = new JoystickButton(this, 7);
 	private Button START = new JoystickButton(this, 8);
 	private Button LS = new JoystickButton(this, 9);
 	private Button RS = new JoystickButton(this, 10);
@@ -66,8 +66,8 @@ public class Controller extends Joystick {
 		return RB;
 	}
 
-	public Button getBACKButton() {
-		return BACK;
+	public Button getSELECTButton() {
+		return SELECT;
 	}
 
 	public Button getSTARTButton() {
@@ -197,13 +197,13 @@ public class Controller extends Joystick {
 	}
 
 	/**
-	 * Gets current state of the BACK button.
+	 * Gets current state of the SELECT button.
 	 * <p>
 	 * 
-	 * @return {@code true} if the BACK button is pressed, {@code false}
+	 * @return {@code true} if the SELECT button is pressed, {@code false}
 	 *         otherwise
 	 */
-	public boolean getBACKButtonPressed() {
+	public boolean getSELECTButtonPressed() {
 		return getRawButton(7);
 	}
 

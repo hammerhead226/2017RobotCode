@@ -2,18 +2,6 @@
 package org.usfirst.frc.team226.robot;
 
 import org.opencv.core.Rect;
-import org.usfirst.frc.team226.robot.autons.BaselineAuton;
-import org.usfirst.frc.team226.robot.autons.BoilerAutonBLUE;
-import org.usfirst.frc.team226.robot.autons.BoilerAutonRED;
-import org.usfirst.frc.team226.robot.autons.HopperAutonBLUE;
-import org.usfirst.frc.team226.robot.autons.HopperAutonRED;
-import org.usfirst.frc.team226.robot.autons.LeftGearBoilerAutonBLUE;
-import org.usfirst.frc.team226.robot.autons.LeftGearRED;
-import org.usfirst.frc.team226.robot.autons.MiddleGearAuton;
-import org.usfirst.frc.team226.robot.autons.MiddleGearBoilerBLUE;
-import org.usfirst.frc.team226.robot.autons.MiddleGearBoilerRED;
-import org.usfirst.frc.team226.robot.autons.RightGearBLUE;
-import org.usfirst.frc.team226.robot.autons.RightGearBoilerAutonRED;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team226.robot.subsystems.GearMech;
@@ -45,29 +33,6 @@ public class Robot extends IterativeRobot {
 	public static final GearMech gearMech = new GearMech();
 	public static OI oi;
 
-	public static final int IMG_WIDTH = 320;
-	public static final int IMG_HEIGHT = 240;
-
-	public static int numContours = 0;
-	public static int midpoint;
-	public static double centerX;
-	public static Rect cntRect;
-//	private VisionThread visionThread;
-//	private UsbCamera visionCam;
-	private UsbCamera driverCam;
-//	private final Object imgLock = new Object();
-
-	public static double angle;
-	public static double theta; // horizontal FOV angle (calculated to be
-								// 57.175)
-	public static double dist; // distance to the plane perpendicular to the
-								// camera that the target is on
-	public static double delta; // pixel distance from perpendicular plane to
-								// target
-	public static double lambda; // angle required to turn to face target (angle
-									// to make delta = 0);
-	public static double turn;
-
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
@@ -93,18 +58,7 @@ public class Robot extends IterativeRobot {
 		sharklogTable.putNumber("MatchTime", Timer.getMatchTime());
 	}
 
-	public void visionLog() {
-		SmartDashboard.putNumber("Lambda", lambda);
-		SmartDashboard.putNumber("Delta", delta);
-		SmartDashboard.putNumber("Turn", turn);
-		SmartDashboard.putNumber("DirPID error", driveTrain.dirController.getError());
-		SmartDashboard.putNumber("DirPID error graph", driveTrain.dirController.getError());
-		SmartDashboard.putNumber("DirPID direction", driveTrain.navX.pidGet());
-		SmartDashboard.putNumber("Number of Contours", numContours);
-		SmartDashboard.putNumber("Midpoint of Gears", midpoint);
-		SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
-		SmartDashboard.putBoolean("Connected", driveTrain.navX.isConnected());
-		SmartDashboard.putBoolean("Calibrating", driveTrain.navX.isCalibrating());
+		sharklogTable.putNumber("MatchTime", Timer.getMatchTime());
 	}
 
 	/**
@@ -114,125 +68,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Middle Gear Auton", new MiddleGearAuton());
-		chooser.addObject("Baseline Cross", new BaselineAuton());
-		chooser.addObject("Red Shooter Auton", new BoilerAutonRED());
-		chooser.addObject("Blue Shooter Auton", new BoilerAutonBLUE());
-		chooser.addObject("Red Hopper Auton", new HopperAutonRED());
-		chooser.addObject("Blue Hopper Auton", new HopperAutonBLUE());
-		chooser.addObject("Red Right Gear + Boiler Auton", new RightGearBoilerAutonRED());
-		chooser.addObject("Blue Left Gear + Boiler Auton", new LeftGearBoilerAutonBLUE());
-		chooser.addObject("Blue Mid Gear + Boiler", new MiddleGearBoilerBLUE());
-		chooser.addObject("Red Mid Gear + Boiler", new MiddleGearBoilerRED());
-		chooser.addObject("Red Left Gear", new LeftGearRED());
-		chooser.addObject("Blue Right Gear", new RightGearBLUE());		
-
 		SmartDashboard.putData("Auto mode", chooser);
-//		this.robotSharkLog();
-		
-		// initialize the camera and the vision thread
-//		visionCam = CameraServer.getInstance().startAutomaticCapture(0);
-//		visionCam.setResolution(IMG_WIDTH, IMG_HEIGHT);
-//		visionCam.setExposureManual(0);
-
-//		driverCam = CameraServer.getInstance().startAutomaticCapture(0);
-//		driverCam.setFPS(15);
-//		driverCam.setResolution(320, 240);
-		
 		sharklogTable = NetworkTable.getTable("sharklog");
-	}
-
-//	public void visionInit() {
-//		if (visionThread == null || !visionThread.isAlive()) {
-//			visionThread = new VisionThread(visionCam, new GRIPPipeline(), pipeline -> {
-//				numContours = 0;
-//
-//				if (!pipeline.filterContoursOutput().isEmpty()) {
-//
-//					synchronized (imgLock) {
-//
-//						cntRect = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-//						numContours = pipeline.filterContoursOutput().size();
-//
-//						Rect[] gearCnt = new Rect[pipeline.filterContoursOutput().size()];
-//						double max1 = 0, max2 = 0;
-//						int idx1 = -1, idx2 = -1;
-//
-//						for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
-//							gearCnt[i] = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
-//							// double area = gearCnt[i].area();
-//
-//							if (gearCnt[i].area() > max1) {
-//								max2 = max1;
-//								idx2 = idx1;
-//								max1 = gearCnt[i].area();
-//								idx1 = i;
-//							} else if (gearCnt[i].area() > max2) {
-//								max2 = gearCnt[i].area();
-//								idx2 = i;
-//							}
-//						}
-//
-//						if (idx1 >= 0 && idx2 >= 0) {
-//							if (gearCnt[idx1].x < gearCnt[idx2].x) {
-//								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
-//							} else {
-//								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
-//							}
-//						}
-//						if (idx1 >= 0 && idx2 >= 0) {
-//							if (gearCnt[idx1].x < gearCnt[idx2].x) {
-//								midpoint = (gearCnt[idx1].x + (gearCnt[idx2].x + gearCnt[idx2].width)) / 2;
-//								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
-//								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
-//								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
-//								SmartDashboard.putNumber("Gear Tape 2 Width", gearCnt[idx2].width);
-//								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
-//								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
-//							} else {
-//								midpoint = ((gearCnt[idx1].x + gearCnt[idx1].width) + gearCnt[idx2].x) / 2;
-//								SmartDashboard.putNumber("Tape 2 Width", gearCnt[idx2].width);
-//								SmartDashboard.putNumber("Tape 2 Left Axis", gearCnt[idx2].x);
-//								SmartDashboard.putNumber("Tape 2 Right Axis", gearCnt[idx2].x + gearCnt[idx1].width);
-//								SmartDashboard.putNumber("Tape 1 Width", gearCnt[idx1].width);
-//								SmartDashboard.putNumber("Tape 1 Left Axis", gearCnt[idx1].x);
-//								SmartDashboard.putNumber("Tape 1 Right Axis", gearCnt[idx1].x + gearCnt[idx1].width);
-//							}
-//						}
-//					}
-//				}
-//			});
-//			visionThread.start();
-//		}
-//	}
-
-	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
-	 */
-	@Override
-	public void disabledInit() {
-//		if (visionThread != null) {
-//			visionThread.interrupt();
-//		}
-
 	}
 
 	@Override
 	public void disabledPeriodic() {
-		SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
-//		this.robotSharkLog();
-		driveTrain.sharkLog();
-		oi.sharkLog();
-//		climberIntake.sharkLog();
-//		leftAgitator.sharkLog();
-//		rightAgitator.sharkLog();
-//		leftFeeder.sharkLog();
-//		rightFeeder.sharkLog();
-//		leftShooter.sharkLog();
-//		rightShooter.sharkLog();
-//		oi.sharkLog();
 		Scheduler.getInstance().run();
 	}
 
@@ -269,7 +110,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
 		Scheduler.getInstance().run();
 	}
 
@@ -279,7 +119,6 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-//		visionInit();
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	}
@@ -289,28 +128,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("Yaw", driveTrain.navX.getYaw());
 		Scheduler.getInstance().run();
-
-		// this.robotLog();
-		// this.visionLog();
-		// climberIntake.log();
-//		 leftShooter.log();
-//		 rightShooter.log();
-		// leftFeeder.log();
-		// rightFeeder.log();
-		// rightAgitator.log();
-		// leftAgitator.log();
-		// driveTrain.log();
-		driveTrain.sharkLog();
-		oi.sharkLog();
-	}
-
-	/**
-	 * This function is called periodically during test mode
-	 */
-	@Override
-	public void testPeriodic() {
-		LiveWindow.run();
 	}
 }

@@ -14,11 +14,18 @@ public class ExpandGearMech extends Command {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.gearMech);
+		setTimeout(0);
+	}
+	
+	public ExpandGearMech(double delay) {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.gearMech);
+		setTimeout(delay);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.gearMech.expandGearMech();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -27,11 +34,12 @@ public class ExpandGearMech extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return true;
+		return isTimedOut();
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.gearMech.expandGearMech();
 	}
 
 	// Called when another command which requires one or more of the same

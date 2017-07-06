@@ -21,12 +21,8 @@ public class ControlClimberIntake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double output;
+    	double output = Robot.oi.manip.getTriggers();
 
-		output = Robot.oi.manip.getTriggers();
-		if (Robot.oi.manip.getLBButtonPressed()) {
-			output *= Robot.climberIntake.multiplier;
-		}
 		Robot.climberIntake.setMotors(output);
     }
 

@@ -34,7 +34,7 @@ public class OI {
 		Robot.getSharkLogTable().putBoolean("DC_B", driver.getBButtonPressed());
 		Robot.getSharkLogTable().putBoolean("DC_X", driver.getXButtonPressed());
 		Robot.getSharkLogTable().putBoolean("DC_Y", driver.getYButtonPressed());
-		Robot.getSharkLogTable().putBoolean("DC_SELECT", driver.getBACKButtonPressed());
+		Robot.getSharkLogTable().putBoolean("DC_SELECT", driver.getSELECTButtonPressed());
 		Robot.getSharkLogTable().putBoolean("DC_START", driver.getSTARTButtonPressed());
 		Robot.getSharkLogTable().putBoolean("DC_LB", driver.getLBButtonPressed());
 		Robot.getSharkLogTable().putBoolean("DC_RB", driver.getRBButtonPressed());
@@ -51,7 +51,7 @@ public class OI {
 		Robot.getSharkLogTable().putBoolean("MC_B", manip.getBButtonPressed());
 		Robot.getSharkLogTable().putBoolean("MC_X", manip.getXButtonPressed());
 		Robot.getSharkLogTable().putBoolean("MC_Y", manip.getYButtonPressed());
-		Robot.getSharkLogTable().putBoolean("MC_SELECT", manip.getBACKButtonPressed());
+		Robot.getSharkLogTable().putBoolean("MC_SELECT", manip.getSELECTButtonPressed());
 		Robot.getSharkLogTable().putBoolean("MC_START", manip.getSTARTButtonPressed());
 		Robot.getSharkLogTable().putBoolean("MC_LB", manip.getLBButtonPressed());
 		Robot.getSharkLogTable().putBoolean("MC_RB", manip.getRBButtonPressed());
@@ -60,17 +60,8 @@ public class OI {
 	}
 	
 	/*Controller Bindings
-	 * Driver:
-	 * LT hold - backwards driving toggle & camera servo toggle
-	 * RT hold - half speed driving toggle
-	 * 
 	 * Manip:
-	 * A - shooter/feeder pid start
-	 * B - shooter/feeder pid stop
-	 * Y(HOLD) - feeder/agitator move on button
-	 * START - toggle servos in and out
 	 * LT(HOLD) - intake forwards
 	 * RT(HOLD) - intake backwards
-	 * RS - manual shooter/feeder control
 	 */
 }

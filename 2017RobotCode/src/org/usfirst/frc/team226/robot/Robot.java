@@ -42,7 +42,6 @@ public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final ClimberIntake climberIntake = new ClimberIntake();
-	public static final LeftShooter leftShooter = new LeftShooter();
 	public static final GearMech gearMech = new GearMech();
 	public static OI oi;
 

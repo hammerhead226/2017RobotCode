@@ -1,143 +1,193 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
-import static org.usfirst.frc.team226.robot.RobotMap.DT_FL_MOTOR;
-import static org.usfirst.frc.team226.robot.RobotMap.DT_FR_MOTOR;
-import static org.usfirst.frc.team226.robot.RobotMap.DT_RL_MOTOR;
-import static org.usfirst.frc.team226.robot.RobotMap.DT_RR_MOTOR;
-
-import org.usfirst.frc.team226.robot.Robot;
+import org.usfirst.frc.team226.robot.RobotMap;
 import org.usfirst.frc.team226.robot.commands.ArcadeDrive;
-import org.usfirst.frc.team226.robot.extlib.DoubleEncoder;
-import org.usfirst.frc.team226.robot.extlib.PIDOutputMimic;
+import org.usfirst.frc.team226.robot.extlib.MotionProfileManager;
 
 import com.ctre.CANTalon;
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
 
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class DriveTrain extends Subsystem {
 
-	public boolean wasTurn = true;
-	// left encoder
-	public CANTalon frontLeftMotor = new CANTalon(DT_FL_MOTOR);
-	public CANTalon rearLeftMotor = new CANTalon(DT_RL_MOTOR);
-	// right encoder
-	public CANTalon frontRightMotor = new CANTalon(DT_FR_MOTOR);
-	public CANTalon rearRightMotor = new CANTalon(DT_RR_MOTOR);
+	private CANTalon frontLeft = new CANTalon(RobotMap.DT_FL_MOTOR);
+	private CANTalon rearLeft = new CANTalon(RobotMap.DT_RL_MOTOR);
+	private CANTalon frontRight = new CANTalon(RobotMap.DT_FR_MOTOR);
+	private CANTalon rearRight = new CANTalon(RobotMap.DT_RR_MOTOR);
 
-	RobotDrive drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-
-	// Direction PID
-	private static double dirKp = 0.07; // DRIVE STRAIGHT - P=0.003, NO I OR D
-										// //0.11, 0.02, 0.205
-	private static double dirKi = 0;
-	private static double dirKd = 0.162;
-	// DRIVE STRAIGHT - P=0.003
-	// ROBOT 1 CURVE - P=0.42, I=0.00, D=0.92
-	// ROBOT 1 POINT TURN - P=0.11, I=0.02, D=0.205
-	// ROBOT 2 CURVE -
-	// ROBOT 2 POINT TURN - P= ,I= , D=
-
-	// Alternatives: SerialPort.Port.kMXP, SPI.Port.kMXP, or I2C.Port.kMXP
-	public AHRS navX = new AHRS(I2C.Port.kOnboard);
-	public PIDOutputMimic dirMimic = new PIDOutputMimic();
-	public PIDController dirController = new PIDController(dirKp, dirKi, dirKd, navX, dirMimic);
-
-	private static double distKp = 0.003; // LOCK - 8/10
-	private static double distKi = 0.0;
-	private static double distKd = 0.0035;
-
-	public DoubleEncoder doubleEncoder = new DoubleEncoder(frontLeftMotor, frontRightMotor,
-			PIDSourceType.kDisplacement);
-	public PIDOutputMimic distMimic = new PIDOutputMimic();
-	public PIDController distController = new PIDController(distKp, distKi, distKd, doubleEncoder, distMimic);
+	private MotionProfileManager leftManager = new MotionProfileManager(frontLeft);
+	private MotionProfileManager rightManager = new MotionProfileManager(frontRight);
+	
+	public double getLeftCurrent() {
+		return frontLeft.getOutputCurrent();
+	}
+	
+	public double getRightCurrent() {
+		return frontRight.getOutputCurrent();
+	}
 
 	public DriveTrain() {
-		// frontLeftMotor.setPIDSourceType(PIDSourceType.kDisplacement);
-		// frontRightMotor.setPIDSourceType(PIDSourceType.kDisplacement);
-		frontLeftMotor.reverseSensor(true);
-		distController.setOutputRange(-1, 1);
-		dirController.setOutputRange(-1, 1);
-		// doubleEncoder.setRightEncoderInverted(true);
+		frontLeft.setCurrentLimit(33);
+		frontRight.setCurrentLimit(33);
+		frontLeft.EnableCurrentLimit(true);
+		frontRight.EnableCurrentLimit(true);
+		
+		rearLeft.changeControlMode(TalonControlMode.Follower);
+		rearLeft.set(frontLeft.getDeviceID());
+		frontLeft.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+		frontLeft.reverseSensor(true);
+		
+		frontLeft.setProfile(0);
+		frontLeft.setP(0.7117);
+		frontLeft.setI(0.002);
+		frontLeft.setD(7.117);
+		frontLeft.setF(0.3237);
+		frontLeft.setIZone(65);
+
+		rearRight.changeControlMode(TalonControlMode.Follower);
+		rearRight.set(frontRight.getDeviceID());
+		frontRight.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+		frontRight.reverseOutput(true);
+		
+		frontRight.setProfile(0);
+		frontRight.setP(1);
+		frontRight.setI(0.002);
+		frontRight.setD(10);
+		frontRight.setF(0.3444);
+		frontRight.setIZone(50);
+	}
+
+	public void set(double value) {
+		frontLeft.set(value);
+		frontRight.set(value);
+	}
+	
+	public void beginProfile() {
+		leftManager.startMotionProfile();
+		rightManager.startMotionProfile();
+	}
+	
+	public void manage(int profile) {
+		leftManager.manage(profile);
+		rightManager.manage(profile);
+	}
+	
+	public void onInterrupt() {
+		leftManager.onInterrupt();
+		rightManager.onInterrupt();
+	}
+
+	public void changeProfiles(double[][] left, double[][] right) {
+		leftManager.changeMotionProfile(left);
+		rightManager.changeMotionProfile(right);
+	}
+
+	public void swapLeftRightProfiles() {
+		leftManager.swapProfile(rightManager);
+	}
+
+	public boolean motionProfileFinished() {
+		return leftManager.isFinished() && rightManager.isFinished();
+	}
+
+	public void resetPosition() {
+		frontLeft.setPosition(0);
+		frontRight.setPosition(0);
+	}
+
+	public boolean motionMagicOnTarget(double setpoint) {
+		return Math.abs(Math.abs(frontLeft.getEncPosition()) - Math.abs(setpoint)) < 100
+				&& Math.abs(Math.abs(frontRight.getEncPosition()) - Math.abs(setpoint)) < 100;
+	}
+
+	public void setMMCruiseVelocityAccel(double vel, double accel) {
+		frontLeft.setMotionMagicCruiseVelocity(vel);
+		frontLeft.setMotionMagicAcceleration(accel);
+		frontRight.setMotionMagicCruiseVelocity(vel);
+		frontRight.setMotionMagicAcceleration(accel);
 	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new ArcadeDrive());
 	}
 
-	public void tankDrive(double left, double right) {
-		drive.tankDrive(left, right);
+	public void arcadeDrive(double moveValue, double rotateValue, boolean squaredInputs) {
+		double leftMotorSpeed;
+		double rightMotorSpeed;
+
+		rotateValue = limit(rotateValue);
+		moveValue = limit(moveValue);
+
+		if (squaredInputs) {
+			// square the inputs (while preserving the sign) to increase fine
+			// control
+			// while permitting full power
+			if (rotateValue >= 0.0) {
+				rotateValue = rotateValue * rotateValue;
+			} else {
+				rotateValue = -(rotateValue * rotateValue);
+			}
+			if (moveValue >= 0.0) {
+				moveValue = moveValue * moveValue;
+			} else {
+				moveValue = -(moveValue * moveValue);
+			}
+		}
+
+		if (rotateValue > 0.0) {
+			if (moveValue > 0.0) {
+				leftMotorSpeed = rotateValue - moveValue;
+				rightMotorSpeed = Math.max(rotateValue, moveValue);
+			} else {
+				leftMotorSpeed = Math.max(rotateValue, -moveValue);
+				rightMotorSpeed = rotateValue + moveValue;
+			}
+		} else {
+			if (moveValue > 0.0) {
+				leftMotorSpeed = -Math.max(-rotateValue, moveValue);
+				rightMotorSpeed = rotateValue + moveValue;
+			} else {
+				leftMotorSpeed = rotateValue - moveValue;
+				rightMotorSpeed = -Math.max(-rotateValue, -moveValue);
+			}
+		}
+
+		frontLeft.set(leftMotorSpeed);
+		frontRight.set(rightMotorSpeed);
 	}
 
-	public void arcadeDrive(double throttle, double turn) {
-		drive.arcadeDrive(throttle, turn, true);
+	protected static double limit(double num) {
+		if (num > 1.0) {
+			return 1.0;
+		}
+		if (num < -1.0) {
+			return -1.0;
+		}
+		return num;
 	}
 
-	public void voltageDrive(double left, double right) {
-		left *= 12.5;
-		right *= 12.5;
-		frontLeftMotor.set(left);
-		rearLeftMotor.set(left);
-		frontRightMotor.set(right);
-		rearRightMotor.set(right);
+	public void changeControlMode(TalonControlMode mode) {
+		frontLeft.changeControlMode(mode);
+		frontRight.changeControlMode(mode);
 	}
 
-	public double getGyroAngle() {
-		return navX.getYaw();
+	public void invertTalons() {
+		frontLeft.reverseSensor(false);
+		frontLeft.reverseOutput(true);
+		frontRight.reverseOutput(false);
+		frontRight.reverseSensor(true);
 	}
 
-	public void resetAllSensors() {
-		navX.reset();
-		frontLeftMotor.setPosition(0);
-		frontRightMotor.setPosition(0);
-	}
-
-	public void log() {
-		SmartDashboard.putData("DT_DistPID", distController);
-		SmartDashboard.putNumber("DT_DistPID Error", distController.getError());
-		SmartDashboard.putNumber("DT_DistPID Error GRAPH", distController.getError());
-
-		SmartDashboard.putData("DT_DirPID", dirController);
-		SmartDashboard.putNumber("DT_DirPID Error", dirController.getError());
-		SmartDashboard.putNumber("DT_DirPID Error GRAPH", dirController.getError());
-
-		SmartDashboard.putNumber("DT_DoubleEncoder", doubleEncoder.pidGet());
-		SmartDashboard.putNumber("DT_DoubleEncodernum", doubleEncoder.pidGet());
-		SmartDashboard.putNumber("DT_NavXHeading", navX.getYaw());
-	}
-
-	public void sharkLog() {
-		Robot.getSharkLogTable().putNumber("DT_LeftPos", frontLeftMotor.getPosition());
-		Robot.getSharkLogTable().putNumber("DT_RightPos", frontRightMotor.getPosition());
-		
-		Robot.getSharkLogTable().putNumber("DT_FLTalonVoltage", frontLeftMotor.getOutputVoltage());
-		Robot.getSharkLogTable().putNumber("DT_FLTalonCurrent", frontLeftMotor.getOutputCurrent());
-
-		Robot.getSharkLogTable().putNumber("DT_RLTalonVoltage", rearLeftMotor.getOutputVoltage());
-		Robot.getSharkLogTable().putNumber("DT_RLTalonCurrent", rearLeftMotor.getOutputCurrent());
-
-		Robot.getSharkLogTable().putNumber("DT_FRTalonVoltage", frontRightMotor.getOutputVoltage());
-		Robot.getSharkLogTable().putNumber("DT_FRTalonCurrent", frontRightMotor.getOutputCurrent());
-
-		Robot.getSharkLogTable().putNumber("DT_RRTalonVoltage", rearRightMotor.getOutputVoltage());
-		Robot.getSharkLogTable().putNumber("DT_RRTalonCurrent", rearRightMotor.getOutputCurrent());
-
-
-		Robot.getSharkLogTable().putBoolean("DT_DirPIDEnabled", dirController.isEnabled());
-		Robot.getSharkLogTable().putNumber("DT_DirPIDOutput", dirController.get());
-		Robot.getSharkLogTable().putNumber("DT_DirPID Error", dirController.getError());
-		Robot.getSharkLogTable().putBoolean("DT_DistPIDEnabled", distController.isEnabled());
-		Robot.getSharkLogTable().putNumber("DT_DistPIDOutput", distController.get());
-		Robot.getSharkLogTable().putNumber("DT_DistPID Error", distController.getError());
-		Robot.getSharkLogTable().putNumber("DT_DoubleEncoder", doubleEncoder.pidGet());
-		Robot.getSharkLogTable().putNumber("DT_NavXHeading", navX.getYaw());
+	public void un_invertTalons() {
+		frontLeft.reverseSensor(true);
+		frontLeft.reverseOutput(false);
+		frontRight.reverseOutput(true);
+		frontRight.reverseSensor(false);
 	}
 }
+

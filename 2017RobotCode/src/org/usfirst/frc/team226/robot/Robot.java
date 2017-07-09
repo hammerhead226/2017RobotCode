@@ -1,21 +1,23 @@
 
 package org.usfirst.frc.team226.robot;
 
-import org.opencv.core.Rect;
+import org.usfirst.frc.team226.robot.autons.BlueLeftGearHopper;
+import org.usfirst.frc.team226.robot.autons.BlueLeftGearTeleopPrep;
+import org.usfirst.frc.team226.robot.autons.MidGear;
+import org.usfirst.frc.team226.robot.autons.RedRightGearHopper;
+import org.usfirst.frc.team226.robot.autons.RedRightGearTeleopPrep;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team226.robot.subsystems.Feeder;
 import org.usfirst.frc.team226.robot.subsystems.GearMech;
 import org.usfirst.frc.team226.robot.subsystems.Shooter;
 
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,6 +46,13 @@ public class Robot extends IterativeRobot {
 	public static NetworkTable getSharkLogTable() {
 		return sharklogTable;
 	}
+	
+	@Override
+	public void robotPeriodic() {
+		SmartDashboard.putNumber("Left Current", Robot.driveTrain.getLeftCurrent());
+		SmartDashboard.putNumber("Right Current", Robot.driveTrain.getRightCurrent());
+
+	}
 
 	public void robotSharkLog() {
 		sharklogTable.putNumber("3.3Voltage", ControllerPower.getVoltage3V3());
@@ -68,6 +77,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		chooser.addDefault("Mid Gear", new MidGear());
+		chooser.addObject("Red Right Gear + Hopper", new RedRightGearHopper());
+		chooser.addObject("Red Right Gear + Teleop Prep", new RedRightGearTeleopPrep());
+		chooser.addDefault("Blue Left Gear + Hopper", new BlueLeftGearHopper());
+		chooser.addObject("Blue Left Gear + Teleop Prep", new BlueLeftGearTeleopPrep());
 		SmartDashboard.putData("Auto mode", chooser);
 		sharklogTable = NetworkTable.getTable("sharklog");
 	}

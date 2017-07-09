@@ -4,6 +4,8 @@ package org.usfirst.frc.team226.robot;
 import static org.usfirst.frc.team226.robot.RobotMap.DRIVER_CONTROLLER;
 import static org.usfirst.frc.team226.robot.RobotMap.MANIP_CONTROLLER;
 
+import org.usfirst.frc.team226.robot.commands.DriveFeeder;
+import org.usfirst.frc.team226.robot.commands.SetShooterSpeedRPM;
 import org.usfirst.frc.team226.robot.extlib.Controller;
 
 
@@ -17,6 +19,8 @@ public class OI {
 	public Controller manip = new Controller(MANIP_CONTROLLER, 0.2);
 	
 	public OI() {
+		manip.getYButton().whileHeld(new DriveFeeder(100, 0));
+		manip.getXButton().whileHeld(new SetShooterSpeedRPM(Constants.SHOOTER_SETPOINT));
 	}
 	
 	public void sharkLog() {

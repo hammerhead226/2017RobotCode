@@ -2,38 +2,40 @@ package org.usfirst.frc.team226.robot.commands;
 
 import org.usfirst.frc.team226.robot.Robot;
 
-import com.ctre.CANTalon.TalonControlMode;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ArcadeDrive extends Command {
+public class ReleaseIntake extends Command {
+	
+	private Timer timer = new Timer();
 
-    public ArcadeDrive() {
+    public ReleaseIntake() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+    	requires(Robot.climberIntake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.driveTrain.changeControlMode(TalonControlMode.PercentVbus);
+    	timer.start();
+    	Robot.climberIntake.toggleIntakeServo();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.arcadeDrive(-Robot.oi.driver.getLeftJoystick_Y(), -Robot.oi.driver.getRightJoystick_X(), true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return timer.get() >= 0.7;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.climberIntake.toggleIntakeServo();
     }
 
     // Called when another command which requires one or more of the same

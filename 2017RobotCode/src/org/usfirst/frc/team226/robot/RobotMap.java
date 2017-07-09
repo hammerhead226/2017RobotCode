@@ -20,6 +20,8 @@ public class RobotMap {
 
 	public static final int SHOOTER_FR_MOTOR = 4;
 	public static final int SHOOTER_BR_MOTOR = 5;
+	
+	public static final int FEEDER_MOTOR = 3; // PWM
 
 	public static final int CLIMBERINTAKE_LEFT_MOTOR = 9;
 	public static final int CLIMBERINTAKE_RIGHT_MOTOR = 1;

@@ -4,8 +4,9 @@ package org.usfirst.frc.team226.robot;
 import org.opencv.core.Rect;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team226.robot.subsystems.Feeder;
 import org.usfirst.frc.team226.robot.subsystems.GearMech;
-import org.usfirst.frc.team226.robot.subsystems.LeftShooter;
+import org.usfirst.frc.team226.robot.subsystems.Shooter;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.ControllerPower;
@@ -31,6 +32,8 @@ public class Robot extends IterativeRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final ClimberIntake climberIntake = new ClimberIntake();
 	public static final GearMech gearMech = new GearMech();
+	public static final Shooter shooter = new Shooter();
+	public static final Feeder feeder = new Feeder();
 	public static OI oi;
 
 	Command autonomousCommand;

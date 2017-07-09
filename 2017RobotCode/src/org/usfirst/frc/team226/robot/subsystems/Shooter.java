@@ -59,6 +59,10 @@ public class Shooter extends Subsystem {
 		frontLeft.changeControlMode(mode);
 	}
 	
+	public double getSpeed() {
+		return frontLeft.getEncVelocity() * (75.0 / 512.0);
+	}
+	
     public void initDefaultCommand() {
     }
 }

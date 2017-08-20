@@ -6,6 +6,7 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -17,6 +18,9 @@ public class Shooter extends Subsystem {
 	private CANTalon rearLeft = new CANTalon(RobotMap.SHOOTER_BL_MOTOR);
 	private CANTalon frontRight = new CANTalon(RobotMap.SHOOTER_FR_MOTOR);
 	private CANTalon rearRight = new CANTalon(RobotMap.SHOOTER_BR_MOTOR);
+	
+	private Servo leftAct = new Servo(RobotMap.LEFT_ACTUATOR);
+	private Servo rightAct = new Servo(RobotMap.RIGHT_ACTUATOR);
 	
 	public Shooter() {
 		frontLeft.changeControlMode(TalonControlMode.Speed);
@@ -42,6 +46,8 @@ public class Shooter extends Subsystem {
 		frontLeft.setD(0.81);
 		frontLeft.setF(0.03367);
 		frontLeft.setIZone(1000); //Native units per 100ms
+		
+		closeGate();
 	}
 	
 	public void directDrive(double speed) {
@@ -61,6 +67,29 @@ public class Shooter extends Subsystem {
 	
 	public double getSpeed() {
 		return frontLeft.getEncVelocity() * (75.0 / 512.0);
+	}
+	
+	private boolean open = false;
+	
+	public void openGate() {
+		open = true;
+		leftAct.set(0.8);
+		rightAct.set(0.8);
+	}
+	
+	public void closeGate() {
+		open = false;
+		leftAct.set(0.2);
+		rightAct.set(0.2);
+	}
+	
+	public void toggleGate() {
+		if (open) {
+			closeGate();
+		}
+		else {
+			openGate();
+		}
 	}
 	
     public void initDefaultCommand() {

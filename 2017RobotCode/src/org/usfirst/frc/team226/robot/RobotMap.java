@@ -49,6 +49,8 @@ public class RobotMap {
 	public static final int INTAKE_SERVO = 1;
 	public static final int LEFT_GEARMECH_SERVO = 8;
 	public static final int RIGHT_GEARMECH_SERVO = 9;
+	public static final int LEFT_ACTUATOR = 4;
+	public static final int RIGHT_ACTUATOR = 7;
 
 	// Controller Ports
 	public static final int DRIVER_CONTROLLER = 0;

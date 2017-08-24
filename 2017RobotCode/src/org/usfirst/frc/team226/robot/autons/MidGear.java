@@ -2,7 +2,6 @@ package org.usfirst.frc.team226.robot.autons;
 
 import org.usfirst.frc.team226.robot.Constants;
 import org.usfirst.frc.team226.robot.commands.ContractGearMech;
-import org.usfirst.frc.team226.robot.commands.DriveFeeder;
 import org.usfirst.frc.team226.robot.commands.ExpandGearMech;
 import org.usfirst.frc.team226.robot.commands.MotionMagicMove;
 import org.usfirst.frc.team226.robot.commands.ReleaseIntake;
@@ -33,6 +32,6 @@ public class MidGear extends CommandGroup {
     	addSequential(new MotionMagicMove(RobotSpeed.SLOW, Constants.MID_GEAR_DISTANCE, false, false));
     	addParallel(new ContractGearMech());
     	addParallel	(new SetShooterSpeedRPM(3650, 10));
-    	addSequential(new DriveFeeder(10, 1.7));
+//    	addSequential(new DriveFeeder(10, 1.7));
     }
 }

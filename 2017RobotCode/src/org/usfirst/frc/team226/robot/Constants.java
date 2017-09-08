@@ -13,10 +13,14 @@ public class Constants {
 	
 	public static final double MOTION_MAGIC_ONTARGET_TOLERANCE = 100; // Native units
 	
-	public static final double SHOOTER_SETPOINT = 3400; // RPM
+	public static double SHOOTER_SETPOINT = 3400; // RPM
+	
+	public static final double FEEDER_SPEED = 0.7; //PercentVBus
+	public static final double ACTIVEFLOOR_SPEED = 0.7; //PercentVBus
 
 	// Autonomous properties - all distances in inches
 	
 	public static final double MID_GEAR_DISTANCE = 72.5;
 	public static final double MID_GEAR_BACKUP = 33.0;
+	
 }

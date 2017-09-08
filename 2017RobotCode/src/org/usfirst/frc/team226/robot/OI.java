@@ -4,8 +4,9 @@ package org.usfirst.frc.team226.robot;
 import static org.usfirst.frc.team226.robot.RobotMap.DRIVER_CONTROLLER;
 import static org.usfirst.frc.team226.robot.RobotMap.MANIP_CONTROLLER;
 
+import org.usfirst.frc.team226.robot.commands.DriveActiveFloor;
+import org.usfirst.frc.team226.robot.commands.DriveFeeder;
 import org.usfirst.frc.team226.robot.commands.SetShooterSpeedRPM;
-import org.usfirst.frc.team226.robot.commands.ToggleShooterGate;
 import org.usfirst.frc.team226.robot.extlib.Controller;
 
 

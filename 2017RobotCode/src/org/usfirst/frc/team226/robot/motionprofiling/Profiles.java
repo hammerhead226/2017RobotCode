@@ -6,7 +6,7 @@ import jaci.pathfinder.Waypoint;
 public class Profiles {
 
 	private static boolean redAlliance = false;
-	private static boolean blueAlliance = true;
+	private static boolean blueAlliance = false;
 
 	// Red right gear
 	private static final Waypoint[] redRightGear = new Waypoint[] { new Waypoint(0, 0, 0),

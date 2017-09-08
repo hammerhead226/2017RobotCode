@@ -19,8 +19,9 @@ public class OI {
 	public Controller manip = new Controller(MANIP_CONTROLLER, 0.2);
 	
 	public OI() {
-		manip.getXButton().whileHeld(new SetShooterSpeedRPM(Constants.SHOOTER_SETPOINT));
-		manip.getAButton().whenPressed(new ToggleShooterGate());
+		manip.getYButton().whileHeld(new SetShooterSpeedRPM(Constants.SHOOTER_SETPOINT));
+		manip.getRBButton().whileHeld(new DriveFeeder());
+		manip.getRBButton().whileHeld(new DriveActiveFloor());
 	}
 	
 	public void sharkLog() {

@@ -20,7 +20,7 @@ public class OI {
 	public Controller manip = new Controller(MANIP_CONTROLLER, 0.2);
 	
 	public OI() {
-		manip.getYButton().whileHeld(new SetShooterSpeedRPM(Constants.SHOOTER_SETPOINT));
+		manip.getYButton().whenPressed(new SetShooterSpeedRPM(Constants.SHOOTER_SETPOINT));
 		manip.getRBButton().whileHeld(new DriveFeeder());
 		manip.getRBButton().whileHeld(new DriveActiveFloor());
 	}

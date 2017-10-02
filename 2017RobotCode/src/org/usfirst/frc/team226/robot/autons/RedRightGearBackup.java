@@ -12,13 +12,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class RedRightGearTeleopPrep extends CommandGroup {
+public class RedRightGearBackup extends CommandGroup {
 
-    public RedRightGearTeleopPrep() {
+    public RedRightGearBackup() {
     	addSequential(new ExecuteProfile(Profiles.redRightGear_Left, Profiles.redRightGear_Right, true, false));
-//    	addSequential(new ExpandGearMech());
     	addSequential(new ReleaseIntake());
 //    	addSequential(new ExecuteProfile(Profiles.redRightGearTeleopPrep_Left, Profiles.redRightGearTeleopPrep_Right, false, false));
     	addSequential(new MotionMagicMove(RobotSpeed.MEDIUM, 6, false, false));
+//    	addSequential(new ExpandGearMech());
     }
 }

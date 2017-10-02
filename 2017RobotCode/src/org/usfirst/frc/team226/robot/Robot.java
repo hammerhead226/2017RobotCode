@@ -2,10 +2,11 @@
 package org.usfirst.frc.team226.robot;
 
 import org.usfirst.frc.team226.robot.autons.BlueLeftGearHopper;
-import org.usfirst.frc.team226.robot.autons.BlueLeftGearTeleopPrep;
+import org.usfirst.frc.team226.robot.autons.BlueLeftGearBackup;
+import org.usfirst.frc.team226.robot.autons.DriveForward;
 import org.usfirst.frc.team226.robot.autons.MidGear;
 import org.usfirst.frc.team226.robot.autons.RedRightGearHopper;
-import org.usfirst.frc.team226.robot.autons.RedRightGearTeleopPrep;
+import org.usfirst.frc.team226.robot.autons.RedRightGearBackup;
 import org.usfirst.frc.team226.robot.subsystems.ActiveFloor;
 import org.usfirst.frc.team226.robot.subsystems.ClimberIntake;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
@@ -53,15 +54,21 @@ public class Robot extends IterativeRobot {
 	public void robotPeriodic() {
 		
 		if (oi.manip.getBButtonPressed()) {
-			Constants.SHOOTER_SETPOINT += 25;
+			Constants.SHOOTER_SETPOINT += 100;
 			Timer.delay(0.2);
 		}
-		else if (oi.manip.getXButtonPressed()) {
-			Constants.SHOOTER_SETPOINT -= 25;
+		else if (oi.manip.getAButtonPressed()) {
+			Constants.SHOOTER_SETPOINT -= 100;
 			Timer.delay(0.2);
 		}
 		
+		SmartDashboard.putNumber("Shooter rpm", shooter.getSpeed());
 		SmartDashboard.putNumber("Shooter Setpoint", Constants.SHOOTER_SETPOINT);
+		SmartDashboard.putNumber("FL_Output", shooter.frontLeft.getOutputVoltage());
+		SmartDashboard.putNumber("RL_Output", shooter.rearLeft.getOutputVoltage());
+		SmartDashboard.putNumber("FR_Output", shooter.frontRight.getOutputVoltage());
+		SmartDashboard.putNumber("RR_Output", shooter.rearRight.getOutputVoltage());
+
 	}
 
 	public void robotSharkLog() {
@@ -89,9 +96,10 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		chooser.addDefault("Mid Gear", new MidGear());
 		chooser.addObject("Red Right Gear + Hopper", new RedRightGearHopper());
-		chooser.addObject("Red Right Gear + Teleop Prep", new RedRightGearTeleopPrep());
-		chooser.addDefault("Blue Left Gear + Hopper", new BlueLeftGearHopper());
-		chooser.addObject("Blue Left Gear + Teleop Prep", new BlueLeftGearTeleopPrep());
+		chooser.addObject("Red Right Gear + Backup", new RedRightGearBackup());
+		chooser.addObject("Blue Left Gear + Hopper", new BlueLeftGearHopper());
+		chooser.addObject("Blue Left Gear + Backup", new BlueLeftGearBackup());
+		chooser.addObject("Drive Forward", new DriveForward());
 		SmartDashboard.putData("Auto mode", chooser);
 		sharklogTable = NetworkTable.getTable("sharklog");
 	}

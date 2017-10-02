@@ -1,6 +1,7 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
 import org.usfirst.frc.team226.robot.RobotMap;
+import org.usfirst.frc.team226.robot.commands.DriveShooter;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -13,10 +14,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Shooter extends Subsystem {
 
-	private CANTalon frontLeft = new CANTalon(RobotMap.SHOOTER_FL_MOTOR);
-	private CANTalon rearLeft = new CANTalon(RobotMap.SHOOTER_BL_MOTOR);
-	private CANTalon frontRight = new CANTalon(RobotMap.SHOOTER_FR_MOTOR);
-	private CANTalon rearRight = new CANTalon(RobotMap.SHOOTER_BR_MOTOR);
+	public CANTalon frontLeft = new CANTalon(RobotMap.SHOOTER_FL_MOTOR);
+	public CANTalon rearLeft = new CANTalon(RobotMap.SHOOTER_BL_MOTOR);
+	public CANTalon frontRight = new CANTalon(RobotMap.SHOOTER_FR_MOTOR);
+	public CANTalon rearRight = new CANTalon(RobotMap.SHOOTER_BR_MOTOR);
 	
 	public Shooter() {
 		frontLeft.changeControlMode(TalonControlMode.Speed);
@@ -41,15 +42,20 @@ public class Shooter extends Subsystem {
 		frontLeft.setI(0.0007);
 		frontLeft.setD(0.81);
 		frontLeft.setF(0.03367);
+//		frontLeft.setP(0.08);
+//		frontLeft.setI(0);
+//		frontLeft.setD(0);
+//		frontLeft.setF(0);
 		frontLeft.setIZone(1000); //Native units per 100ms
 		
 	}
 	
 	public void directDrive(double speed) {
+		changeMotorControlModes(TalonControlMode.PercentVbus);
 		frontLeft.set(speed);
 		frontRight.set(speed);
-		rearLeft.set(speed);
-		rearRight.set(speed);
+		rearLeft.set(-speed);
+		rearRight.set(-speed);
 	}
 	
 	public void setSpeedRPM(double setpoint) {
@@ -60,11 +66,19 @@ public class Shooter extends Subsystem {
 		frontLeft.changeControlMode(mode);
 	}
 	
+	private void changeMotorControlModes(TalonControlMode mode) {
+		frontLeft.changeControlMode(mode);
+		frontRight.changeControlMode(mode);
+		rearLeft.changeControlMode(mode);
+		rearRight.changeControlMode(mode);
+	}
+	
 	public double getSpeed() {
 		return frontLeft.getEncVelocity() * (75.0 / 512.0);
 	}
 	
     public void initDefaultCommand() {
+    	setDefaultCommand(new DriveShooter());
     }
 }
 

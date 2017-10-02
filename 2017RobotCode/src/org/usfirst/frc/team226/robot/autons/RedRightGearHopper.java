@@ -2,7 +2,9 @@ package org.usfirst.frc.team226.robot.autons;
 
 import org.usfirst.frc.team226.robot.Constants;
 import org.usfirst.frc.team226.robot.commands.ContractGearMech;
+import org.usfirst.frc.team226.robot.commands.DriveActiveFloor;
 import org.usfirst.frc.team226.robot.commands.DriveClimberIntake;
+import org.usfirst.frc.team226.robot.commands.DriveFeeder;
 import org.usfirst.frc.team226.robot.commands.ExecuteProfile;
 import org.usfirst.frc.team226.robot.commands.ExpandGearMech;
 import org.usfirst.frc.team226.robot.commands.ReleaseIntake;
@@ -34,7 +36,8 @@ public class RedRightGearHopper extends CommandGroup {
     	addParallel(new ExecuteProfile(Profiles.redHopperFromRightGear_Left, Profiles.redHopperFromRightGear_Right, false, false));
     	addParallel(new ContractGearMech());
     	addParallel(new SetShooterSpeedRPM(Constants.SHOOTER_SETPOINT, 10));
-//    	addParallel(new DriveFeeder(7, 2));
+    	addParallel(new DriveFeeder(7, 2));
+    	addParallel(new DriveActiveFloor(7, 2));
     	addSequential(new DriveClimberIntake(10));
     }
 }

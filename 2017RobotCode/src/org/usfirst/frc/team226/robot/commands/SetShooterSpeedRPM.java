@@ -1,6 +1,7 @@
 package org.usfirst.frc.team226.robot.commands;
 
 import org.usfirst.frc.team226.robot.Robot;
+import org.usfirst.frc.team226.robot.RobotMap;
 
 import com.ctre.CANTalon.TalonControlMode;
 
@@ -29,6 +30,12 @@ public class SetShooterSpeedRPM extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.shooter.changeShooterControlMode(TalonControlMode.Speed);
+		Robot.shooter.rearLeft.changeControlMode(TalonControlMode.Follower);
+		Robot.shooter.frontRight.changeControlMode(TalonControlMode.Follower);
+		Robot.shooter.rearRight.changeControlMode(TalonControlMode.Follower);
+		Robot.shooter.rearLeft.set(RobotMap.SHOOTER_FL_MOTOR);
+		Robot.shooter.frontRight.set(RobotMap.SHOOTER_FL_MOTOR);
+		Robot.shooter.rearRight.set(RobotMap.SHOOTER_FL_MOTOR);
 		Robot.shooter.setSpeedRPM(setpoint);
 	}
 
@@ -38,7 +45,7 @@ public class SetShooterSpeedRPM extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return isTimedOut() || Robot.oi.driver.getBButtonPressed();
+		return isTimedOut() || Robot.oi.manip.getBButtonPressed();
 	}
 
 	// Called once after isFinished returns true

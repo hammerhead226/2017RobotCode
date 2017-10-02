@@ -43,6 +43,7 @@ public class Profiles {
 			.generate(RobotSpeed.FAST, redRightGearTeleopPrep, redAlliance).getLeftProfile();
 	public static final double[][] redRightGearTeleopPrep_Right = ProfileGenerator
 			.generate(RobotSpeed.FAST, redRightGearTeleopPrep, redAlliance).getRightProfile();
+	
 
 	// Blue left gear + hopper
 	public static final double[][] blueLeftGear_Left = ProfileGenerator
